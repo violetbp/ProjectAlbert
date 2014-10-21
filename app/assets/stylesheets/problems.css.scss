@@ -1,0 +1,63 @@
+// Place all the styles related to the problems controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container {
+  padding: 100px 0;
+  left: 10px;
+  right: 10px;
+  width: 100%;
+  
+}
+@media (min-width: 768px) {//mobile
+  .container {
+    padding: 100px 0;
+    width: 80%;
+    align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.sidebarrules{
+  padding:110px 10px;
+  position: fixed;
+}
+.sidebarpos{
+  padding:70px 10px !important;
+}
+
+/*CSS for problems*/
+.problem-base{
+  background-color: #86BCFF;
+  padding: 100px 0;
+  height: 30vh; //percent of window height
+}
+
+.title {
+  background-color: #72FE95;
+  font-size:30px !important;
+  text-align:left;
+  padding:0 270px;
+  height: 35px;
+}
+.explanation {
+  background-color: #FFCECE;
+  min-height:100px;
+}
+.exInOut {
+  right:1000px;
+  background-color: #EDEF85;
+  padding:10px;
+  display: inline-block;
+  position:float;
+}
+.exInOutSpaceing {
+  width: auto;
+  display: inline-block;
+}
+.exIn {
+  background-color: #ED6F85;
+}
+.exOut {
+  background-color: #EDEF45;
+}

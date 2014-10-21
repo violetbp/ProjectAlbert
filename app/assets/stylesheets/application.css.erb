@@ -1,0 +1,95 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+body {
+  background-color: #86BCFF;
+}
+.navbarTop {
+  //background: linear-gradient(#DD88FD, #BCB4F3, #DD88FD);
+  padding: 25px;
+  background-color: #EDEF85;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height:100px;
+  z-index: 1030;
+}
+
+.navbarBot{
+  height: 60px;
+  //background: linear-gradient(#DD88FD, #BCB4F3, #DD88FD);
+  padding: 25px;
+  background-color: #EDEF85;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 1030;
+}
+
+.test{
+  background: linear-gradient(#151515, #606060, #808080);
+  color: #F00;
+  font-size:100;
+}
+.navbarSettings {
+  padding: 0 0 25px; 
+  position: fixed;
+  right: 0px;
+  top: 0px;
+}
+
+/*navbar button things*/
+a.navbar-button:link, a.navbar-button:visited{
+  color: #F00;
+  /*background: linear-gradient(#151515, #606060, #808080);*/
+  text-decoration: none;
+} 
+a.navbar-button:hover, a.navbar-button:active{
+  color: #0F0;
+  text-decoration: none;
+  /*background: linear-gradient(#0909A0, #606060, #808080);*/
+}
+.navbar-button{
+  z-index: 1031;
+  font-size: 15pt; 
+  padding: 5px 10px;
+  border-radius: 8px;
+  position:relative;
+  float:center;
+}
+.navbar-main{
+  font-size:25pt;
+}
+
+.gearimage{
+  right: 5px;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+}.gearimage:hover{
+  width: 50px;
+  height: 50px;
+}
+
+
+
+.yeild {
+  padding: 100px;
+}
+
+
+
+
+

@@ -1,0 +1,34 @@
+
+<head>
+  <title>Albert|Number-D</title>
+</head>
+
+<body>
+   <!-- % SideBar % -->
+  <div class="btn-group-vertical sidebarrules" >
+      <% @problems.each do |a| %>
+        <%= link_to(a.title, "#p#{a.title}", class: 'btn btn-default', type: "button")  %>
+      <% end %>
+  </div>
+
+  <div class="container">
+    <!--Listing problems -->
+      <% @problems.each do |problem| %>
+        <div id="p<%= problem.title %>" class="problem-base">
+          <div class="title"><h1><%= problem.title %></h1></div>
+          <div class="explanation"> Explanation: <%= problem.explanation %>
+            <div class="exInOut"> 
+              <div class="exInOutSpaceing exIn"> Exin: </br><%= problem.exIn %> </div>
+              <div class="exInOutSpaceing exOut">Exout:</br><%= problem.exOut %></div>
+            </div>
+            <div id="result_<%= problem.id %>"> No submission.</div>
+          </div>
+
+          <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
+          <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+      <% end %>
+    <br>
+  </div>
+
+</body>
