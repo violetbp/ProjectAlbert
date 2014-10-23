@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
+  #get 'users/new'
+
   resources :problem_completions
   resources :problems
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  match '/signup',  to: 'users#new',            via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  resources :process_file
+  #match '/signup',  to: 'users#new',            via: 'get'
+  #match '/signin',  to: 'sessions#new',         via: 'get'
+  #match '/signout', to: 'sessions#destroy',     via: 'delete'
+  
+  #for upload file
+  match "/upload/.format", to: "problems#upload", via: "post"
+  
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout', to: 'sessions#destroy', as: 'signout'
 
+  resources :sessions, only: [:create, :destroy]
 
   root 'problems#index'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -12,11 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
+//= require jquery.iframe-transport
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
 
-$(window).scroll(function() {
+$(window).scroll(function() {	
    if($(window).scrollTop()  == -1) {
        //alert("bottom!");
        $('nav').toggleClass('test');

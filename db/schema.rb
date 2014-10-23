@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021161756) do
+ActiveRecord::Schema.define(version: 20141022153610) do
 
   create_table "jobs", force: true do |t|
-    t.string   "file_path"
+    t.integer  "user_id"
     t.integer  "problem_id"
+    t.string   "file_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,6 +36,16 @@ ActiveRecord::Schema.define(version: 20141021161756) do
     t.text     "explanation"
     t.text     "exIn"
     t.text     "exOut"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

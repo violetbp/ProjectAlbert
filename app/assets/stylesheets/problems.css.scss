@@ -27,10 +27,16 @@
 }
 
 /*CSS for problems*/
-.problem-base{
+$red: random(256)-1;
+$green: random(256)-1;
+$blue: random(256)-1;
+$alpha: random(100)/100;
+
+.problem-base{ 
+  //background-color: unquote("rgba(#{$red}, #{$green}, #{$blue}, #{$alpha})");
   background-color: #86BCFF;
   padding: 100px 0;
-  height: 30vh; //percent of window height
+  height: 60vh; //percent of window height
 }
 
 .title {
@@ -42,7 +48,8 @@
 }
 .explanation {
   background-color: #FFCECE;
-  min-height:100px;
+  height:100%;  
+  padding: 30 30 30 30;
 }
 .exInOut {
   right:1000px;
@@ -61,3 +68,14 @@
 .exOut {
   background-color: #EDEF45;
 }
+
+
+.status{
+  background-color: #EDEF45;
+  float:left;
+  width: 100%;
+}
+.submission{
+  float:right;
+}
+
