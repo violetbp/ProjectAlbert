@@ -2,21 +2,21 @@ class ProblemsController < ApplicationController
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
   def upload
-
-    ProcessFile.save(params[:script], params[:problem_id], current_user.name)
+    @shPath = File.join("public", "data", "gradingtesting")
+    @shPath = File.join("public", "data", "gradingtesting")
+    @username = current_user.name.tr(' ','_') #without spaces so the sh will run
+    
+    ProcessFile.save(params[:script], params[:problem_id], @username)
   	 #will the next line work? from list of problems get the one pertaining to this specific problem
     #@job = current_user.problem_completions.get(problem_id).create(
-        @job = Job.create(file_path: File.join(Rails.root, "public", "data" , current_user.name, Problem.find_by_id(params[:problem_id]).title, params[:script].original_filename),
+        @job = Job.create(file_path: File.join( "public", "data" , @username, Problem.find_by_id(params[:problem_id]).title, params[:script].original_filename),
   	    problem_id: params[:problem_id])
   	@job.save
   	@result = ""
-  	File.open(@job.file_path, 'r') do |f|
-  		while line = f.gets 
-  			res = IO.popen(line)
-  			@result += res.readlines.to_s
-  			res.readlines
-  		end
-  	end
+    
+    res = IO.popen("bash /home/victor/rails/d/albert.sh #{@job.file_path} /home/victor/rails/d/grades/af")
+  	@result += res.readlines.to_s
+
 
   	respond_to do |format|
   		format.js
