@@ -68,18 +68,20 @@ rm -r $folderID
 exit $1
 }
 
-#set -x
+set -x
+
+#HI?
+gradefolder=../$2
+source=../$1
 
 folderID=1
-
 while ! mkdir $folderID 2> /dev/null  ; do
 	folderID=$(($folderID+1))
 done
 
+
 cd $folderID
 
-source=../$1
-gradefolder=../$2
 
 if [ $source == "" ] ; then
 	echo "Error- No file submitted: Must be .py, .c, .cpp, .java"
@@ -127,7 +129,8 @@ if [ $lang == "cpp" ] ; then
 	fi
 fi
 
-for set in ../grades/gradefolder/* ; do 
+#this was broken
+for set in $gradefolder/* ; do 
 	#echo "--- Test `echo $dir| cut -d'/' -f2-` ---"
 	run $set/in $set/out
 	if [ $? == 1 ] ; then

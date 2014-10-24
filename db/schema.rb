@@ -14,9 +14,11 @@
 ActiveRecord::Schema.define(version: 20141022153610) do
 
   create_table "jobs", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "problem_completion_id"
     t.integer  "problem_id"
     t.string   "file_path"
+    t.integer  "points"
+    t.string   "time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

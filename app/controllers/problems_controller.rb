@@ -14,8 +14,10 @@ class ProblemsController < ApplicationController
   	@job.save
   	@result = ""
     
-    res = IO.popen("bash /home/victor/rails/d/albert.sh #{@job.file_path} /home/victor/rails/d/grades/af")
-  	@result += res.readlines.to_s
+      #runs file, puts output in res somehow
+      res = IO.popen("bash albert.sh #{@job.file_path} grades/testing")
+  	
+    @result += res.readlines.to_s
 
 
   	respond_to do |format|
