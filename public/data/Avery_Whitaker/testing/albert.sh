@@ -24,7 +24,7 @@ function run {
 		java )
 			timeGiven=8
 			memGiven=64000
-			../memtimelimit -t $timeGiven -m $memGiven java -Xms:64m ${source:3:-5}>output<$1 2> runtime.err ;;
+			../memtimelimit -t $timeGiven -m $memGiven java ${source:3:-5}>output<$1 2> runtime.err ;;
 		python )
 			timeGiven=8
 			memGiven=64000
@@ -68,20 +68,18 @@ rm -r $folderID
 exit $1
 }
 
-set -x
-
-#HI?
-gradefolder=../$2
-source=../$1
+#set -x
 
 folderID=1
+
 while ! mkdir $folderID 2> /dev/null  ; do
 	folderID=$(($folderID+1))
 done
 
-
 cd $folderID
 
+source=../$1
+gradefolder=../$2
 
 if [ $source == "" ] ; then
 	echo "Error- No file submitted: Must be .py, .c, .cpp, .java"
@@ -129,8 +127,7 @@ if [ $lang == "cpp" ] ; then
 	fi
 fi
 
-#this was broken
-for set in $gradefolder/* ; do 
+for set in ../gradefolder/* ; do 
 	#echo "--- Test `echo $dir| cut -d'/' -f2-` ---"
 	run $set/in $set/out
 	if [ $? == 1 ] ; then
