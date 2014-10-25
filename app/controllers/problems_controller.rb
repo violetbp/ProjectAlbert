@@ -8,9 +8,7 @@ class ProblemsController < ApplicationController
     
     ProcessFile.save(params[:script], params[:problem_id], @username)
   	#will the next line work? from list of problems get the one pertaining to this specific problem
-    @job = current_user.problem_completions.find_by_id(problem_id).create(file_path: File.join( "public", "data" , @username, Problem.find_by_id(params[:problem_id]).title, params[:script].original_filename), problem_id: params[:problem_id])
-  	@job.save
-  	@result = ""
+    @job = self.create_job(params[:problem_id], params[:script].original_filename)
     
     #runs file, puts output in res somehow
     res = IO.popen("bash albert.sh #{@job.file_path} grades/testing")
@@ -21,7 +19,12 @@ class ProblemsController < ApplicationController
   		format.js
   	end
   end
-
+    
+    def create_job(problem_id, file_in)
+        job = Job.new(file_path: File.join(get_workspace_for_problem problem_id, file_in), problem_id: problem_id, problem_completion_id: Problem_Completion.find_by_name(Problem.find(problem_id).name))
+        job.save()
+        job
+    end
 
   # GET /problems
   # GET /problems.json

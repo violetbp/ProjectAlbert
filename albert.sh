@@ -24,7 +24,7 @@ function run {
 		java )
 			timeGiven=8
 			memGiven=64000
-			../memtimelimit -t $timeGiven -m $memGiven java -Xms:64m ${source:3:-5}>output<$1 2> runtime.err ;;
+			../memtimelimit -t $timeGiven -m $memGiven java ${source:3:-5}>output<$1 2> runtime.err ;;
 		python )
 			timeGiven=8
 			memGiven=64000
@@ -68,7 +68,7 @@ rm -r $folderID
 exit $1
 }
 
-set -x
+#set -x
 
 #HI?
 gradefolder=../$2

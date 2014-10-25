@@ -15,7 +15,10 @@
     <!--Listing problems -->
       <% @problems.each do |problem| %>
         <div id="p<%= problem.title %>" class="problem-base">
-          <div class="title"><h1><%= problem.title %></h1></div>
+          <div class="title"> <span class="points">9042 points</span>
+                              <span align="center" class="name"><%= problem.title %></span>
+                              <span class="time">Submitted 10/24/14 at 10:23:42 AM</span>
+            </div>
 
           <div class="explanation"> Explanation: <%= problem.explanation %>
             <div class="exInOut"> 
