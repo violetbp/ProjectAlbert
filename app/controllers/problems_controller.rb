@@ -1,31 +1,49 @@
 class ProblemsController < ApplicationController
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
+  require 'fileutils'
   def upload
     @shPath = File.join("public", "data", "gradingtesting")
     @shPath = File.join("public", "data", "gradingtesting")
     @username = current_user.name.tr(' ','_') #without spaces so the sh will run
     
-    ProcessFile.save(params[:script], params[:problem_id], @username)
+    save(params[:script], params[:problem_id], @username)
   	#will the next line work? from list of problems get the one pertaining to this specific problem
     @job = self.create_job(params[:problem_id], params[:script].original_filename)
     
     #runs file, puts output in res somehow
     res = IO.popen("bash albert.sh #{@job.file_path} grades/testing")
-  	
-    @result += res.readlines.to_s
+    @result = res.readlines.to_s
 
   	respond_to do |format|
   		format.js
   	end
   end
     
-    def create_job(problem_id, file_in)
-        job = Job.new(file_path: File.join(get_workspace_for_problem problem_id, file_in), problem_id: problem_id, problem_completion_id: Problem_Completion.find_by_name(Problem.find(problem_id).name))
-        job.save()
-        job
-    end
-
+  def create_job(problem_id, file_in)
+    job = Job.new(file_path: File.join(get_workspace_for_problem(problem_id), file_in), 
+      problem_id: problem_id, user_id: current_user.id)
+    job.save()
+    job
+  end
+  
+  def save(script, problem_id, name)
+    directory = get_workspace_for_problem(problem_id)
+    FileUtils::mkdir_p directory
+    # create the file path
+    path = File.join(directory, script.original_filename)
+    # write the file
+    File.open(path, "wb") { |f| f.write(script.read) }
+  end
+    
+  def get_workspace_for_problem(problem_id)
+    File.join("public", "data", current_user.name.tr(" ", "_"), problem_id) 
+  end
+  
+  
+  
+  
+  
   # GET /problems
   # GET /problems.json
   def index

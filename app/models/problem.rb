@@ -1,3 +1,3 @@
 class Problem < ActiveRecord::Base
-  has_many :jobs
+  has_many :problem_completions
 end

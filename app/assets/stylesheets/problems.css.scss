@@ -18,13 +18,7 @@
     margin-right: auto;
   }
 }
-.sidebarrules{
-  padding:110px 10px;
-  position: fixed;
-}
-.sidebarpos{
-  padding:70px 10px !important;
-}
+
 
 /*CSS for problems*/
 $red: random(256)-1;
@@ -35,54 +29,96 @@ $alpha: random(100)/100;
 .problem-base{ 
   //background-color: unquote("rgba(#{$red}, #{$green}, #{$blue}, #{$alpha})");
   background-color: #86BCFF;
-  padding: 100px 0;
-  height: 60vh; //percent of window height
+  margin-top:60px !important;
+  width:80%;
+  margin: 0 auto;
+  position:relative;
+  border-radius:5px;
+  border: 2px solid;
 }
 
 .name {
+  background-color:#FFF;
+  border-radius:5px 5px 0 0 ;
   font-size:30px !important;
   //padding:0 270px;
   margin: 0 auto;
   display:block;
   text-align:center;
-
+  vertical-align:center;
+  height: 35px;
+  border-bottom:2px solid;
+  padding:10px;
+  padding-bottom:5px;
 }
-.points{float:left;}
+.points{float:left; margin-top: 5px;}
 .time{float:right;height: 35px;}
 .title{
-    background-color: #72FE95;
-    height: 35px;
+    height: 50px;
 }
-.explanation {
-  background-color: #FFCECE;
-  height:100%;  
+.instructions {
   padding: 30 30 30 30;
+  margin: auto;
 }
+
+.explanation {
+  
+}
+
 .exInOut {
-  right:1000px;
-  background-color: #EDEF85;
-  padding:10px;
-  display: inline-block;
-  position:float;
+  padding: 10 10 10 10;
+  width:500px;
+  //display: inline-block;
+  margin:0 auto;
+
 }
 .exInOutSpaceing {
   width: auto;
   display: inline-block;
 }
 .exIn {
-  background-color: #ED6F85;
+  margin:0 auto;
 }
 .exOut {
-  background-color: #EDEF45;
+  margin:0 auto;
 }
 
 .status{
-  background-color: #EDEF45;
   float:left;
   width: 100%;
 }
 .submission{
   float:right;
+}
+
+#sidebar{
+  //top:0px;
+  position:fixed;
+  width:100%;
+  height:40px;
+  background-color:#a0a0a0;
+  text-decoration: none;
+  z-index:10000;
+  font-size:10pt;
+  padding:10px;
+  overflow-x:auto;
+}
+.sidebar-element{
+  display:inline;
+   color:#FFF !important;
+  padding-left:20px;
+}
+
+//.sidebar{padding:110px 10px;position: fixed;} old sidebar stuff
+//.sidebarpos{padding:70px 10px !important;}
+
+#content{
+  margin-top:10px;
+  position:absolute;
+
+  display:inline-block;
+  width:100vw;
+  height:100%;
 }
 
 

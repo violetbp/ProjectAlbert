@@ -17,7 +17,9 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+//= require jquery.easing.min.js
 
+/*
 $(window).scroll(function() {	
    if($(window).scrollTop()  == -1) {
        //alert("bottom!");
@@ -36,11 +38,11 @@ $(window).scroll(function() {
         $('nav').removeClass('navbarTop');
         $('.sidebarrules').addClass('sidebarpos');
     }
-});
+});*/
 
 //jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
-    $('a.page-scroll').bind('click', function(event) {
+    $('div.sidebar').bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top

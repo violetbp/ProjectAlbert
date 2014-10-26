@@ -1,17 +1,15 @@
 
-<head>
-  <title>Albert|Number-D</title>
-</head>
+<!-- pretend there is stuff here thats like importaint and such-->
 
 <body>
    <!-- % SideBar % -->
-  <div class="btn-group-vertical sidebarrules" >
+  <div class="sidebar" id="sidebar" >
       <% @problems.each do |a| %>
-        <%= link_to(a.title, "#p#{a.title}", class: 'btn btn-default', type: "button")  %>
-      <% end %>
+    <%= link_to(a.title, "#p#{a.title}", class:"sidebar-element")%>
+      <% end %>        
   </div>
+  <div id="content">
 
-  <div class="container">
     <!--Listing problems -->
       <% @problems.each do |problem| %>
         <div id="p<%= problem.title %>" class="problem-base">
@@ -20,12 +18,13 @@
                               <span class="time">Submitted 10/24/14 at 10:23:42 AM</span>
             </div>
 
-          <div class="explanation"> Explanation: <%= problem.explanation %>
+        <div class="instructions"> 
+          <div class="explanation"> Explanation: <%= problem.explanation %> </div>
             <div class="exInOut"> 
-              <div class="exInOutSpaceing exIn"> Exin: </br><%= problem.exIn %> </div>
-              <div class="exInOutSpaceing exOut">Exout:</br><%= problem.exOut %></div>
+              <a class="exInOutSpaceing exIn"> Exin: </br><%= problem.exIn %> </a>
+              <a class="exInOutSpaceing exOut">Exout:</br><%= problem.exOut %></a>
             </div>
-          </div>
+       </div>
           <div class="status"> Status: 
             <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
             <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
@@ -37,6 +36,6 @@
         </div>
       <% end %>
     <br>
+    
   </div>
-
 </body>

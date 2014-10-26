@@ -15,7 +15,20 @@
  */
 body {
   background-color: #86BCFF;
+  color
 }
+
+nav.main{
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100%;
+  padding: 25px;
+  background-color:#202940;
+  height:10vh;
+  z-index:1000000000;
+}
+
 .navbarTop {
   //background: linear-gradient(#DD88FD, #BCB4F3, #DD88FD);
   padding: 25px;
@@ -43,23 +56,22 @@ body {
   color: #F00;
   font-size:100;
 }
-.navbarSettings {
+div.links {
+  margin-top:25px;
   padding: 0 0 25px; 
-  position: fixed;
-  right: 0px;
-  top: 0px;
+  display:inline-block;
+  float:left;
+
 }
 
 /*navbar button things*/
 a.navbar-button:link, a.navbar-button:visited{
-  color: #F00;
-  /*background: linear-gradient(#151515, #606060, #808080);*/
+  color:#a0a0a0;
   text-decoration: none;
 } 
 a.navbar-button:hover, a.navbar-button:active{
-  color: #0F0;
+  color: #cfcfcf;
   text-decoration: none;
-  /*background: linear-gradient(#0909A0, #606060, #808080);*/
 }
 .navbar-button{
   z-index: 1031;
@@ -73,14 +85,26 @@ a.navbar-button:hover, a.navbar-button:active{
   font-size:25pt;
 }
 
+#user-info{
+  display:inline-block;
+  float:right;
+}
+
 .gearimage{
-  right: 5px;
-  top: 5px;
+  margin-top:-10px;
   width: 40px;
   height: 40px;
+
 }.gearimage:hover{
   width: 50px;
   height: 50px;
+}
+
+#container{
+ position:absolute;
+ margin-top:5%;
+ width:100%;
+ height:90%;
 }
 
 
@@ -88,19 +112,4 @@ a.navbar-button:hover, a.navbar-button:active{
 .yeild {
   padding: 100px;
 }
-//open id auth (taken from stackexchange)
-.preferred-login{
-background:#f9f9f9;width:258px;border:1px solid #d4d4d4;box-shadow:-1px 1px #f2f2f2;color:#888;padding:7px;margin-bottom:15px;cursor:pointer;height:16px
-}
-.preferred-login p>span{
-vertical-align:top
-}
-.preferred-login .icon{
-background-image:url('../img/openid/new-login-sprite.png?v=b6f9e4abc577');width:16px;height:16px;display:inline-block;margin-right:12px
-}
-.preferred-login.google-login .icon{background-position:0 0}
-.preferred-login.facebook-login .icon{background-position:-19px 0}
-.preferred-login.stackexchange-login .icon{background-position:-38px 0}
-
-
 

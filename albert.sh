@@ -1,15 +1,17 @@
+
+
 # Author: Avery Whitaker
 # averywhitaker@gmail.com
 
 # bash albert gradefile gradefolder
 
 function compare {
-	if diff -q $1 $2 > /dev/null ; then
+	if diff -q --strip-trailing-cr -B -Z $1 $2 > /dev/null ; then
 			#echo "Correct!"
 			return 0
 		else		
 			echo "Does not match expected output"
-			diff -y -W 30 $1 $2
+			diff -y --strip-trailing-cr -B -Z -W 30 $1 $2
 			return 1
 	fi
 }
@@ -24,7 +26,9 @@ function run {
 		java )
 			timeGiven=8
 			memGiven=64000
-			../memtimelimit -t $timeGiven -m $memGiven java ${source:3:-5}>output<$1 2> runtime.err ;;
+			Xmx="-Xmx"
+			m="m"
+			../memtimelimit -t $timeGiven java $Xmx$memGiven$m -Xms8m $(basename $source .java)>output<$1 2> runtime.err ;;
 		python )
 			timeGiven=8
 			memGiven=64000

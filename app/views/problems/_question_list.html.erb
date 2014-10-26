@@ -2,6 +2,6 @@
   <%= form_tag({action: :upload}, multipart: true, remote: true) do %>
       <%= file_field_tag 'script', style:"float:left" %><br>
       <%= hidden_field_tag 'problem_id', problem.id %>
-      <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default" %>
+  <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default", onclick: "$('#result_#{problem.id}').html('Awaiting response...');" %>
   <% end %>
 </div>  
