@@ -1,33 +1,42 @@
-<%= form_for(@problem) do |f| %>
-  <% if @problem.errors.any? %>
+
+<h1 id="new-problem-header">New Problem:</h1>
+<%= form_for(problem) do |f| %>
+  <div class="form-group new-problem-fields">
+  <% if problem.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
+      <h2><%= pluralize(problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
 
       <ul>
-      <% @problem.errors.full_messages.each do |message| %>
+      <% problem.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class:"form-control" %>
   </div>
   <div class="field">
     <%= f.label :explanation %><br>
-    <%= f.text_area :explanation %>
+    <%= f.text_area :explanation, class:"form-control" %>
   </div>
   <div class="field">
     <%= f.label :exIn %><br>
-    <%= f.text_area :exIn %>
+    <%= f.text_area :exIn, class:"form-control" %>
   </div>
   <div class="field">
     <%= f.label :exOut %><br>
-    <%= f.text_area :exOut %>
+    <%= f.text_area :exOut, class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :points %><br>
+    <%= f.number_field :points, class:"form-control"%>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit", class:"btn btn-default"%>
+  </div>
   </div>
 <% end %>

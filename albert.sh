@@ -24,7 +24,7 @@ function run {
 			memGiven=64000
 			../memtimelimit -t $timeGiven -m $memGiven ./cppprogram>output<$1 2> runtime.err ;;
 		java )
-			timeGiven=8
+			timeGiven=6
 			memGiven=64000
 			Xmx="-Xmx"
 			m="m"

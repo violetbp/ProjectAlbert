@@ -1,8 +1,12 @@
 class ProblemsController < ApplicationController
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
-
+  
   require 'fileutils'
   def upload
+    if !(current_user.points)
+      current_user.update(points: 0)
+      current_user.save
+    end
     @shPath = File.join("public", "data", "gradingtesting")
     @shPath = File.join("public", "data", "gradingtesting")
     @username = current_user.name.tr(' ','_') #without spaces so the sh will run
@@ -14,7 +18,9 @@ class ProblemsController < ApplicationController
     #runs file, puts output in res somehow
     res = IO.popen("bash albert.sh #{@job.file_path} grades/testing")
     @result = res.readlines.to_s
-
+    if @result[0..8].include?("Correct")
+      current_user.points += Problem.find(params[:problem_id])
+    end
   	respond_to do |format|
   		format.js
   	end
@@ -48,6 +54,7 @@ class ProblemsController < ApplicationController
   # GET /problems.json
   def index
     @problems = Problem.all
+    @users=User.order("points desc").limit(12).all
   end
 
   # GET /problems/1
@@ -58,10 +65,15 @@ class ProblemsController < ApplicationController
   # GET /problems/new
   def new
     @problem = Problem.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /problems/1/edit
   def edit
+    
   end
 
   # POST /problems
@@ -112,6 +124,6 @@ class ProblemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:title, :explanation, :exIn, :exOut)
+      params.require(:problem).permit(:title, :explanation, :exIn, :exOut, :points)
     end
 end

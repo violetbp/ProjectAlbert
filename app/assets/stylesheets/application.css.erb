@@ -13,9 +13,61 @@
  *= require_tree .
  *= require_self
  */
+html{
+
+}
 body {
-  background-color: #86BCFF;
-  color
+  background-color: #FFF;
+
+}
+
+a, a:hover{
+  background-color:transparent !important;
+}
+
+#new-problem-header{
+  color:black;
+  text-align:center;
+  background-color:#c7c7c7;
+  border-bottom: 1px solid #b3b3b3;
+  padding-top:20px;
+  margin-top:-20px;
+}
+
+.new-problem-fields{
+  margin-left:20px;
+  margin-right:20px;
+}
+
+#modal-container{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  z-index:100000000000000000000000;
+}
+#background{
+  background-color:black;
+  width:100%;
+  height:100%;
+  opacity:0.6;
+}
+
+#modal{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  width:600px;
+  height:500px;
+  opacity:1.0 !important;
+  margin-left:-300px;
+  margin-top:-250px;
+  z-index:100000000000000000000000000000000;
+  background-color:white;
 }
 
 nav.main{
@@ -23,10 +75,11 @@ nav.main{
   top:0px;
   left:0px;
   width:100%;
-  padding: 25px;
-  background-color:#202940;
-  height:10vh;
+  padding: 15px;
+  background-color:#9f85a8;
+  height:61px;
   z-index:1000000000;
+  border-bottom: 1px solid #b3b3b3;
 }
 
 .navbarTop {
@@ -57,7 +110,7 @@ nav.main{
   font-size:100;
 }
 div.links {
-  margin-top:25px;
+
   padding: 0 0 25px; 
   display:inline-block;
   float:left;
@@ -66,7 +119,7 @@ div.links {
 
 /*navbar button things*/
 a.navbar-button:link, a.navbar-button:visited{
-  color:#a0a0a0;
+  color:#4a4a4a;
   text-decoration: none;
 } 
 a.navbar-button:hover, a.navbar-button:active{
@@ -82,7 +135,14 @@ a.navbar-button:hover, a.navbar-button:active{
   float:center;
 }
 .navbar-main{
-  font-size:25pt;
+  font-size:35pt;
+  font-family: "Helvetica-Bold", "Helvetica";
+
+  display:inline-block;
+  margin:0 auto;
+}
+#new-problem-button{
+  float:right;
 }
 
 #user-info{
@@ -90,19 +150,18 @@ a.navbar-button:hover, a.navbar-button:active{
   float:right;
 }
 
+
+
 .gearimage{
   margin-top:-10px;
   width: 40px;
   height: 40px;
 
-}.gearimage:hover{
-  width: 50px;
-  height: 50px;
 }
 
 #container{
  position:absolute;
- margin-top:5%;
+ margin-top:61px;
  width:100%;
  height:90%;
 }

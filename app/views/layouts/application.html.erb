@@ -10,13 +10,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+      <div id="modal-container" class="modals" onclick="$('.modals').animate({opacity:'0'}, 200); $('.modals').hide();">
+        <div id="background">
+        </div>
+      </div>
+      <div id="modal" class="modals">  
+      </div>
 
       <nav class="nav navbar-nav main">
         <!-- Links container -->
         <span class="links" role="navigation" style="z-index:90">
-        <%= link_to "Albert", root_path(anchor: "page-top"), class:"navbar-button navbar-main" %>            
-        <!-- If ADMIN ACCESS -->
-            <%= link_to 'New problem', new_problem_path, class:"navbar-button" %> 
+        <%= link_to "Albert", root_path(anchor: "page-top"), class:"navbar-button navbar-main" %>           
+          <% if current_user %>
+          <% if current_user.is_admin %>
+          <!-- If ADMIN ACCESS -->
+          <%= link_to 'New problem', new_problem_path, remote: true, class:"navbar-button", id:"new-problem-button" %> 
+          <% end %>
+          <% end %>
         </span>
           <span id="user-info">
           <% if current_user %>

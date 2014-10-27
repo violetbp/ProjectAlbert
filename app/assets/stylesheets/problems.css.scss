@@ -1,12 +1,16 @@
 // Place all the styles related to the problems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+@font-face{
+  font-face: "HelveticaNeue"
+}
 .container {
   padding: 100px 0;
   left: 10px;
   right: 10px;
   width: 100%;
+    background: #CDB8E7;
+
   
 }
 @media (min-width: 768px) {//mobile
@@ -15,46 +19,83 @@
     width: 80%;
     align: center;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto;    background: #CDB8E7;
+
   }
 }
 
+.leaderBoards{
+    //background: linear-gradient(#DD8D00, #BCB4F3, #DD88FD);
+  width:100%;
+  height:30%;
+  border-bottom: 1px solid;
+  border-color:#dcdcdc;
+}
 
+.leader-board-column{
+  display:inline-block;
+  width:33%;
+  padding-left:10px;
+  margin-top:20px;
+  
+}
+
+.leader-board-column p{
+  font-size:20pt;
+  margin-top:10px;
+  font-family:"HelveticaNeue-light"
+}
 /*CSS for problems*/
 $red: random(256)-1;
 $green: random(256)-1;
 $blue: random(256)-1;
 $alpha: random(100)/100;
 
+.offset{
+  height:100px;;
+}
 .problem-base{ 
-  //background-color: unquote("rgba(#{$red}, #{$green}, #{$blue}, #{$alpha})");
-  background-color: #86BCFF;
-  margin-top:60px !important;
+  font-family: "Helvetica-light", "Helvetica";
+
   width:80%;
+  max-width:80%;
   margin: 0 auto;
   position:relative;
-  border-radius:5px;
-  border: 2px solid;
+  border: 1px solid #dcdcdc;
+-webkit-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
+-moz-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
+box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
 }
 
 .name {
-  background-color:#FFF;
-  border-radius:5px 5px 0 0 ;
+  font-family: "Helvetica";
+  background-color:#c7c7c7;
   font-size:30px !important;
+  width:100%;
   //padding:0 270px;
   margin: 0 auto;
-  display:block;
-  text-align:center;
-  vertical-align:center;
-  height: 35px;
-  border-bottom:2px solid;
+  display:inline-block;
+
+  height: 60px;
+  border-bottom:1px solid #b3b3b3;
   padding:10px;
-  padding-bottom:5px;
 }
-.points{float:left; margin-top: 5px;}
-.time{float:right;height: 35px;}
+
+.posted-info{
+  display:inline-block;
+  margin-left:20px;
+}
+
+.points{
+  float:left; 
+  font-size:10px;
+}
+.time{font-size:10px; margin-bottom:10px;}
 .title{
-    height: 50px;
+    display:inline;
+  margin-top:-10px;
+  margin-left:10px;
+    
 }
 .instructions {
   padding: 30 30 30 30;
@@ -62,51 +103,85 @@ $alpha: random(100)/100;
 }
 
 .explanation {
-  
+  word-wrap:break-word;
+  margin-left:20px;
+  margin-right:20px;
+  min-height:100px;
 }
 
 .exInOut {
   padding: 10 10 10 10;
-  width:500px;
   //display: inline-block;
-  margin:0 auto;
+  margin:auto;
+  width:100%;
+  position:relative;
+  height:100%;
 
 }
-.exInOutSpaceing {
-  width: auto;
-  display: inline-block;
-}
+
 .exIn {
-  margin:0 auto;
+  display:inline-block;
+  width:50%;
+  margin: 0 auto;
+  float:left;
+  padding-left:20px;
 }
+
+
 .exOut {
-  margin:0 auto;
+
+  height:100%;
+  display:inline-block;
+  width:50%;
+  margin: 0 auto;
+  
+  
 }
+
+
 
 .status{
-  float:left;
+  margin-left:20px;
+  text-align:left;
   width: 100%;
 }
 .submission{
-  float:right;
+  text-align:right;
+  margin-right:40px;
+  padding-bottom:10px;
+}
+.submit{
+  margin-top:-10px;
 }
 
 #sidebar{
   //top:0px;
   position:fixed;
   width:100%;
-  height:40px;
-  background-color:#a0a0a0;
+  height:30px;
+  background-color:#FFF;
   text-decoration: none;
   z-index:10000;
   font-size:10pt;
-  padding:10px;
   overflow-x:auto;
+  border-bottom: 1px solid;
+  border-color:#dcdcdc;
+-webkit-box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
+-moz-box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
+box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
 }
 .sidebar-element{
-  display:inline;
-   color:#FFF !important;
-  padding-left:20px;
+  display:inline-block;
+  color:#c7c7c7 !important;
+  font-family: "Helvetica-light", "Helvetica";
+  padding:5px;
+  padding-left:5px;
+  padding-right:5px;
+  border-left: 1px solid #dcdcdc;
+}
+
+.sidebar-text{
+ 
 }
 
 //.sidebar{padding:110px 10px;position: fixed;} old sidebar stuff
@@ -121,7 +196,20 @@ $alpha: random(100)/100;
   height:100%;
 }
 
+.separator{
+  height: 1px;
+  background-color:#dcdcdc;
+  width:100%;
+  padding-left:10px;
+  padding-right:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
 
-
+#problem-editing{
+  display:inline-block;
+  float:right;
+  font-size:10px;
+}
 
 

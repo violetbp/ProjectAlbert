@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025220339) do
+ActiveRecord::Schema.define(version: 20141027020052) do
 
   create_table "jobs", force: true do |t|
     t.integer  "problem_id"
     t.string   "file_path"
-    t.integer  "points"
     t.string   "time"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -32,6 +31,7 @@ ActiveRecord::Schema.define(version: 20141025220339) do
     t.text     "exOut"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points"
   end
 
   create_table "users", force: true do |t|
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 20141025220339) do
     t.datetime "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_admin"
+    t.integer  "points"
   end
 
 end

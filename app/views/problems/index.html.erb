@@ -5,37 +5,60 @@
    <!-- % SideBar % -->
   <div class="sidebar" id="sidebar" >
       <% @problems.each do |a| %>
-    <%= link_to(a.title, "#p#{a.title}", class:"sidebar-element")%>
+    <span class="sidebar-element"><span class="sidebar-text anchor"><%= link_to(a.title, "#p#{a.title}", )%></span></span>
       <% end %>        
   </div>
   <div id="content">
+    <div class="leaderBoards">
+      <% ct = 1 %>
+      <div class='leader-board-column'>
+      <% @users.each do |u| %>
 
+        <p><%= ct.ordinalize%> <%=u.name%>: <%= u.points||0%></p>
+        <%= raw "</div>" if ct%4 ==0%>
+        <%= raw "<div class='leader-board-column'>" if ct%4 ==0%>
+        <% ct += 1%>
+      <% end %>
+      </div>
+    </div>
     <!--Listing problems -->
       <% @problems.each do |problem| %>
-        <div id="p<%= problem.title %>" class="problem-base">
-          <div class="title"> <span class="points">9042 points</span>
-                              <span align="center" class="name"><%= problem.title %></span>
-                              <span class="time">Submitted 10/24/14 at 10:23:42 AM</span>
-            </div>
-
+        <div id="p<%= problem.title %>" class="offset"></div>
+        <div  class="problem-base">
+          <span  class="name"><span class="title"><%= problem.title %></span>
+          <span class="posted-info">
+          <div class="points">9042 points</div><br>
+            <div class="time">Submitted on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
+          </span>
+       <% if current_user && current_user.is_admin %>
+          <div id="problem-editing">
+            <br>
+            <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
+            <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
+            
+          </div>
+        <% end %>
+          </span>
+            
+          
         <div class="instructions"> 
-          <div class="explanation"> Explanation: <%= problem.explanation %> </div>
-            <div class="exInOut"> 
-              <a class="exInOutSpaceing exIn"> Exin: </br><%= problem.exIn %> </a>
-              <a class="exInOutSpaceing exOut">Exout:</br><%= problem.exOut %></a>
-            </div>
-       </div>
+          <div class="explanation"> <h3>Explanation:</h3> <%= render plain: problem.explanation %></div>
+              <div class="separator"></div>
+                <div class="exInOut"> 
+                  <span class=" exIn"> <h4>Example Input:</h4> <%= problem.exIn %> </span>
+                  <span class=" exOut"><h4>Example output:</h4><%= problem.exOut %></span>
+                </div>
+          
+        </div>
+          <div class="separator"></div>
           <div class="status"> Status: 
             <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
             <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
           </div>
-          <div>
-            <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
-            <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
-          </div>
+
         </div>
+
       <% end %>
     <br>
     
   </div>
-</body>
