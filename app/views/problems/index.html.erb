@@ -1,20 +1,21 @@
 
-<!-- pretend there is stuff here thats like importaint and such-->
 
+<!-- pretend there is stuff here thats like importaint and such-->
 <body>
    <!-- % SideBar % -->
   <div class="sidebar" id="sidebar" >
       <% @problems.each do |a| %>
-    <span class="sidebar-element"><span class="sidebar-text anchor"><%= link_to(a.title, "#p#{a.title}", )%></span></span>
+    <div class="sidebar-element">
+      <%= link_to(a.title, "#p#{a.id}", class:"scrolll")%></div>
       <% end %>        
   </div>
   <div id="content">
     <div class="leaderBoards">
+      
       <% ct = 1 %>
       <div class='leader-board-column'>
       <% @users.each do |u| %>
-
-        <p><%= ct.ordinalize%> <%=u.name%>: <%= u.points||0%></p>
+        <p><%= ct%><sup><%=ct.ordinalize[/[snrt][tdh]/]%></sup> <%=u.name%>: <%= u.points ||0%></p><!-- points or 0 if its nil -->
         <%= raw "</div>" if ct%4 ==0%>
         <%= raw "<div class='leader-board-column'>" if ct%4 ==0%>
         <% ct += 1%>
@@ -23,12 +24,12 @@
     </div>
     <!--Listing problems -->
       <% @problems.each do |problem| %>
-        <div id="p<%= problem.title %>" class="offset"></div>
+        <div id="p<%= problem.id %>" class="offset"></div>
         <div  class="problem-base">
           <span  class="name"><span class="title"><%= problem.title %></span>
           <span class="posted-info">
-          <div class="points">9042 points</div><br>
-            <div class="time">Submitted on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
+            <div class="points">You have gotten <%current_user%>9042 points</div><br>
+            <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
           </span>
        <% if current_user && current_user.is_admin %>
           <div id="problem-editing">
@@ -42,7 +43,7 @@
             
           
         <div class="instructions"> 
-          <div class="explanation"> <h3>Explanation:</h3> <%= render plain: problem.explanation %></div>
+          <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
               <div class="separator"></div>
                 <div class="exInOut"> 
                   <span class=" exIn"> <h4>Example Input:</h4> <%= problem.exIn %> </span>
@@ -62,3 +63,4 @@
     <br>
     
   </div>
+  </body>

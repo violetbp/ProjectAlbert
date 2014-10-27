@@ -17,8 +17,6 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
-//= require jquery.easing.min.js
-
 /*
 $(window).scroll(function() {	
    if($(window).scrollTop()  == -1) {
@@ -38,21 +36,26 @@ $(window).scroll(function() {
         $('nav').removeClass('navbarTop');
         $('.sidebarrules').addClass('sidebarpos');
     }
-});*/
+});**/
 
 //jQuery for page scrolling feature - requires jQuery Easing plugin
-$(document).ready(function(){
-
-  $(function() {
-      $('div.sidebar').bind('click', function(event) {
-          var anchor = this;
-          $('html, body').stop().animate({
-              scrollTop: $(anchor.attr('href')).offset().top
-          }, 1500);
-          event.preventDefault();
-      });
-  });
-
+$(function() {
+    $('a.scrolll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+      return false;
+    });
 });
-
-
+/*
+$("a.scrolll").bind('click', function(event) {
+      alert("asdf");
+      $.smoothScroll({
+      scrollElement: $('div'),
+      scrollTarget: '#pElevator';
+    
+    
+    return false;
+      });
+*/
