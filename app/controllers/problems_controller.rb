@@ -19,8 +19,9 @@ class ProblemsController < ApplicationController
     res = IO.popen("bash albert.sh #{@job.file_path} grades/testing")
     @result = res.readlines.to_s
     if @result[0..8].include?("Correct")
-      current_user.points += Problem.find(params[:problem_id])
+      current_user.points += Problem.find(params[:problem_id]).points
     end
+    current_user.save
   	respond_to do |format|
   		format.js
   	end
