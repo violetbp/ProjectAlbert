@@ -22,6 +22,9 @@
       <% end %>
       </div>
     </div>
+    <div class="leader-board-separator">
+      
+    </div>
     <!--Listing problems -->
       <% @problems.each do |problem| %>
         <div id="p<%= problem.id %>" class="offset"></div>
@@ -43,7 +46,7 @@
             
           
         <div class="instructions"> 
-          <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
+          <div class="explanation"> <h3>Explanation:</h3> <%= problem.explanation %></div>
               <div class="separator"></div>
                 <div class="exInOut"> 
                   <span class=" exIn"> <h4>Example Input:</h4> <%= problem.exIn %> </span>

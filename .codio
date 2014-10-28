@@ -8,7 +8,7 @@
 
 // Preview button configuration
   "preview": {
-        "Project Index (static)": "https://{{domain}}/{{index}}",
+    "Project Index (static)": "https://{{domain}}:3000/",
         "Current File (static)": "https://{{domain}}/{{filepath}}",
         "Box URL": "http://{{domain}}:3000/",
         "Box URL SSL": "https://{{domain}}:9500/"
