@@ -1,0 +1,42 @@
+<!--
+  Problemsets index
+  seems functionally complete
+-->
+
+
+<div>
+  <%if @problemsets%>
+    <% @problemsets.each do |problemset| %> 
+      <div style="background:#CDD4EB;">
+        <h1><%= link_to problemset.title, problemset %></h1> 
+        <%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset) %><%end%>
+
+        <h3 style="padding-left:5px;"><%=problemset.explanation%></h3>
+        <% problemset.problems.each do |problem| %>
+          <h4 style="padding-left:10px;"><%= link_to problem.title, problem %><%if admin? %><%= link_to '  Edit', edit_problemset_path(problemset) %><%end%></h4>
+          <h5 style="padding-left:20px;"><%=problem.explanation%></h5>
+        <%end%>
+      </div>
+    <%end%>
+  <%else%>
+  <!--User has no problemsets-->
+  <h1>You have not been added to any problem sets<%unless current_user%> and are not logged in<%end%></h1>
+    <h3>
+    <%unless current_user%> 
+      Please log in.
+    <%else%><!--user exists-->
+      <%if current_user.groups.empty?%> 
+        Please request to be added to a group
+        [button to place request to be added to group?]
+      <%else%><!--group for user exists-->
+        You belong to <%=pluralize(current_user.groups.count, "group") %><br>
+        <% current_user.groups.each do |group| %>
+          <%=group.title%> -- Pease contact <%= group.teacher%> and notify them that they have no content
+          [button to email teacher]
+        <%end%>
+      <%end%>
+   <%end%>
+  </h3>
+  
+  <%end%>
+</div>

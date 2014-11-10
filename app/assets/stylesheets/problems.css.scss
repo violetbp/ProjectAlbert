@@ -112,9 +112,8 @@ box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
 }
 
 .explanation {
-  max-width:50%;
-  margin-left:20px;
-  margin-right:20px;
+  margin-left:40px;
+  margin-right:40px;
   min-height:100px;
   
 }
@@ -164,23 +163,22 @@ box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
   margin-top:-10px;
 }
 
-#sidebar{
+#topbar{
   //top:0px;
   position:fixed;
   width:100%;
   height:30px;
-  background-color:#FFF;
+    background-color:#9f85a8;
   text-decoration: none;
   z-index:10000;
   font-size:10pt;
-  overflow-x:auto;
   border-bottom: 1px solid;
   border-color:#dcdcdc;
 -webkit-box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
 -moz-box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
 box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
 }
-.sidebar-element{
+.topbar-element{
   display:inline-block;
   color:#c7c7c7 !important;
   font-family: "Helvetica-light", "Helvetica";
@@ -189,10 +187,9 @@ box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
   padding-right:5px;
   border-left: 1px solid #dcdcdc;
 }
-.sidebar-text:hover{
+.topbar-text:hover{
     color: #ce2f2f !important;
-
-}.sidebar-text{
+}.topbar-text{
     color: #2a66d6 !important;
 
 }
@@ -219,5 +216,10 @@ box-shadow: -2px 0px 24px 0px rgba(102,102,102,0.62);
   float:right;
   font-size:10px;
 }
+
+.inlineblock{
+    display:inline-block;
+}
+
 
 

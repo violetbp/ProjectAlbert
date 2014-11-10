@@ -1,13 +1,79 @@
 on create problem make folder and such
 
 newline on output
-gear menu pos
-profile
+profile   
 teams
 example input output needs newline
 name instead of id number for problem folder creation
-require problem have a name
 auto capitalize stuff
 pushing esc exits new problem
 text doesent disapear when scroll over the navbar
 change created time to submitted
+currently clicking on albert stops the smooth scrolling, idont know what to do, it liinks to root_path btw
+taeyoon says to remove the letters from navbar:P
+when rename problem rename folder
+
+
+usefull code
+<div id="may-remove"></div><!--runs coffeescript command-->
+
+
+website for paper->computer
+http://www.onlineocr.net/
+
+Critical Issues(avery problems):
+center pikachu
+rename file after run it
+
+
+
+Some do I needs
+def _form ... end in prob cont
+
+
+
+
+
+<!--put into groups
+    <h2>Best Problems</h2>
+      <div id="accordion">
+        <% c = 0 %>
+        <% @best.each do |b|%>
+          <%if b%>
+          <%if Problem.find(b.problem_id).points == b.points%>
+            <%color = "green"%>
+          <%else%>
+            <%color = "red"%>
+          <%end%>
+            <h3><%=Problem.find(b.problem_id).title%> points: 
+              <span style="color: <%=color%>;"> <%= b.points%>/<%=Problem.find(b.problem_id).points%></span></h3>
+            <div>
+              <p>
+              Your best result was attempt <%= b.attempt%>, with <%= b.points%> points<br>
+                Submitted: <%= b.created_at %><br>
+                Output: <%= b.previous_output %>
+                <%c = c + b.points%>
+              </p>
+            </div>
+          <%end%>
+        <%end%>
+      </div>
+      <br>
+      You have <%= c %> points in total.
+-->
+
+
+
+
+
+
+
+
+
+
+problem destroy DO NOT ADD BACK
+@problem.destroy
+    respond_to do |format|
+      format.html { redirect_to problems_url, notice: 'Problem was successfully destroyed.' }
+      format.json { head :no_content }
+    end

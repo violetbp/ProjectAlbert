@@ -3,18 +3,68 @@ To change this template use Tools | Templates.
 -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-  <title>Profile of <%= @user.name %></title>
-</head>
-<body>
-<p>
-  <strong>Title:</strong>
-  <%= @user.name %>
-</p>
+  <head>
+    <title>Profile of <%= @user.name %></title>
+  </head>
+  
+  <body>
+    <p>
+      <span class="name"><%= @user.name %>'s Profile</span>
+    </p>
 
-<p>
-  <strong>other stuff:</strong><br>
-  more stuff
-</p>
-</body>
+
+    <h2>Best Problems</h2>
+      <div id="accordion">
+        <% c = 0 %>
+        <% @best.each do |b|%>
+          <%if b%>
+          <%if Problem.find(b.problem_id).points == b.points%>
+            <%color = "green"%>
+          <%else%>
+            <%color = "red"%>
+          <%end%>
+            <h3><%=Problem.find(b.problem_id).title%> points: 
+              <span style="color: <%=color%>;"> <%= b.points%>/<%=Problem.find(b.problem_id).points%></span></h3>
+            <div>
+              <p>
+              Your best result was attempt <%= b.attempt%>, with <%= b.points%> points<br>
+                Submitted: <%= b.created_at %><br>
+                Output: <%= b.previous_output %>
+                <%c = c + b.points%>
+              </p>
+            </div>
+          <%end%>
+        <%end%>
+      </div>
+      <br>
+      You have <%= c %> points in total.
+
+
+
+
+
+
+    <p>
+      <h1>Problem data:</h1><br>
+
+        <% num = 0 %>
+        <% @jobs.each do |j| %>
+          <% if num != j.problem_id %>
+            <% num = j.problem_id %>
+            <% curbest = @best[j.problem_id] %>
+              <% begin %>
+               <h2><%= Problem.find(j.problem_id).title%></h2>
+                  Your best result was attempt <%= @best[j.problem_id].attempt%>, with <%= curbest.points%> points
+                  <br><br>
+          <%rescue%>Deleted problem, blame Max. <%end%>
+          <%end%>
+          <!--begin listing problems-->
+          Attempt number: <%= j.attempt%><br>
+          <div class="data">
+          Submitted: <%= j.created_at %><br>
+            Output: <%= j.previous_output%><br>
+          </div>
+        <% end %>
+    </p>
+  </body>
 </html>

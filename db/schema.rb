@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027020052) do
+ActiveRecord::Schema.define(version: 20141106211224) do
+
+  create_table "groups", force: true do |t|
+    t.string   "title"
+    t.text     "explanation"
+    t.string   "teacher"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups_problemsets", id: false, force: true do |t|
+    t.integer "group_id"
+    t.integer "problemset_id"
+  end
+
+  create_table "groups_users", id: false, force: true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
 
   create_table "jobs", force: true do |t|
     t.integer  "problem_id"
@@ -21,7 +39,8 @@ ActiveRecord::Schema.define(version: 20141027020052) do
     t.datetime "updated_at"
     t.text     "previous_output"
     t.integer  "attempt"
-    t.integer  "user_id"
+    t.integer  "user_id",         default: 0
+    t.integer  "points",          default: 1
   end
 
   create_table "problems", force: true do |t|
@@ -32,6 +51,18 @@ ActiveRecord::Schema.define(version: 20141027020052) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "points"
+  end
+
+  create_table "problems_problemsets", id: false, force: true do |t|
+    t.integer "problem_id"
+    t.integer "problemset_id"
+  end
+
+  create_table "problemsets", force: true do |t|
+    t.string   "title"
+    t.text     "explanation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

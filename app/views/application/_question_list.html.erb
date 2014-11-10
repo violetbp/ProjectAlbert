@@ -1,0 +1,8 @@
+<div class="post-form">
+  
+  <%= form_tag(url_for(:controller => 'problems', :action => 'upload'), multipart: true, remote: true) do %>
+      <%= file_field_tag 'script', style:"float:left" %>
+      <%= hidden_field_tag 'problem_id', problem.id %>
+  <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default submit", onclick: "$('#result_#{problem.id}').html('Awaiting response...');" %>
+  <% end %>
+</div>  

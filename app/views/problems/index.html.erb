@@ -1,21 +1,29 @@
 
 
+<div id="may-remove"></div><!--runs coffeescript command-->
+
 <!-- pretend there is stuff here thats like importaint and such-->
 <body>
    <!-- % SideBar % -->
-  <div class="sidebar" id="sidebar" >
-      <% @problems.each do |a| %>
-    <div class="sidebar-element">
-      <%= link_to(a.title, "#p#{a.id}", class:"scrolll")%></div>
-      <% end %>        
+  <div class="topbar" id="topbar" >
+    <% @problemsets.each do |problemset| %>
+    <span class="dropdown">
+      <a href="#" class="dropdown-toggle topbar-element" data-toggle="dropdown"> <%= problemset.title %></a>
+        <ul class="dropdown-menu pull-left">
+          <% problemset.problems.each do |problem| %>
+          <li><%= link_to(problem.title, "#p#{problem.id}", class:"topbar-text")%></li>
+          <%end%>
+        </ul>
+      </span>
+    <%end%>
   </div>
   <div id="content">
-    <div class="leaderBoards">
+    <!--div class="leaderBoards">
       
       <% ct = 1 %>
       <div class='leader-board-column'>
       <% @users.each do |u| %>
-        <p><%= ct%><sup><%=ct.ordinalize[/[snrt][tdh]/]%></sup> <%=u.name%>: <%= u.points ||0%></p><!-- points or 0 if its nil -->
+        <p><%= ct%><sup><%=ct.ordinalize[/[snrt][tdh]/]%></sup> <%=u.name%>: <%= u.points ||0%></p><!-- points or 0 if its nil --
         <%= raw "</div>" if ct%4 ==0%>
         <%= raw "<div class='leader-board-column'>" if ct%4 ==0%>
         <% ct += 1%>
@@ -23,34 +31,41 @@
       </div>
     </div>
     <div class="leader-board-separator">
-      
+      -->
     </div>
     <!--Listing problems -->
-      <% @problems.each do |problem| %>
-        <div id="p<%= problem.id %>" class="offset"></div>
-        <div  class="problem-base">
+  <% color = ["#edcc78","#f2c041","#edcc78","#f2c041","#edcc78"] %>
+  <%colorId = 0 %>
+  <div style="padding-top:10px;"> 
+    <% @problemsets.each do |problemset| %>
+      <div style="background:#CDD4EB;padding:100 100 100 100;">
+        <h1><%=problemset.title%></h1>
+           <h3><%=problemset.explanation%></h3>
+        
+           <% problemset.problems.each do |problem| %>
+        
+            <div id="p<%= problem.id %>" class="offset"></div>
+        <div  class="problem-base" style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
+          <%colorId=colorId+1%>
           <span  class="name"><span class="title"><%= problem.title %></span>
           <span class="posted-info">
-            <div class="points">You have gotten <%current_user%>9042 points</div><br>
+            <div class="points">You have gotten <%current_user%> points</div><br>
             <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
           </span>
        <% if current_user && current_user.is_admin %>
           <div id="problem-editing">
             <br>
-            <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
-            <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
-            
+            <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %>
+            <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %-->
           </div>
         <% end %>
           </span>
-            
-          
-        <div class="instructions"> 
-          <div class="explanation"> <h3>Explanation:</h3> <%= problem.explanation %></div>
+        <div class="instructions" > 
+          <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
               <div class="separator"></div>
                 <div class="exInOut"> 
-                  <span class=" exIn"> <h4>Example Input:</h4> <%= problem.exIn %> </span>
-                  <span class=" exOut"><h4>Example output:</h4><%= problem.exOut %></span>
+                  <span class=" exIn"> <h4>Example Input:</h4> <pre><%= problem.exIn %></pre> </span>
+                  <span class=" exOut"><h4>Example output:</h4><pre><%= problem.exOut %></pre></span>
                 </div>
           
         </div>
@@ -61,9 +76,56 @@
           </div>
 
         </div>
+        <%end%>
+      </div>
+    <%end%>
+  </div>
+   
+  
+  
+  
+  <!--
+   <h3>-----all problems listed below here---------</h3>
+  <% color = ["#c6afc6","#CDD4EB","#b76e8b","#DBC4F6","#c9fcfc"] %>
+  <%colorId = 0 %>
+      <% @problems.each do |problem| %>
+        <% if problem.id.to_i >15%>
+          
+        <div id="p<%= problem.id %>" class="offset"></div>
+        <div  class="problem-base" style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
+          <%colorId=colorId+1%>
+          <span  class="name"><span class="title"><%= problem.title %></span>
+          <span class="posted-info">
+            <div class="points">You have gotten <%current_user%> points</div><br>
+            <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
+          </span>
+       <% if current_user && current_user.is_admin %>
+          <div id="problem-editing">
+            <br>
+            <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %>
+            <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %--
+          </div>
+        <% end %>
+          </span>
+        <div class="instructions" > 
+          <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
+              <div class="separator"></div>
+                <div class="exInOut"> 
+                  <span class=" exIn"> <h4>Example Input:</h4> <pre><%= problem.exIn %></pre> </span>
+                  <span class=" exOut"><h4>Example output:</h4><pre><%= problem.exOut %></pre></span>
+                </div>
+          
+        </div>
+          <div class="separator"></div>
+          <div class="status"> Status: 
+            <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
+            <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
+          </div>
 
+        </div>
+<% end %>
       <% end %>
     <br>
-    
-  </div>
+   
+  </div>-->
   </body>

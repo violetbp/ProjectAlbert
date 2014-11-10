@@ -1,0 +1,21 @@
+<!--
+Groups index
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div class="name">Listing all Groups:</div> <br>
+      <% @groups.each do |g| %>
+        <span class="name"> <%= link_to g.title, group_path(g) %></span>
+        <%= link_to 'Edit', edit_group_path(g) %>
+    <% g.users.each do |u| %>
+             <%=u.name%>
+          <% end %>
+      <% end %>
+    <br><br><%= link_to 'New Group', new_group_path, remote: true, id:"new-group-button" %>
+
+  </body>
+</html>

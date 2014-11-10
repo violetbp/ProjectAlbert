@@ -1,0 +1,34 @@
+
+
+
+
+
+<!--SHOULD THIS BE JAVASCRIPT-->    
+
+
+    <div style="background:#ffa3a3;">
+      <% @inarr.each do |inp| %>
+        <% inFile = File.new(inp, "r") %>
+        <% if inFile %>
+          <% content = inFile.sysread(20) %>
+          <%= text_field_tag "e", content %> <br>
+      
+        <% else %>
+          <% puts "Unable to open file!" %>
+        <% end %>
+
+      <% end %>
+    </div>
+
+    <div style="background:#a3fffb;">
+      <% @outarr.each do |out| %>
+        <% inFile = File.new(out, "r") %>
+        <% if inFile %>
+          <% content = inFile.sysread(20) %>
+          <%= text_field_tag "e", content %> <br>
+
+        <% else %>
+          <% puts "Unable to open file!" %>
+        <% end %>
+      <% end %>
+    </div>  

@@ -17,45 +17,32 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+//= require jquery-ui
+//= require alerts
 /*
 $(window).scroll(function() {	
    if($(window).scrollTop()  == -1) {
-       //alert("bottom!");
+       //alert("top!");
        $('nav').toggleClass('test');
    }
-});
+});*/
 
-//jQuery to collapse the navbar on scroll $(".navbar").offset().top > 50
-$(window).scroll(function() {
-    if ($(window).scrollTop()  == 0) {
-        $('nav').removeClass('navbarBot');
-        $('nav').addClass('navbarTop');
-        $('.sidebarrules').removeClass('sidebarpos');
-    } else {
-        $('nav').addClass('navbarBot');
-        $('nav').removeClass('navbarTop');
-        $('.sidebarrules').addClass('sidebarpos');
-    }
-});**/
 
 //jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
-    $('a.scrolll').bind('click', function(event) {
+    $('.scrolll').bind('click', function(event) {
         var $anchor = $(this);
         $('body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top }, 1500, 'easeInOutExpo');
         event.preventDefault();
       return false;
     });
+    
 });
-/*
-$("a.scrolll").bind('click', function(event) {
-      alert("asdf");
-      $.smoothScroll({
-      scrollElement: $('div'),
-      scrollTarget: '#pElevator';
-    
-    
-    return false;
-      });
-*/
+
+$(function() {
+    $( "#accordion" ).accordion();
+});
+
+
+

@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
-  has_many :problem_completions #relates to each problem id
-  has_many :jobs, through: :problem_completions
+  has_many :jobs
+  has_and_belongs_to_many  :groups
+  has_many :problemsets, through: :groups
+
 end

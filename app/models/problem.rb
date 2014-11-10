@@ -1,8 +1,7 @@
 class Problem < ActiveRecord::Base
-
   validates :explanation, presence:true, length: {minimum:1}
   validates :exIn, presence:true, length: {minimum:1}
   validates :exOut, presence:true, length: {minimum:1}
   validates :points, presence:true
-  has_many :problem_completions
+  has_and_belongs_to_many :problemsets
 end

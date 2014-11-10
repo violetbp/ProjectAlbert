@@ -1,0 +1,49 @@
+<!--
+New Group
+-->
+
+<%= form_for(@group) do |f| %>
+  <div class="form-group new-problem-fields">
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+      <% @group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class:"form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :teacher %><br>
+      <%= f.text_field :teacher, class:"form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :explanation %><br>
+      <%= f.text_area :explanation, class:"form-control" %>
+    </div>
+    
+    <div class="problemset-checkbox">
+      <% Problemset.all.each do |probset| %>
+        <%= check_box_tag :"p#{probset.id}" , "p#{probset.id}",@group.problemsets.exists?(probset.id) %>
+        <%= label_tag :"p#{probset.id}", probset.title%>
+      <%end%>
+    </div>
+    <div class="user-checkbox">
+      <% User.all.each do |user| %>
+        <%= check_box_tag :"u#{user.id}" , "u#{user.id}",@group.users.exists?(user.id) %>
+        <%= label_tag :"u#{user.id}", user.name%>
+      <%end%>
+    </div>
+    
+  <div class="actions">
+    <%= f.submit "Submit", class:"btn btn-default"%>
+  </div>
+<% end %>

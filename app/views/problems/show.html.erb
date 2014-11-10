@@ -1,24 +1,4 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @problem.title %>
-</p>
 
-<p>
-  <strong>Explanation:</strong>
-  <%= @problem.explanation %>
-</p>
-
-<p>
-  <strong>Exin:</strong>
-  <%= @problem.exIn %>
-</p>
-
-<p>
-  <strong>Exout:</strong>
-  <%= @problem.exOut %>
-</p>
-
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
-<%= link_to 'Back', problems_path %>
+<%= render partial: "render_problem.html.erb", locals:{problem: @problem}%>

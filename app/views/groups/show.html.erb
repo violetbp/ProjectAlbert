@@ -1,0 +1,27 @@
+<!--
+Show Group
+-->
+<html>
+  <head>
+    <title>Group - <%= @group.title %></title>
+  </head>
+
+  <body>
+
+    <span class="name"><%= @group.title %> (tis a group!)</span>
+    <%= link_to 'Edit', edit_group_path(@group) %>
+    <div>
+      <% @group.users.each do |u| %>
+        <%=u.name%>
+      <% end %>
+    </div>
+    <div>
+      <% @group.problemsets.each do |p| %>
+        <%=p.title%> 
+      <% end %>
+    </div>
+
+
+
+  </body>
+</html>

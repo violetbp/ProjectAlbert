@@ -1,0 +1,4 @@
+class ProblemsetProblem < ActiveRecord::Base
+  belongs_to :problemset
+  belongs_to :problem
+end

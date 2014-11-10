@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   #get 'users/new'
 
-  resources :problem_completions
+  resources :problemsets
   resources :problems
   resources :users
+  resources :groups
+
   resources :process_file
   
   #match '/signup',  to: 'users#new',            via: 'get'
@@ -12,6 +14,8 @@ Rails.application.routes.draw do
   
   #for upload file
   match "/upload/.format", to: "problems#upload", via: "post"
+  match "/update_test_data/.format", to: "problems#update_test_data", via: "get"
+  match "/makedir/.format", to: "problems#makedir", via: "get"
   
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

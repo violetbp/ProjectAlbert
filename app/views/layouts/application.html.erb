@@ -20,32 +20,42 @@
       <nav class="nav navbar-nav main">
         <!-- Links container -->
         <span class="links" role="navigation" style="z-index:90">
-        <%= link_to "Albert", root_path(anchor: "page-top"), class:"navbar-button navbar-main" %>           
-          <% if current_user %>
-          <% if current_user.is_admin %>
-          <!-- If ADMIN ACCESS -->
-          <%= link_to 'New problem', new_problem_path, remote: true, class:"navbar-button", id:"new-problem-button" %> 
-          <% end %>
-          <% end %>
+          <%= link_to "Albert |",     root_path(anchor: "page-top"), class:"navbar-button navbar-main scrolll" %>
+          <%= link_to "Problems",   problems_path, class:"navbar-button navbar-minor" %>        
+          <%= link_to "Problemsets",problemsets_path, class:"navbar-button navbar-minor" %>   
+          <%= link_to "Groups",     groups_path, class:"navbar-button navbar-minor" %>   
+          <%= link_to "Users",      users_path, class:"navbar-button navbar-minor" %>   
+
+          
         </span>
           <span id="user-info">
           <% if current_user %>
           <span class="dropdown">
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown"> <%= image_tag("gear.png", :class => "dropdown-toggle gearimage")%> </b>
-            </a>
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown"> <%= image_tag("gear.png", :class => "dropdown-toggle gearimage")%></a>
             <ul class="dropdown-menu pull-right">
               <li><strong><%= current_user.name %></strong></li>
               <li><%= link_to "Profile", '#' %></li>
               <li><%= link_to "Settings", '#' %></li>
               <li class="divider"></li>
-              <li><%= link_to "Users", '#' %></li>
+              <li><%= link_to "Users", users_path %></li>
+              <li class="divider"></li>
+              <li>Admin Tools</li>
+                <!-- If ADMIN ACCESS -->
+                <% if current_user && current_user.is_admin %>
+                <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
+              <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
+
+                <li><%= link_to "View(and edit) all submissions", '#' %></li>
+                <li><%= link_to "Edit Problemsets", '#' %></li>
+
+                <% end %>
               <li class="divider"></li>
               <li><%= link_to "Log out", signout_path, id: "sign_out" %></li>
             </ul>
           </span>
 
           <% else %>
-            <span><%= link_to image_tag("gear.png", :class => "gearimage"), "/auth/google_oauth2", id: "sign_in"%></span>
+            <span>Click the gear -> <%= link_to image_tag("gear.png", :class => "gearimage"), "/auth/google_oauth2", id: "sign_in"%></span>
           <% end %>
           </span>
     </nav>
