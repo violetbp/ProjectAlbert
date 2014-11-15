@@ -23,7 +23,7 @@ source=../$1
 
 temp="TEMP"
 folderID=1
-while ! mkdir $temp$folderID 2> /dev/null  ; do
+while ! mkdir $temp$folderID 2> /dev/null; do
 	folderID=$(($folderID+1))
 done
 folderid = $temp$folderid

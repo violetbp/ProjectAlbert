@@ -1,0 +1,44 @@
+<!--
+edit user
+-->
+
+<%= form_for(@user) do |f| %>
+  <div class="form-group new-problem-fields">
+    <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <div class="field">
+      <%= f.label :name %> - DO NOT CHANGE THIS VALUE UNTILL FURTHER NOTICE only admins can edit names<br>
+      <%= f.text_field :name, class:"form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :grade %><br>
+      <%= f.number_field :grade, class:"form-control"%>
+    </div>
+    <div class="field">
+      <%= f.label :image %>(url)<br>
+      <%= f.text_field :image, class:"form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :about %><br>
+      <%= f.text_area :about, class:"form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :is_admin, "User is admin"%>
+      <%= f.check_box :is_admin %>
+    </div>
+    
+  <div class="actions">
+    <%= f.submit "Submit", class:"btn btn-default"%>
+  </div>
+<% end %>

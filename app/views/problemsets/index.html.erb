@@ -4,20 +4,24 @@
 -->
 
 
-<div>
+<div style="padding-top:20px;">
   <%if @problemsets%>
+  <div id="accordion-collapse">
     <% @problemsets.each do |problemset| %> 
-      <div style="background:#CDD4EB;">
-        <h1><%= link_to problemset.title, problemset %></h1> 
-        <%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset) %><%end%>
-
+      <h1><%= link_to problemset.title, problemset %><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset) %><%end%></h1> 
+      <div class="problem-list-body">
+        <p>
         <h3 style="padding-left:5px;"><%=problemset.explanation%></h3>
         <% problemset.problems.each do |problem| %>
-          <h4 style="padding-left:10px;"><%= link_to problem.title, problem %><%if admin? %><%= link_to '  Edit', edit_problemset_path(problemset) %><%end%></h4>
-          <h5 style="padding-left:20px;"><%=problem.explanation%></h5>
+          <h4 style="padding-left:10px;">
+            <%= link_to problem.title, problem, title: problem.explanation, rel: 'tooltip'%>
+                                  <%if admin? %><%= link_to '  Edit', edit_problem_path(problem) %><%end%></h4>
         <%end%>
+        </p>
       </div>
     <%end%>
+  
+  </div>
   <%else%>
   <!--User has no problemsets-->
   <h1>You have not been added to any problem sets<%unless current_user%> and are not logged in<%end%></h1>

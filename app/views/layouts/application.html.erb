@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Albert</title>
   <%= stylesheet_link_tag    'bootstrap', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'bootstrap', 'data-turbolinks-track' => true %>
@@ -34,8 +33,8 @@
             <a href="#" class="dropdown-toggle " data-toggle="dropdown"> <%= image_tag("gear.png", :class => "dropdown-toggle gearimage")%></a>
             <ul class="dropdown-menu pull-right">
               <li><strong><%= current_user.name %></strong></li>
-              <li><%= link_to "Profile", '#' %></li>
-              <li><%= link_to "Settings", '#' %></li>
+              <li><%= link_to "Profile", user_path(current_user) %></li>
+              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li><%= link_to "Users", users_path %></li>
               <li class="divider"></li>
@@ -45,8 +44,8 @@
                 <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
               <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
 
-                <li><%= link_to "View(and edit) all submissions", '#' %></li>
-                <li><%= link_to "Edit Problemsets", '#' %></li>
+                <li><% link_to "View(and edit) all submissions not i", '#' %></li>
+                <li><% link_to "Edit Problemsets", '#' %></li>
 
                 <% end %>
               <li class="divider"></li>
@@ -58,14 +57,11 @@
             <span>Click the gear -> <%= link_to image_tag("gear.png", :class => "gearimage"), "/auth/google_oauth2", id: "sign_in"%></span>
           <% end %>
           </span>
+
     </nav>
-
-
-
-
-
-
-
+  <nav style="padding-top:61px;">
+    <%= yield :top_menu %>
+  </nav>
 
 <div id="container">
 	<%= yield %>

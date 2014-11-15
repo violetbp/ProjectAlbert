@@ -20,8 +20,8 @@ Show Group
         <%=p.title%> 
       <% end %>
     </div>
-
-
-
+    <% @group.get_leaderboard.each do |u| %>
+    <% end %>
+    <%= u.name %> with <%= u.gpoints, locals= @group%> points.<br>
   </body>
 </html>

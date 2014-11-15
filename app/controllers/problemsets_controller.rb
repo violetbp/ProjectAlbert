@@ -1,7 +1,6 @@
 class ProblemsetsController < ApplicationController
-  layout "application"
 
-  layout "problemsetHeader"
+  layout "problemset"
   before_action :set_problemset, only: [:show, :edit, :update, :destroy]
   before_filter :authorize, :except => [:index, :show ]
 
@@ -16,7 +15,7 @@ class ProblemsetsController < ApplicationController
   def index
     unless admin?
       if current_user
-        @problemsets= current_user.problemsets       
+        @problemsets= current_user.problemsets
       end
     else
     @problemsets = Problemset.all
@@ -73,7 +72,6 @@ class ProblemsetsController < ApplicationController
   def set_problemset
     @problemset = Problemset.find(params[:id])
   end
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def problemset_params
     params.require(:problemset).permit(:title, :explanation)

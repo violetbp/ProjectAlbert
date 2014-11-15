@@ -1,5 +1,7 @@
-class ApplicationController < ActionController::Base
-  layout "application"
+class ApplicationController < ActionController::Base  
+  before_action :set_problemsets
+  before_action :set_users
+  
   
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -32,4 +34,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  
+  private 
+  def set_problemsets
+    if current_user
+      @problemsets = current_user.problemsets
+    else
+      @problemsets = nil
+    end  
+  end
+  
+  def set_users
+    @users = User.all
+  end
+  
 end

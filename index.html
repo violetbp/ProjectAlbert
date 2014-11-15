@@ -1,4 +1,4 @@
-<a href="http://idiom-poetic.codio.io:3000/" style="float:'center'; text-decoration: none;"><pre style="text-align:'center'; font-family: 'Droid Sans Mono', 'Lucida Console', 'Andale Mono', 'Courier New', Courier, monospace; font-size: 12px; line-height: 12px;"><br />
+<a href="http://idiom-poetic-3000.codio.io/" style="float:'center'; text-decoration: none;"><pre style="text-align:'center'; font-family: 'Droid Sans Mono', 'Lucida Console', 'Andale Mono', 'Courier New', Courier, monospace; font-size: 12px; line-height: 12px;"><br />
 ____________ _____   ___ _____ _____ _____    ___   _     ______ ___________ _____ 
 | ___ \ ___ \  _  | |_  |  ___/  __ \_   _|  / _ \ | |    | ___ \  ___| ___ \_   _|
 | |_/ / |_/ / | | |   | | |__ | /  \/ | |   / /_\ \| |    | |_/ / |__ | |_/ / | |  
@@ -46,8 +46,28 @@ ____________ _____   ___ _____ _____ _____    ___   _     ______ ___________ ___
             /--------------------------------------------------\
             |Pikachu stolen from the internet by Avery Whitaker|
             \--------------------------------------------------/
-</pre></a>
+</pre>
 
-<iframe src="http://idiom-poetic.codio.io:3000/">
+
+</a>
+
+<form action="start.php"target="output11"  method="post" enctype="multipart/form-data">
+  <input type="submit" value="Run me now!">
+</form>
+
+<div id="output11">
+  
+</div>
+
+<iframe src="http://idiom-poetic-3000.codio.io">
   
 </iframe>
+
+
+<?php
+
+
+echo shell_exec ("/var/www/html/bla.sh" );
+//echo $blaa.implode();
+
+?> 

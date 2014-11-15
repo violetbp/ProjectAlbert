@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106211224) do
+ActiveRecord::Schema.define(version: 20141114132801) do
 
   create_table "groups", force: true do |t|
     t.string   "title"
@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(version: 20141106211224) do
     t.integer  "attempt"
     t.integer  "user_id",         default: 0
     t.integer  "points",          default: 1
+    t.integer  "style",           default: 0
+    t.integer  "function",        default: 0
+    t.integer  "solution",        default: 0
   end
 
   create_table "problems", force: true do |t|
@@ -63,6 +66,7 @@ ActiveRecord::Schema.define(version: 20141106211224) do
     t.text     "explanation"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "due_date"
   end
 
   create_table "users", force: true do |t|
@@ -74,7 +78,9 @@ ActiveRecord::Schema.define(version: 20141106211224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_admin"
-    t.integer  "points"
+    t.string   "image"
+    t.text     "about"
+    t.integer  "grade"
   end
 
 end

@@ -11,14 +11,17 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.iframe-transport
-//= require turbolinks
 //= require_tree .
 //= require bootstrap
 //= require jquery-ui
 //= require alerts
+//require turbolinks
+
+
 /*
 $(window).scroll(function() {	
    if($(window).scrollTop()  == -1) {
@@ -45,4 +48,35 @@ $(function() {
 });
 
 
+$(function() {
+    $( "#accordion-collapse" ).accordion({
+      //want this but can't have it: collapsible: true
+      heightStyle: "content"
+    });
+});
 
+
+//single collapse
+$(function() {
+  $('.collapse').click(function(){
+    $('.content-one').slideToggle('slow');
+  });
+});
+
+//problemsets
+$(function() {
+    $( document ).tooltip({
+      position: {
+        my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+    });
+  });

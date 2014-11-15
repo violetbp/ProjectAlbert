@@ -61,19 +61,18 @@ $blue: random(256)-1;
 $alpha: random(100)/100;
 
 .offset{
-  height:100px;;
+  height:100px;
 }
 .problem-base{ 
   font-family: "Helvetica-light", "Helvetica";
-
   width:80%;
   max-width:80%;
   margin: 0 auto;
   position:relative;
   border: 1px solid #dcdcdc;
--webkit-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
--moz-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
+  -webkit-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
+  -moz-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
+  box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
 }
 
 .name {
@@ -124,23 +123,21 @@ box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
   margin:auto;
   width:100%;
   position:relative;
-  height:100%;
 
 }
 
 .exIn {
   display:inline-block;
+  min-height:100px;
   width:50%;
   margin: 0 auto;
   float:left;
   padding-left:20px;
 }
 
-
 .exOut {
-
-  height:100%;
   display:inline-block;
+  min-height:100px;
   width:50%;
   margin: 0 auto;
   

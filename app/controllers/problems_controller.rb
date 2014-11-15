@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController 
-  #i think it makes sure only a few things can be called on problems in the routes
+  #makes var @problem at bottom for those pages
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
   #auth for admins
   before_filter :authorize, :except => [:index, :show ]
@@ -40,7 +40,8 @@ class ProblemsController < ApplicationController
     @job.previous_output = @result
     @job.save
     current_user.save
-
+    puts "OUTPUT:"
+    puts @job.previous_output
     respond_to do |format|
       format.js
     end
@@ -79,7 +80,7 @@ class ProblemsController < ApplicationController
   # GET /problems.json
   def index
     @problems = Problem.all
-    @users=User.order("points desc").limit(12).all
+    @users = User.order("points desc").limit(12).all
     @problemsets = Problemset.all
 
   end

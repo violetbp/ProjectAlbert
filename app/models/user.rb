@@ -13,4 +13,49 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many  :groups
   has_many :problemsets, through: :groups
 
+  def best
+    @best = Array.new(Problem.last.id)#max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
+    Problem.all.each do |p|
+        @best[p.id] = {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("points").last}
+    end 
+    @best
+  end
+  
+  def points
+    @points = 0
+    self.best.each do |p|
+      if p && p[:job]
+        @points += p[:job].points
+      end
+    end
+    @points
+  end
+  
+  def gpoints(group)
+    @points = 0
+    #puts group.users.includes(self)
+    self.best.each do |p|#problems for user
+      if p && p[:job]
+        group.problemsets.each do |problemset|#problemSETS for group
+          if problemset.problems.exists?(p[:problem])
+            @points += p[:job].points
+            #puts "from user.rb: "
+            #puts p[:job].points
+          end
+        end
+      end
+    end
+    @points
+  end
+  
+  def jobs_problems
+    #unfishished
+    @leaderboard = self.users#.sort_by(&:gpoints).reverse
+    @data = Array.new
+    @leaderboard.each do |user|
+      @data << {prob: user.prob, job: user.jobs.where()}
+    end
+    puts "UNFINISHED DONT KNOW WHAT IT WOULD DO"
+  end
+  
 end

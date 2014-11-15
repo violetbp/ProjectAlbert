@@ -7,15 +7,20 @@ Groups index
     <title></title>
   </head>
   <body>
-    <div class="name">Listing all Groups:</div> <br>
+    <div class="name">Listing all Groups: <%= link_to 'New Group', new_group_path, remote: true, id:"new-group-button" %></div> <br>
       <% @groups.each do |g| %>
-        <span class="name"> <%= link_to g.title, group_path(g) %></span>
-        <%= link_to 'Edit', edit_group_path(g) %>
-    <% g.users.each do |u| %>
+        <div class="title"> <%= link_to g.title, group_path(g) %><span class="edit"><%= link_to 'Edit', edit_group_path(g) %></span></div>
+           
+    <br>Users:
+    <% g.users.each do |u| %><br>
              <%=u.name%>
-          <% end %>
+          <% end %><br><br>
+    Problemsets:
+          <% g.problemsets.each do |p| %>
+             <%=p.title%>
+          <% end %><br><br>
       <% end %>
-    <br><br><%= link_to 'New Group', new_group_path, remote: true, id:"new-group-button" %>
+    <br><br>
 
   </body>
 </html>

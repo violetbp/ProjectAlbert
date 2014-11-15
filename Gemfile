@@ -42,4 +42,6 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 gem "omniauth-google-oauth2", "~> 0.2.1"
 
+gem 'jquery-turbolinks'
 
+gem 'sitemap_generator'

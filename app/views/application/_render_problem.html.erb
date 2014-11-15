@@ -1,11 +1,18 @@
 
 <div id="p<%= problem.id %>" class="offset"></div>
 <div  class="problem-base">
-  <span  class="name"><span class="title"><%= problem.title %></span>
+  <span  class="name"><span class="title"><%= problem.title.titlecase() %></span>
     <span class="posted-info">
+      <%if current_user.jobs.where("problem_id = #{problem.id}").first %>
       <div class="points">You have gotten <%=pluralize(current_user.jobs.where("problem_id = #{problem.id}").order("points").last.points, "point") %> out of 
         <%=pluralize(Problem.find(problem.id).points, "point") %>.</div><br>
-      <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
+        <div class="time">Submitted on <%= current_user.jobs.where("problem_id = #{problem.id}").order("points").last.created_at.in_time_zone("Eastern Time (US & Canada)")%></div>                   
+      <%else%>
+        <div class="points">You have not attempted this problem.</div><br>
+        <div class="time">No submission time.</div>
+              <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%></div>                   
+
+      <%end%>
     </span>
     <div id="problem-editing">
       <% if current_user && current_user.is_admin %>

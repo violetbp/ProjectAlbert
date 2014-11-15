@@ -9,6 +9,8 @@
 
 
     <% color = ["#c6afc6","#CDD4EB","#99e8a6","#a4b0f2","#c9fcfc"] %>
+    <% color = ["rgba(0, 0, 0, 0)"] %>
+
     <%colorId = 0 %>
 
     <div style="background:#CDD4EB;">
@@ -16,7 +18,7 @@
       <h3><%=@problemset.explanation%></h3>
 
       <% @problemset.problems.each do |problem| %>
-      <div  class="problem-base" style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
+      <div  style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
         <%colorId=colorId+1%>
         <%= render partial: "render_problem.html.erb", locals:{problem: problem}%>
       </div>

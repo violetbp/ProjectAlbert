@@ -1,33 +1,37 @@
 on create problem make folder and such
 
 newline on output
-profile   
 teams
-example input output needs newline
-name instead of id number for problem folder creation
-auto capitalize stuff
-pushing esc exits new problem
-text doesent disapear when scroll over the navbar
-change created time to submitted
-currently clicking on albert stops the smooth scrolling, idont know what to do, it liinks to root_path btw
-taeyoon says to remove the letters from navbar:P
-when rename problem rename folder
+id instead of name for user - folder creation
+auto capitalize stuff - DONE
+pushing esc exits new problem?
+text doesent disapear when scroll over the navbar - DONE
+change created time to submitted - DONE
+currently clicking on albert stops the smooth scrolling, I dont know what to do, it links to root_path btw
+completion amount
+edit models
+add user edit button
+
+
+Critical Issues:
+back buttons need to go back not go to problems
+rename file after run it
+edit problemsets in admin menu needs to work
+delete test data
+implement due date
+all topbars are problemsets
+isadmin not viewable to users editing profile
 
 
 usefull code
-<div id="may-remove"></div><!--runs coffeescript command-->
+<div id="may-remove"></div><!--runs coffeescript command for -->
 
 
 website for paper->computer
 http://www.onlineocr.net/
 
-Critical Issues(avery problems):
-center pikachu
-rename file after run it
 
-
-
-Some do I needs
+Some "do I needs"
 def _form ... end in prob cont
 
 
@@ -65,7 +69,20 @@ def _form ... end in prob cont
 
 
 
-
+<div class="leaderBoards">
+      
+      <% ct = 1 %>
+      <div class='leader-board-column'>
+      <% @users.each do |u| %>
+        <p><%= ct%><sup><%=ct.ordinalize[/[snrt][tdh]/]%></sup> <%=u.name%>: <%= u.points ||0%></p><!-- points or 0 if its nil -->
+        <%= raw "</div>" if ct%4 ==0%>
+        <%= raw "<div class='leader-board-column'>" if ct%4 ==0%>
+        <% ct += 1%>
+      <% end %>
+      </div>
+    </div>
+    <div class="leader-board-separator">
+    </div>
 
 
 

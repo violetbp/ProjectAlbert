@@ -1,6 +1,6 @@
 
 
-<div id="may-remove"></div><!--runs coffeescript command-->
+<div id="admin-only"></div><!--runs coffeescript command-->
 
 <!-- pretend there is stuff here thats like importaint and such-->
 <body>
@@ -18,21 +18,7 @@
     <%end%>
   </div>
   <div id="content">
-    <!--div class="leaderBoards">
-      
-      <% ct = 1 %>
-      <div class='leader-board-column'>
-      <% @users.each do |u| %>
-        <p><%= ct%><sup><%=ct.ordinalize[/[snrt][tdh]/]%></sup> <%=u.name%>: <%= u.points ||0%></p><!-- points or 0 if its nil --
-        <%= raw "</div>" if ct%4 ==0%>
-        <%= raw "<div class='leader-board-column'>" if ct%4 ==0%>
-        <% ct += 1%>
-      <% end %>
-      </div>
-    </div>
-    <div class="leader-board-separator">
-      -->
-    </div>
+    
     <!--Listing problems -->
   <% color = ["#edcc78","#f2c041","#edcc78","#f2c041","#edcc78"] %>
   <%colorId = 0 %>
