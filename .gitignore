@@ -14,3 +14,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# ignore all test database
+/grades
+# ignore all submitted problems
+/public/data
