@@ -14,10 +14,14 @@ class User < ActiveRecord::Base
   has_many :problemsets, through: :groups
 
   def best
-    @best = Array.new(Problem.last.id)#max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
-    Problem.all.each do |p|
-        @best[p.id] = {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("points").last}
-    end 
+    if Problem.last
+      @best = Array.new(Problem.last.id)#max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
+      Problem.all.each do |p|
+          @best[p.id] = {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("points").last}
+      end 
+    else
+    @best = Array.new(0)
+    end
     @best
   end
   

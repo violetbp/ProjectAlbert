@@ -11,6 +11,7 @@ currently clicking on albert stops the smooth scrolling, I dont know what to do,
 completion amount
 edit models
 add user edit button
+users controler line 19: @best = Array.new(Problem.last.id) does not accoutnt for lack of problems
 
 
 Critical Issues:
