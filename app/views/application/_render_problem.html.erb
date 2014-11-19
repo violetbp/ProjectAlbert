@@ -10,13 +10,14 @@
       <%else%>
         <div class="points">You have not attempted this problem.</div><br>
         <div class="time">No submission time.</div>
-              <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%></div>                   
 
       <%end%>
     </span>
     <div id="problem-editing">
       <% if current_user && current_user.is_admin %>
         <br>
+         Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%><br>        
+
         <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
         <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %-->
       <% end %>

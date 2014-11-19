@@ -13,11 +13,11 @@ Groups index
            
     <br>Users:
     <% g.users.each do |u| %><br>
-             <%=u.name%>
+             <%=u.name%><%if admin? %><h7><%= link_to '  Edit', edit_user_path(u) %></h7><%end%>
           <% end %><br><br>
-    Problemsets:
+    Problemsets:<br>
           <% g.problemsets.each do |p| %>
-             <%=p.title%>
+              <%=p.title%><%if admin? %><h7><%= link_to '  Edit', edit_problem_path(p) %></h7><%end%>
           <% end %><br><br>
       <% end %>
     <br><br>

@@ -9,7 +9,8 @@ USER#SHOW
   <body>
     <p>
       <span class="name"><%= @user.name %>'s Profile <%if @user.image%>
-      <%= image_tag  @user.image,  class: "profile-pic"%><% end %></span><br>
+      <%= image_tag  @user.image,  class: "profile-pic"%><% end %>
+      </span><br>
       Grade: <%= @user.grade %><br>
       Information:<br>
       <%if @user.about%>
@@ -24,6 +25,7 @@ USER#SHOW
           <%if h%>
             <%unless h[:job]%>
               <h3><%=h[:problem].title%> has not been completed and is worth <%=h[:problem].points%></h3>
+        <div>It's part of set <%=h[:problem].problemsets.first.title%></div>
             <%else%>
               <%problem =  h[:problem]%>
               <%job =  h[:job]%>
@@ -54,21 +56,16 @@ USER#SHOW
     <%end%>
 
 
-    <div>
+    
+    <!-- I want it to be better owen -->
+    <!--div>
       <h1>Problem data:</h1><br>
       <% @user.jobs.each do |u| %>
      <%end%>
-    </div>
+    </div-->
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <!-- Old way -->
+
     <p>
       <h1>Problem data:</h1><br>
 

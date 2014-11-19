@@ -14,9 +14,7 @@ User List
     <br>
     <div class="name">Listing all Users:</div> <br>
     <% @users.each do |u| %>
-      <div class="name"> <%= link_to u.name, user_path(u) %></div>
+      <div class="name"> <%= link_to u.name, user_path(u) %><%if admin? %><h6><%= link_to '  Edit', edit_user_path(u) %></h6><%end%></div>
     <% end %>
-    
   </body>
-  
 </html>

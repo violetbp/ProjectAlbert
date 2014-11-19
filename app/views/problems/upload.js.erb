@@ -1,1 +1,3 @@
-$("#result_<%=@job.problem_id%>").html(<%=@result%>);
+//$("#result_<%=@job.problem_id%>").empty().append('<%= @result %>')//shows newline, but also array
+
+$("#result_<%=@job.problem_id%>").html(<%= @result %>);

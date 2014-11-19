@@ -11,7 +11,10 @@ function compare {
 			return 0
 		else		
 			echo "Does not match expected output"
-			diff -y --strip-trailing-cr -B -Z -W 30 $1 $2
+		#	diff -y --strip-trailing-cr -B -Z -W 30 $1 $2
+      cat $1
+      echo " | "
+      cat $2
 			return 1
 	fi
 }
@@ -28,6 +31,7 @@ function run {
 			memGiven=64000
 			Xmx="-Xmx"
 			m="m"
+      #TODO dosnt return error code if cant find main class
 			../scripts/memtimelimit -t $timeGiven java $Xmx$memGiven$m -Xms8m $(basename $source .java)>output<$1 2> runtime.err ;;
 		python )
 			timeGiven=8
@@ -40,7 +44,7 @@ function run {
 	esac
 	
 	execrtrn=$?
-
+#echo $execrtrn
 	if [ $execrtrn == "128" ] ; then
 		cat runtime.err
 		return 1
@@ -109,6 +113,9 @@ if [ $lang == "null" ] ; then
 	cleanup 1
 fi
 
+#THINGS TO DO
+#Remove Pacage defeimtions
+#rename class to file name
 if [ $lang == "java" ] ; then
 	if ! (javac -d . $source 2> compile.err) ; then
 		echo "Java Compilation Errors:"

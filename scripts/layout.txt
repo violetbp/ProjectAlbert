@@ -1,0 +1,97 @@
+
+Interactive Autograder
+This version of autograder interacts with program
+Teacher makes program that receives user imput and then outputs
+this is then run alongside the user program, so that the autograder can respond to user program
+
+example: number guessing game
+
+make two shells
+in one run teacher program
+take that output and put as input to user
+in other put user program
+output goes to teacher program as input
+if user program has no runtime errors, teacher program 
+
+Static Autograder
+What already excists, gives premapped input to output, program given input must produce output
+
+Note: Everything by ID
+IDs MUST BE UNIQUE
+
+Layout For Filesystem
+
+In Teachers Box:
+  Users
+    User 1
+      Problem 1
+        Submission 1 (By Time)
+          Resault
+          Source Code
+          Runtime Error (if neccasary)
+          Compile Error (if neccasary)
+          Exacutable (temperay)
+          Input/Output Log (Interactive Grader Mode)
+          Input/Output Mapping (Static Grader Mode)
+          Teacher Comments/Grade (If teacher grade)
+        Submission 2 (By Time)
+        Submission 3 (By Time)
+      Problem 2
+      ect
+    ect
+  Problems
+    Problem 1
+      Grading.dat
+      autograder(example of static grading)
+        1.in
+        1.out
+        2.in
+        2.out
+        ect
+    Problem 2 (interactive grading)
+      grading.dat
+      source
+        1.java
+        2.java
+        3.java
+      exacute
+        1.class
+        2.class
+        3.class
+        
+Functions/Scripts (BASH or ruby functions with lots of bash commands)
+
+    When user submit file put file in Box/User/UserID/
+-> UserSubmit FilePath UserID ProblemID
+
+    When Interactive source updated
+-> InterctAdminCompile problemID
+
+    Generate Output from input
+-> staticAdminComplete prolemID
+
+Helper Programs
+
+ Compile
+   CompileJava
+   CompileCpp
+   CompileC
+   ProccsesPy
+ AutoGradeStatic
+   GradeStaticJava
+   GradeStaticExe (Cpp+C)
+   GradeStaticPy
+ AutoInteractiveStatic
+   GradeInteractiveJava
+   GradeInteractiveExe (Cpp+C)
+   GradeInteractivePy
+ Run
+   RunJava
+   RunCpp
+   RunPy
+   
+   
+Grader Settings
+-Require Teacher Look at before give points
+-off, static or interactive
+-verbosity level: 

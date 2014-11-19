@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  layout "problemset"
   before_action :set_group,  only: [:show, :edit, :update, :destroy]
   before_filter :authorize, :except => [:index, :show ]
 
@@ -26,6 +27,8 @@ class GroupsController < ApplicationController
   
   def show
     @group = Group.find(params[:id])
+    
+    
     
     #@jobs = Job.where("user_id = #{@group.users.each.id}").order("problem_id")
     

@@ -21,7 +21,9 @@ Show Group
       <% end %>
     </div>
     <% @group.get_leaderboard.each do |u| %>
-    <% end %>
-    <%= u.name %> with <%= u.gpoints, locals= @group%> points.<br>
+   
+    <%= u.name %> with <%= u.gpoints(@group)%> points.<br>
+     <% end %>
   </body>
+  
 </html>

@@ -2,10 +2,6 @@
 Menubar for problemsets
 -->
 
-<head>
-    <title></title>
-</head>
-<body>
 <% content_for :top_menu do %>
   <!-- % SideBar % -->
   <div class="topbar" id="topbar" >
@@ -15,7 +11,7 @@ Menubar for problemsets
         <a href="#" class="dropdown-toggle topbar-element" data-toggle="dropdown"> <%= problemset.title %></a>
           <ul class="dropdown-menu pull-left">
             <% problemset.problems.each do |problem| %>
-            <li><%= link_to(problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", class:"topbar-text scrolll")%></li>
+            <li><%= link_to(problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", class:"topbar-text scroll")%></li>
             <%end%>
           </ul>
         </span>
@@ -28,5 +24,3 @@ Menubar for problemsets
 <% end %>
  
   <%= render template: "layouts/application" %>
-  
-</body>

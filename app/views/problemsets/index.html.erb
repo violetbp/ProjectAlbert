@@ -6,7 +6,12 @@
 
 <div style="padding-top:20px;">
   <%if @problemsets%>
-  <div id="accordion-collapse">
+  <%if @problemsets.size == 1%>
+    <script type="text/javascript">
+      window.location.href = "/problemsets/<%= @problemsets.first.id %>"
+    </script>
+  <%end%>
+  <div id="collapse">
     <% @problemsets.each do |problemset| %> 
       <h1><%= link_to problemset.title, problemset %><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset) %><%end%></h1> 
       <div class="problem-list-body">
@@ -15,9 +20,10 @@
         <% problemset.problems.each do |problem| %>
           <h4 style="padding-left:10px;">
             <%= link_to problem.title, problem, title: problem.explanation, rel: 'tooltip'%>
-                                  <%if admin? %><%= link_to '  Edit', edit_problem_path(problem) %><%end%></h4>
+                    <%if admin? %><%= link_to '  Edit', edit_problem_path(problem) %><%end%></h4>
         <%end%>
         </p>
+
       </div>
     <%end%>
   

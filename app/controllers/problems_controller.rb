@@ -1,4 +1,5 @@
 class ProblemsController < ApplicationController 
+  layout "problemset"
   #makes var @problem at bottom for those pages
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
   #auth for admins
@@ -23,8 +24,11 @@ class ProblemsController < ApplicationController
 
 
     #runs file, puts output in res somehow
+    puts "bash scripts/albert.sh #{@job.file_path} grades/#{params[:problem_id]}"
     res = IO.popen("bash scripts/albert.sh #{@job.file_path} grades/#{params[:problem_id]}")
-    @result = res.readlines.to_s
+    @resultarr = res.readlines
+    @result = @resultarr.to_s
+
     @job.points = 0
 
 
@@ -40,8 +44,21 @@ class ProblemsController < ApplicationController
     @job.previous_output = @result
     @job.save
     current_user.save
+    #@result.tr('\n','<br>')
+    
     puts "OUTPUT:"
-    puts @job.previous_output
+    puts @result
+    @outp = ""
+    @resultarr.each do |t|
+      puts t
+      @outp << t
+      @outp << "<br>"
+    end
+    #@outp.tr(',', '')
+    @outp = @outp.to_s
+    puts @outp
+  
+
     respond_to do |format|
       format.js
     end
@@ -93,10 +110,8 @@ class ProblemsController < ApplicationController
   # GET /problems/new
   def new
     @problem = Problem.new
-    nextId = Problem.last.id.to_i+1
-    puts @problem.id
-    populate(nextId)
-    get_input_output_names(nextId)
+    
+    
     respond_to do |format|
       format.html
       format.js
@@ -131,6 +146,7 @@ class ProblemsController < ApplicationController
   # POST /problems.json
   def create
     @problem = Problem.new(problem_params)
+    populate(@problem.id)
     FileUtils::mkdir_p "grades/#{@problem.id}"
     respond_to do |format|
     if @problem.save

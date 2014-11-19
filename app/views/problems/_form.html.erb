@@ -1,13 +1,13 @@
 
 
-<%= form_for(problem) do |f| %>
+<%= form_for(@problem) do |f| %>
   <div class="form-group new-problem-fields">
-  <% if problem.errors.any? %>
+  <% if @problem.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
+      <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
 
       <ul>
-      <% problem.errors.full_messages.each do |message| %>
+      <% @problem.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -43,7 +43,7 @@
     
     
         
-    
+    <%if @inarr %>
     <%= form_tag url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, :method => 'get' do %>
 
       <%= label_tag(:input, "Input") %>
@@ -77,7 +77,7 @@
         <% end %>
       </div> 
     </div>
-  <%= hidden_field_tag(:idnum, problem.id) %>
+  <%= hidden_field_tag(:idnum, @problem.id) %>
 
   <%= file_field_tag 'script', style:"float:left;display:inline-block;" %>
 <%= submit_tag "Generate data from script", :action => 'update_test_data', :class => 'btn btn-default', :style => 'display:inline-block;', :controller => 'problems'%>
@@ -92,4 +92,5 @@
 
 <% end %>
 
+<% end %>
 <!--%= submit_tag "add data", :action => 'makedir', :class => 'btn btn-default add-data', :controller => 'problems'%-->

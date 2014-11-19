@@ -1,5 +1,20 @@
-on create problem make folder and such
+MANUAL GRADING!!!!!!!!!!!!
 
+
+
+CRITICAL ISSUES:
+when create problem but dont finish creating it breaks
+back buttons need to go back not go to problems
+rename file after run it
+edit problemsets in admin menu needs to work
+delete test data
+implement due date
+all topbars are problemsets
+isadmin not viewable to users editing profile
+
+
+
+NOT CRITICAL ISSUES:
 newline on output
 teams
 id instead of name for user - folder creation
@@ -12,16 +27,14 @@ completion amount
 edit models
 add user edit button
 users controler line 19: @best = Array.new(Problem.last.id) does not accoutnt for lack of problems
+modal edit problemset
+tootip not useing jquery
 
 
-Critical Issues:
-back buttons need to go back not go to problems
-rename file after run it
-edit problemsets in admin menu needs to work
-delete test data
-implement due date
-all topbars are problemsets
-isadmin not viewable to users editing profile
+-Avery Planned Features
+Sherlock Plagarism Detection http://www2.warwick.ac.uk/fac/sci/dcs/research/ias/software/sherlock/
+
+
 
 
 usefull code

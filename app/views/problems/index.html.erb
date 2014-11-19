@@ -4,7 +4,7 @@
 
 <!-- pretend there is stuff here thats like importaint and such-->
 <body>
-   <!-- % SideBar % -->
+   <!-- % SideBar % --
   <div class="topbar" id="topbar" >
     <% @problemsets.each do |problemset| %>
     <span class="dropdown">
@@ -17,21 +17,17 @@
       </span>
     <%end%>
   </div>
-  <div id="content">
-    
-    <!--Listing problems -->
-  <% color = ["#edcc78","#f2c041","#edcc78","#f2c041","#edcc78"] %>
+  <div id="content"-->
+
+  
+  
+  <% color = ["#c6afc6","#CDD4EB","#b76e8b","#DBC4F6","#c9fcfc"] %>
   <%colorId = 0 %>
-  <div style="padding-top:10px;"> 
-    <% @problemsets.each do |problemset| %>
-      <div style="background:#CDD4EB;padding:100 100 100 100;">
-        <h1><%=problemset.title%></h1>
-           <h3><%=problemset.explanation%></h3>
-        
-           <% problemset.problems.each do |problem| %>
-        
-            <div id="p<%= problem.id %>" class="offset"></div>
-        <div  class="problem-base" style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
+      <% @problems.each do |problem| %>
+        <% if problem.id.to_i %>
+          
+        <div id="p<%= problem.id %>" class="offset"></div>
+        <div  class="problem-base">
           <%colorId=colorId+1%>
           <span  class="name"><span class="title"><%= problem.title %></span>
           <span class="posted-info">
@@ -62,22 +58,24 @@
           </div>
 
         </div>
-        <%end%>
-      </div>
-    <%end%>
-  </div>
+<% end %>
+      <% end %>
+    <br>
    
-  
-  
-  
-  <!--
-   <h3>-----all problems listed below here---------</h3>
-  <% color = ["#c6afc6","#CDD4EB","#b76e8b","#DBC4F6","#c9fcfc"] %>
+  </div>
+    
+    <!--Listing problemsets --
+  <% color = ["#edcc78","#f2c041","#edcc78","#f2c041","#edcc78"] %>
   <%colorId = 0 %>
-      <% @problems.each do |problem| %>
-        <% if problem.id.to_i >15%>
-          
-        <div id="p<%= problem.id %>" class="offset"></div>
+  <div style="padding-top:10px;"> 
+    <% @problemsets.each do |problemset| %>
+      <div style="background:#CDD4EB;padding:100 100 100 100;">
+        <h1><%=problemset.title%></h1>
+           <h3><%=problemset.explanation%></h3>
+        
+           <% problemset.problems.each do |problem| %>
+        
+            <div id="p<%= problem.id %>" class="offset"></div>
         <div  class="problem-base" style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
           <%colorId=colorId+1%>
           <span  class="name"><span class="title"><%= problem.title %></span>
@@ -109,9 +107,8 @@
           </div>
 
         </div>
-<% end %>
-      <% end %>
-    <br>
-   
-  </div>-->
+        <%end%>
+      </div>
+    <%end%>
+  </div-->
   </body>
