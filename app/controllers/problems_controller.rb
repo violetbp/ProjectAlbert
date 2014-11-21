@@ -1,9 +1,8 @@
 class ProblemsController < ApplicationController 
-  layout "problemset"
   #makes var @problem at bottom for those pages
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
   #auth for admins
-  before_filter :authorize, :except => [:index, :show ]
+  before_filter :authorize, :except => [:index, :show, :upload ]
   #import
   require 'fileutils'
 
@@ -44,21 +43,16 @@ class ProblemsController < ApplicationController
     @job.previous_output = @result
     @job.save
     current_user.save
-    #@result.tr('\n','<br>')
     
-    puts "OUTPUT:"
-    puts @result
-    @outp = ""
+    #puts "OUTPUT:"
+    @outp = Array.new
     @resultarr.each do |t|
-      puts t
+      #puts t
       @outp << t
       @outp << "<br>"
     end
-    #@outp.tr(',', '')
-    @outp = @outp.to_s
-    puts @outp
-  
-
+    @result = @outp.to_s
+    #puts @result
     respond_to do |format|
       format.js
     end
@@ -111,7 +105,6 @@ class ProblemsController < ApplicationController
   def new
     @problem = Problem.new
     
-    
     respond_to do |format|
       format.html
       format.js
@@ -146,8 +139,8 @@ class ProblemsController < ApplicationController
   # POST /problems.json
   def create
     @problem = Problem.new(problem_params)
-    populate(@problem.id)
     FileUtils::mkdir_p "grades/#{@problem.id}"
+    populate(@problem.id)
     respond_to do |format|
     if @problem.save
       format.html { redirect_to @problem, notice: 'Problem was successfully created.' }

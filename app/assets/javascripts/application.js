@@ -67,3 +67,12 @@ $(function() {
 $(function() {
     $( document ).tooltip();
   });
+
+function toggle(selector, sign){
+  if ($(selector).css("height") != '0'){
+    $(selector).animate({"height":100%}, 2);
+    $(sign).
+  } else {
+    $(selector).animate({"height":0%}, 2)
+  }
+}

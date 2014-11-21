@@ -25,12 +25,21 @@ USER#SHOW
           <%if h%>
             <%unless h[:job]%>
               <h3><%=h[:problem].title%> has not been completed and is worth <%=h[:problem].points%></h3>
-        <div>It's part of set <%=h[:problem].problemsets.first.title%></div>
+              <div><%if h[:problem].problemsets.first%>
+                      It's part of set <%=h[:problem].problemsets.first.title%>
+                   <%else%>
+                      It't not in a set yet!
+                   <%end%>
+              </div>
             <%else%>
               <%problem =  h[:problem]%>
               <%job =  h[:job]%>
-              <%if problem.points == job.points%>
-                <%color = "green"%>
+              <% if job.points != 0%>
+                <%if job.points >= problem.points%>
+                  <%color = "green"%>
+                <%else%>
+                  <%color = "orange"%>
+                <%end%>
               <%else%>
                 <%color = "red"%>
               <%end%>
@@ -74,10 +83,9 @@ USER#SHOW
           <div id="accordion">
             <% if num != j.problem_id %>
               <% num = j.problem_id %>
-              <% curbest = @best[j.problem_id] %>
+              <% curbest = @user.get_best(j.problem_id) %>
               <% begin %>
                 <h2><%= Problem.find(j.problem_id).title%></h2>
-                Your best result was attempt <%= @best[j.problem_id].attempt%>, with <%= curbest.points%> points
                 <br><br>
               <%rescue%>Deleted problem, blame Max. <%end%>
             
@@ -86,7 +94,7 @@ USER#SHOW
             <!--begin listing problems-->
             Attempt number: <%= j.attempt%><br>
             <div class="data">
-              Submitted: <%= j.created_at %><br>
+              Submitted: <%= j.created_at.strftime("%B #{j.created_at.day.ordinalize}, at %I:%M %p") %><br>
               Output: <%= j.previous_output%><br>
             </div>
               

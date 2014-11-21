@@ -1,5 +1,4 @@
 class GroupsController < ApplicationController
-  layout "problemset"
   before_action :set_group,  only: [:show, :edit, :update, :destroy]
   before_filter :authorize, :except => [:index, :show ]
 

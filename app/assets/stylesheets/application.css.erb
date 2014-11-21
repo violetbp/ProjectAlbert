@@ -23,6 +23,7 @@ body {
 
 a, a:hover{
   background-color:transparent !important;
+  color:#9f85a8;
 }
 
 #new-problem-header{
@@ -76,7 +77,8 @@ nav.main{
   left:0px;
   width:100%;
   padding: 15px;
-  background-color:#9f85a8;
+  //background-color:#9f85a8;
+  background:#FFF;
   height:61px;
   z-index:1000000000;
   border-bottom: 1px solid #b3b3b3;
@@ -123,7 +125,7 @@ a.navbar-button:link, a.navbar-button:visited{
   text-decoration: none;
 } 
 a.navbar-button:hover, a.navbar-button:active{
-  color: #cfcfcf;
+  color:#9f85a8;;
   text-decoration: none;
 }
 .navbar-button{
@@ -135,17 +137,25 @@ a.navbar-button:hover, a.navbar-button:active{
   float:center;
 }
 .navbar-main{
-  font-size:35pt;
+  font-size:15pt;
   font-family: "Helvetica-Bold", "Helvetica";
   display:inline-block;
   margin:0 auto;
 }
 .navbar-minor{
-  font-size:20pt;
-  font-family: "Helvetica";
+  font-size:15pt;
+  font-family: "Helvetica-light";
   display:inline-block;
   margin:0 auto;
 }
+.links-container{
+  
+}
+
+@keyframes shade{
+  background
+}
+
 #user-info{
   display:inline-block;
   float:right;
@@ -159,15 +169,29 @@ a.navbar-button:hover, a.navbar-button:active{
 }
 
 #container{
- position:absolute;
  margin-top:30px;
  width:100%;
- height:90%;
+ min-height:90vh;
+ margin-bottom:20px;
 }
 
 
-
 .yeild {
-  padding: 100px;
+  padding:100px;
+}
+
+#footer{
+  position:absolute;
+  width:100%;
+  min-height:50px;
+    background-color:#dcdcdc;
+}
+
+#footer-contents{
+  color:#4a4a4a;
+  text-align:center;
+  margin:20px;
+  color:#;
+  font-size:12px;
 }
 

@@ -2,32 +2,10 @@
   Problemsets show
   seems functionally complete
 -->
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-  <body>
-
-
-    <% color = ["#c6afc6","#CDD4EB","#99e8a6","#a4b0f2","#c9fcfc"] %>
-    <% color = ["rgba(0, 0, 0, 0)"] %>
-
-    <%colorId = 0 %>
-
-    <div style="background:#CDD4EB;">
       <h1><%=@problemset.title%></h1> <%= link_to 'Edit', edit_problemset_path(@problemset) %> | <%= link_to 'Back', problemsets_path %>
       <h3><%=@problemset.explanation%></h3>
 
       <% @problemset.problems.each do |problem| %>
-      <div  style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
-        <%colorId=colorId+1%>
         <%= render partial: "render_problem.html.erb", locals:{problem: problem}%>
-      </div>
       <%end%>
-    </div>
 
-
-
-
-
-  </body>
-</html>

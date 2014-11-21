@@ -15,14 +15,25 @@ class User < ActiveRecord::Base
 
   def best
     if Problem.last
-      @best = Array.new(Problem.last.id)#max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
+      @best = Array.new #max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
       Problem.all.each do |p|
-          @best[p.id] = {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("points").last}
+          @best << {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("points").last}
       end 
     else
-    @best = Array.new(0)
+      @best = Array.new(0)
     end
+    puts @best
     @best
+  end
+  
+  def get_best(problemid)
+    @indbest = nil
+    best.each do |b|
+      if b[:problem].id == problemid
+        @indbest = b[:problem]
+      end
+    end
+    @indbest
   end
   
   def points

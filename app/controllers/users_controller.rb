@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  layout "problemset"
   before_action :set_user,  only: [:show, :edit, :update, :destroy]
   
   #before_filter :authorize, :except => [:index, :show ] authenticates differently

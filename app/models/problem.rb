@@ -8,7 +8,7 @@ class Problem < ActiveRecord::Base
   
   private
     def default_values
-      exIn = " "
+      exIn  = " "
       exOut = " "
     end
 end

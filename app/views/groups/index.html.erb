@@ -21,6 +21,12 @@ Groups index
           <% end %><br><br>
       <% end %>
     <br><br>
-
+<script>
+  var firepadDiv = document.getElementById('firepad');
+var firepadRef = new Firebase('<firebase url...>');
+var codeMirror = CodeMirror(firepadDiv, { lineWrapping: true });
+var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+    { richTextShortcuts: true, richTextToolbar: true });
+    </script>
   </body>
 </html>

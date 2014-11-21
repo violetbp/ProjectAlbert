@@ -1,0 +1,12 @@
+autograde="static"
+#static, interactive, off
+
+
+inputs=(1.in, 2.in, 3.in)
+outputs=(1.in, 2.in)
+
+
+
+#bash teacherSubmit ProblemID lang sourceFile1 sourceFile2
+#bash userSubmit ProblemID UserID SubmissionID lang sourceFile1 sourceFile2
+#bash run ProblemID UserID SubmissionID

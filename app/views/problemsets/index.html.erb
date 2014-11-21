@@ -2,31 +2,32 @@
   Problemsets index
   seems functionally complete
 -->
-
-
-<div style="padding-top:20px;">
   <%if @problemsets%>
-  <%if @problemsets.size == 1%>
-    <script type="text/javascript">
-      window.location.href = "/problemsets/<%= @problemsets.first.id %>"
-    </script>
-  <%end%>
-  <div id="collapse">
-    <% @problemsets.each do |problemset| %> 
-      <h1><%= link_to problemset.title, problemset %><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset) %><%end%></h1> 
-      <div class="problem-list-body">
-        <p>
-        <h3 style="padding-left:5px;"><%=problemset.explanation%></h3>
-        <% problemset.problems.each do |problem| %>
-          <h4 style="padding-left:10px;">
-            <%= link_to problem.title, problem, title: problem.explanation, rel: 'tooltip'%>
-                    <%if admin? %><%= link_to '  Edit', edit_problem_path(problem) %><%end%></h4>
-        <%end%>
-        </p>
-
-      </div>
-    <%end%>
   
+  <div id="ps-list">
+    <% problemset_ct = 1 %>
+    <% @problemsets.each do |problemset| %> 
+      <span class="ps-info">
+      <div class="ps-title">
+        <%= link_to problemset.title, problemset, class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
+      </div>
+      <div class="ps-explanation">
+        <span><%= raw problemset.explanation.gsub(/\n/, '<br>')%></span><span class="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span>
+      </div>
+      <div class="ps-problems-list">
+        <% list_ct = 1%>
+        <% problemset.problems.each do |problem| %>
+        <span class="ps-list-element">
+            <%= link_to problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", title: problem.explanation, rel: 'tooltip'%>
+        </span>
+        <%= raw "<br>" if list_ct % 2 == 0 %>
+        <% list_ct += 1 %>
+        <%end%>
+    </div>
+    </span>
+    <%= raw "<br>" if problemset_ct % 2 == 0 %> 
+    <%end%>
+
   </div>
   <%else%>
   <!--User has no problemsets-->
@@ -47,6 +48,6 @@
       <%end%>
    <%end%>
   </h3>
-  
+  </div>
   <%end%>
-</div>
+  

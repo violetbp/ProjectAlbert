@@ -33,12 +33,32 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+  
+  #not finished
+  helper_method :authorize?  
+  protected
+  def authorized?
+    current_user && (current_user == params[:id] || current_user.is_admin)
+  end    
+  helper_method :is_user_authorized?
+  def is_user_authorized
+    unless authorized?
+      flash[:error] = "Unauthorized access";
+      render_401
+      false
+    end
+  end
+  #end not finished
 
   
   private 
   def set_problemsets
     if current_user
-      @problemsets = current_user.problemsets
+      if admin?
+        @problemsets = Problemset.all
+      else
+       @problemsets = current_user.problemsets
+      end 
     else
       @problemsets = nil
     end  

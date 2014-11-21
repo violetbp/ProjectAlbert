@@ -20,16 +20,13 @@
   <div id="content"-->
 
   
-  
-  <% color = ["#c6afc6","#CDD4EB","#b76e8b","#DBC4F6","#c9fcfc"] %>
-  <%colorId = 0 %>
+ 
       <% @problems.each do |problem| %>
         <% if problem.id.to_i %>
           
         <div id="p<%= problem.id %>" class="offset"></div>
         <div  class="problem-base">
-          <%colorId=colorId+1%>
-          <span  class="name"><span class="title"><%= problem.title %></span>
+          <span  class="name"><span class="problem-title"><%= problem.title %></span>
           <span class="posted-info">
             <div class="points">You have gotten <%current_user%> points</div><br>
             <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
@@ -65,8 +62,6 @@
   </div>
     
     <!--Listing problemsets --
-  <% color = ["#edcc78","#f2c041","#edcc78","#f2c041","#edcc78"] %>
-  <%colorId = 0 %>
   <div style="padding-top:10px;"> 
     <% @problemsets.each do |problemset| %>
       <div style="background:#CDD4EB;padding:100 100 100 100;">
@@ -76,8 +71,7 @@
            <% problemset.problems.each do |problem| %>
         
             <div id="p<%= problem.id %>" class="offset"></div>
-        <div  class="problem-base" style="background: linear-gradient(<%=color[colorId]%>,<%=color[colorId]%>,<%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId]%>, <%=color[colorId+1]%>);">
-          <%colorId=colorId+1%>
+        <div  class="problem-base" >
           <span  class="name"><span class="title"><%= problem.title %></span>
           <span class="posted-info">
             <div class="points">You have gotten <%current_user%> points</div><br>

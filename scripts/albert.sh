@@ -146,10 +146,12 @@ for set in $gradefolder/* ; do
 	#echo "--- Test `echo $dir| cut -d'/' -f2-` ---"
   
   #make ignore gen program
+  if [ -d $set ] ; then
 	run $set/in $set/out
 	if [ $? == 1 ] ; then
 		cleanup 1
 	fi
+  fi
 done
 	
 cleanup 0

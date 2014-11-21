@@ -1,6 +1,5 @@
 class ProblemsetsController < ApplicationController
 
-  layout "problemset"
   before_action :set_problemset, only: [:show, :edit, :update, :destroy]
   before_filter :authorize, :except => [:index, :show ]
 

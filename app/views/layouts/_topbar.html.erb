@@ -1,0 +1,23 @@
+<!--
+Menubar for problemsets
+-->
+
+  <!-- % SideBar % -->
+  <div class="topbar" id="topbar" >
+    <%if @problemsets%>
+      <% @problemsets.each do |problemset| %>
+      <span class="dropdown">
+        <a href="#" class="dropdown-toggle topbar-element" data-toggle="dropdown"> <%= problemset.title %></a>
+          <ul class="dropdown-menu pull-left">
+            <% problemset.problems.each do |problem| %>
+            <li><%= link_to(problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", class:"topbar-text scroll")%></li>
+            <%end%>
+          </ul>
+        </span>
+      <%end%>
+    <%else%>
+      <a href="#" class="dropdown-toggle topbar-element" data-toggle="dropdown"> No Problemsets to display, are you logged on?</a>
+
+    <%end%>
+  </div>
+ 
