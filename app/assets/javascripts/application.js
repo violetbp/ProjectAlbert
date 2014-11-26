@@ -17,8 +17,10 @@
 //= require jquery.iframe-transport
 //= require_tree .
 //= require bootstrap
+//= require jquery-tablesorter
 //= require jquery-ui
 //= require alerts
+//
 //require turbolinks
 
 
@@ -43,23 +45,27 @@ $(function() {
     
 });
 
-$(function() {
-    $( "#accordion" ).accordion();
-});
 
+$(function() {
+    $( "#accordion-norm" ).accordion({
+    //  want this but can't have it: collapsible: true
+      heightStyle: "content"
+    });
+});
 
 $(function() {
     $( "#accordion-collapse" ).accordion({
-      //want this but can't have it: collapsible: true
-      heightStyle: "content"
+      collapsible: true
+     // heightStyle: "content"
     });
 });
 
 
 //single collapse
 $(function() {
-  $('.collapse').click(function(){
-    $('.content-one').slideToggle('slow');
+  $('.collaps').click(function(){
+    var $input = $( this );
+    $('#collapse-' + $input.attr( 'id' )).slideToggle('slow');
   });
 });
 
@@ -68,11 +74,6 @@ $(function() {
     $( document ).tooltip();
   });
 
-function toggle(selector, sign){
-  if ($(selector).css("height") != '0'){
-    $(selector).animate({"height":100%}, 2);
-    $(sign).
-  } else {
-    $(selector).animate({"height":0%}, 2)
-  }
-}
+$(document).ready(function(){
+  $(".collapse").hide();
+});

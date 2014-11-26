@@ -33,10 +33,12 @@ edit user
       <%= f.label :about %><br>
       <%= f.text_area :about, class:"form-control" %>
     </div>
+    <%if admin?%>
     <div class="field">
       <%= f.label :is_admin, "User is admin"%>
       <%= f.check_box :is_admin %>
     </div>
+    <%end%>
     
   <div class="actions">
     <%= f.submit "Submit", class:"btn btn-default"%>

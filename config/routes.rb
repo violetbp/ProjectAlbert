@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
+
   #get 'users/new'
 
   resources :problemsets
   resources :problems
   resources :users
   resources :groups
+  resources :jobs
+  
+  get '/jobs/set_submitted/:id', to: 'jobs#set_submitted', as: 'set_submitted' #CHANGE THIS NEXT 
+  get '/jobs/set_not_submitted/:id', to: 'jobs#set_not_submitted', as: 'set_not_submitted'#fahislkf;sajdf;lkjsadk;lfjask;ldfj;lksajfk;lajds;lkfasjdlfajsdflkdsj;
+
+  get '/patients/:id', to: 'patients#show', as: 'patient'
 
   resources :process_file
   
@@ -16,7 +23,7 @@ Rails.application.routes.draw do
   match "/upload/.format", to: "problems#upload", via: "post"
   match "/update_test_data/.format", to: "problems#update_test_data", via: "get"
   match "/makedir/.format", to: "problems#makedir", via: "get"
-  
+
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'

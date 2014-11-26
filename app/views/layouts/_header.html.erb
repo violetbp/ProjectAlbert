@@ -25,7 +25,7 @@
             <li>Admin Tools</li>
               <!-- If ADMIN ACCESS -->
               <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
-            <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
+              <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
             
               <li><% link_to "View(and edit) all submissions not i", '#' %></li>
               <li><% link_to "Edit Problemsets", '#' %></li>

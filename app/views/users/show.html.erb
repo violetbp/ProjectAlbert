@@ -1,5 +1,6 @@
 <!--
 USER#SHOW
+outFile = File.new(out, "r")
 -->
 
   <head>
@@ -20,7 +21,7 @@ USER#SHOW
 
 
     <h2>Best Problems</h2>
-      <div id="accordion">
+      <div id="accordion-norm">
         <% @user.best.each do |h|%>         <!-- % @best.each do |b|%-->
           <%if h%>
             <%unless h[:job]%>
@@ -50,7 +51,14 @@ USER#SHOW
                 Your best result was attempt <%= job.attempt%>, with <%= job.points%> points<br>
                   Submitted: <%= job.created_at %><br>
                   Output: <%= job.previous_output %>
+                  
+                  <%= form_for(job) do |f| %>
+                  <%= f.hidden_field :submitted, :value => true %>
+                    <%= submit_tag "Submit", :action => 'set_submitted', :class => 'btn btn-default', :controller => 'jobs'%>
+                  <%end%>
                 </p>
+                  <pre><%=outFile = File.new(h[:job].file_path, "r").read%></pre>
+
               </div>
             <%end%>
             <%end%>
@@ -64,42 +72,52 @@ USER#SHOW
     <%= g.title %> | <%= @user.gpoints(g) %><br>
     <%end%>
 
-
-    
+    <h1>EVERYTHING BELOW HERE WILL BE REMOVED</h1>
     <!-- I want it to be better owen -->
-    <!--div>
-      <h1>Problem data:</h1><br>
-      <% @user.jobs.each do |u| %>
-     <%end%>
-    </div-->
+
+    <h1>Problem data:</h1><br>
+    <div id="accordion-collapse">
+      <% @jobs.each do |j| %>
+      <% begin %>
+      <% if Problem.find(@user.jobs.find(u.id.to_i - 1).problem_id).title == Problem.find(j.problem_id).title %>
+        <%= Problem.find(j.problem_id).title%>
+      <%end%>
+      <%rescue%><%= Problem.find(j.problem_id).title%><%end%>
+      
+      <%end%>
+    </div>
 
     <!-- Old way -->
 
     <p>
       <h1>Problem data:</h1><br>
-
-        <% num = 0 %>
+<% if @jobs.first %>
+    <% num = @jobs.first.problem_id %>          
+    <div id="accordion-collapse">
         <% @jobs.each do |j| %>              
-          <div id="accordion">
             <% if num != j.problem_id %>
-              <% num = j.problem_id %>
+              
               <% curbest = @user.get_best(j.problem_id) %>
-              <% begin %>
-                <h2><%= Problem.find(j.problem_id).title%></h2>
-                <br><br>
-              <%rescue%>Deleted problem, blame Max. <%end%>
-            
+              <h2><% begin %>
+                <%= Problem.find(j.problem_id).title%>
+                <%rescue%>Deleted problem, blame Max. <%end%>
+              </h2>
             <%end%>
-            <div>
+      
+            <% if num != j.problem_id && num != @jobs.first.problem_id%>
+              <div>              
+              <% num = j.problem_id %>
+            <%end%>
             <!--begin listing problems-->
             Attempt number: <%= j.attempt%><br>
             <div class="data">
               Submitted: <%= j.created_at.strftime("%B #{j.created_at.day.ordinalize}, at %I:%M %p") %><br>
               Output: <%= j.previous_output%><br>
             </div>
-              
-            </div>
-          </div> 
-        <% end %>
+            
+          <% end %> 
+              </div> 
+      </div>
+    <% end %> 
     </p>
   </body>

@@ -1,0 +1,19 @@
+<!--
+Jobs#Show
+-->
+
+
+id <%=@job.problem_id%><br>
+time <%=@job.time%><br>
+created at<%=@job.created_at%><br>
+updated at<%=@job.updated_at%><br>
+prev. output <%=@job.previous_output%><br>
+attempt <%=@job.attempt%><br>
+autograded points <%=@job.points%><br>
+user id<%=@job.user_id%><br>
+file path <%=@job.file_path%><br>
+style <%=@job.style%><br>
+function <%=@job.function%><br>
+solution <%=@job.solution%><br>
+submitted <%=@job.submitted %><br>
+<%= @job.to_json()%>

@@ -2,10 +2,13 @@
   Problemsets show
   seems functionally complete
 -->
-      <h1><%=@problemset.title%></h1> <%= link_to 'Edit', edit_problemset_path(@problemset) %> | <%= link_to 'Back', problemsets_path %>
-      <h3><%=@problemset.explanation%></h3>
+      <div id="problemset-header">
+        
+        <strong id="view-problemset-title"><%=@problemset.title%>:</strong> <%= link_to 'Edit', edit_problemset_path(@problemset) %> | <%= link_to 'Back', problemsets_path %>
+      <<%=raw @problemset.explanation.gsub(/\n/, '<br>')%></h3>
+      </div>
 
       <% @problemset.problems.each do |problem| %>
-        <%= render partial: "render_problem.html.erb", locals:{problem: problem}%>
+      <%= render partial: "problems/problem", locals:{problem: problem}%>
       <%end%>
 

@@ -5,3 +5,23 @@
 
 <%= link_to 'Show', @problem %> |
 <%= link_to 'Back', problems_path %>
+
+<script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+  </script>
+
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Static</a></li>
+    <li><a href="#tabs-2">Interactive A</a></li>
+    <li><a href="#tabs-3">Interactive B</a></li>
+    <li><a href="#tabs-4">SemiInteractive</a></li>
+  </ul>
+  <div id="tabs-1">
+    hi
+  </div>
+
+</div>

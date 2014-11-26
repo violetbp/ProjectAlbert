@@ -1,0 +1,76 @@
+<script>
+  $(function() {
+    $( "#progressbar" ).progressbar({
+      value: 37
+    });
+  });
+  </script> 
+
+
+
+<div id="p<%= problem.id %>" class="offset"></div>
+<div  class="problem-base">
+  <span  class="name"><span class="problem-title"><%= problem.title.titlecase() %></span>
+    <span class="posted-info">
+      <%if current_user.jobs.where("problem_id = #{problem.id}").first %>
+      <div class="points">You have gotten <%=pluralize(current_user.jobs.where("problem_id = #{problem.id}").order("points").last.points, "point") %> out of 
+        <%=pluralize(Problem.find(problem.id).points, "point") %>.</div><br>
+        <div class="time">Submitted on <%= current_user.jobs.where("problem_id = #{problem.id}").order("points").last.created_at.in_time_zone("Eastern Time (US & Canada)")%></div>                   
+      <%else%>
+        <div class="points">You have not attempted this problem.</div><br>
+        <div class="time">No submission time.</div>
+
+      <%end%>
+    </span>
+    <div id="problem-editing">
+      <% if current_user && current_user.is_admin %>
+        <br>
+         Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%><br>        
+        <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
+        <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %-->
+      <% end %>
+      <%= link_to 'Back', problems_path %>
+    </div>
+  </span>
+  <div class="instructions"> 
+    <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
+    <div class="separator"></div>
+    <div class="exInOut"> 
+      <span class=" exIn"> <h4>Example Input:</h4> <pre><%= problem.exIn %></pre> </span>
+      <span class=" exOut"><h4>Example output:</h4><pre><%= problem.exOut %></pre></span>
+    </div>
+
+  </div>
+  <div class="separator"></div>
+  <div class="status"> Status: 
+    <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
+    <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
+  </div>
+  <span class="glyphicon glyphicon-plus expand" aria-hidden="true" onclick="$('#problemslist_<%=problem.id%>').slideToggle();"></span>
+  <div class="collapse ps-problems-list" id="problemslist_<%=problem.id%>">
+    <% unless current_user.jobs.where("problem_id= #{problem.id}").count.to_i <= 0 %>
+      <%if false%> <!-- if the problem has been graded -->
+        current_user.jobs.where({problem_id: problem.id}).
+      <%else%>
+        <% @submitted = current_user.jobs.where("problem_id= #{problem.id}").sort_by{|j| j.submitted.to_s}.last %>
+        <%if @submitted.submitted %>
+          You have submitted a problem for grading!<br>
+          <%= link_to "Click here to reverse this action", :action => 'set_not_submitted', :controller => 'jobs', :id => @submitted.id%><br>
+        <%else%>
+          There are no problems submitted to the teacher yet, cliking on one will submit it.<br>
+          <% current_user.jobs.where("problem_id = #{problem.id}").sort_by{|j| j.points}.each do |j| %>
+            <%name = "Trial #{j.attempt} with #{j.points} points, submitted on #{j.created_at}." %>
+            <%= link_to name, set_submitted_path, :id => j.id%><br>
+             <% File.new(j.file_path, "r").read%>
+          <%end%>
+        <%end%>
+      <%end%>
+    <%else%>
+      You have not submitted any problems for autograding.
+    <%end%>
+  </div>
+  
+  
+
+
+</div>

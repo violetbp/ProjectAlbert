@@ -18,10 +18,7 @@ class ProblemsController < ApplicationController
     save(params[:script], params[:problem_id], @username)
     #will the next line work? from list of problems get the one pertaining to this specific problem
     @job = self.create_job(params[:problem_id], params[:script].original_filename)
-
-   
-
-
+  
     #runs file, puts output in res somehow
     puts "bash scripts/albert.sh #{@job.file_path} grades/#{params[:problem_id]}"
     res = IO.popen("bash scripts/albert.sh #{@job.file_path} grades/#{params[:problem_id]}")

@@ -1,5 +1,5 @@
-
-Interactive Autograder
+ 
+--Interactive Autograder--
 This version of autograder interacts with program
 Teacher makes program that receives user imput and then outputs
 this is then run alongside the user program, so that the autograder can respond to user program
@@ -11,10 +11,10 @@ in one run teacher program
 take that output and put as input to user
 in other put user program
 output goes to teacher program as input
-if user program has no runtime errors, teacher program 
-
-Static Autograder
-What already excists, gives premapped input to output, program given input must produce output
+if user program has no runtime errors, teacher program  ??????????????????????
+d
+--Static Autograder--
+Current system, premapped input to output, given input, program must produce output
 
 Note: Everything by ID
 IDs MUST BE UNIQUE
@@ -26,11 +26,11 @@ In Teachers Box:
     User 1
       Problem 1
         Submission 1 (By Time)
-          Resault
+          Result
           Source Code
           Runtime Error (if neccasary)
           Compile Error (if neccasary)
-          Exacutable (temperay)
+          Executable (temporary)
           Input/Output Log (Interactive Grader Mode)
           Input/Output Mapping (Static Grader Mode)
           Teacher Comments/Grade (If teacher grade)

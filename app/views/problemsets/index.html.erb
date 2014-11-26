@@ -5,28 +5,27 @@
   <%if @problemsets%>
   
   <div id="ps-list">
-    <% problemset_ct = 1 %>
-    <% @problemsets.each do |problemset| %> 
-      <span class="ps-info">
-      <div class="ps-title">
-        <%= link_to problemset.title, problemset, class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
-      </div>
-      <div class="ps-explanation">
-        <span><%= raw problemset.explanation.gsub(/\n/, '<br>')%></span><span class="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span>
-      </div>
-      <div class="ps-problems-list">
-        <% list_ct = 1%>
-        <% problemset.problems.each do |problem| %>
-        <span class="ps-list-element">
-            <%= link_to problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", title: problem.explanation, rel: 'tooltip'%>
-        </span>
-        <%= raw "<br>" if list_ct % 2 == 0 %>
-        <% list_ct += 1 %>
-        <%end%>
-    </div>
+    <span id="col-1">
+      <% array = (0..(@problemsets.count-1)/3.to_i).to_a.map{|x| x * 3}.select{|x| x <= @problemsets.count-1}%>
+      <% array.each do |ind| %>
+      <%= render partial:"problemsets/problemset", locals: {problemset: @problemsets[ind]}%>
+      <br>
+      <% end %>
     </span>
-    <%= raw "<br>" if problemset_ct % 2 == 0 %> 
-    <%end%>
+    <span id="col-2">
+      <% array = (0..(@problemsets.count-1)/3.to_i).to_a.map{|x| x * 3 + 1}.select{|x| x <= @problemsets.count-1}%>
+      <% array.each do |ind| %>
+      <%= render partial:"problemsets/problemset", locals: {problemset: @problemsets[ind]}%>
+      <br>
+      <% end %>
+    </span>
+    <span id="col-3">
+      <% array = (0..(@problemsets.count-1)/3.to_i).to_a.map{|x| x * 3 + 2}.select{|x| x <= @problemsets.count-1}%>
+      <% array.each do |ind| %>
+      <%= render partial:"problemsets/problemset", locals: {problemset: @problemsets[ind]}%>
+      <br>
+      <% end %>
+    </span>
 
   </div>
   <%else%>

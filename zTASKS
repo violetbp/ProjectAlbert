@@ -3,13 +3,12 @@ MANUAL GRADING!!!!!!!!!!!!
 
 
 CRITICAL ISSUES:
-when create problem but dont finish creating it breaks
+when create problem but dont finish creating it breaks- done?
 back buttons need to go back not go to problems
 rename file after run it
 edit problemsets in admin menu needs to work
 delete test data
 implement due date
-all topbars are problemsets
 isadmin not viewable to users editing profile
 input/output needs newline
 
@@ -28,7 +27,11 @@ edit models
 add user edit button
 users controler line 19: @best = Array.new(Problem.last.id) does not accoutnt for lack of problems
 modal edit problemset
-tootip not useing jquery
+tootip is not useing jquery
+
+
+things we REALLY dont have to do at all because its cool but not needed at all unlike the suff that makes it work and will get uni to submit more programs
+make plus sign turn to an x when opened
 
 
 -Avery Planned Features
@@ -108,3 +111,26 @@ problem destroy DO NOT ADD BACK
       format.html { redirect_to problems_url, notice: 'Problem was successfully destroyed.' }
       format.json { head :no_content }
     end
+    
+    
+ ----old list jobs
+    <% @group.users.each do |u| %>
+
+    <div id=<%=u.id%> class="collaps">
+      <span class="open"><%=u.name%></span>     
+    </div>
+      <div id="collapse-<%=u.id%>" class="probs" style="display: none; padding-left:10px">
+        <% u.jobs.each do |j|%>
+          <span class="entry"><%=Problem.find(j.problem_id).title %></span>
+          <span class="entry"><%=j.updated_at %></span>
+          <span class="entry"><%=j.points %></span>  
+          <br>
+        <% end %>
+      </div>
+    <% end %>
+    
+    
+    
+    
+    
+    

@@ -55,32 +55,30 @@
 }
 
 #ps-list{
+  margin: 0 auto;
+  margin-left:5%;
 }
 
-.ps-problems-list{
-  margin-top:10px;
-  text-align:center;
-  display:none;
-}
 
-.ps-info{ 
+.ps-info{
   margin-top:20px;
   background-color:#FFF;
   font-family: "Helvetica-light", "Helvetica";
-  width:40%;
-  max-width:30%;
+  max-width:90%;
+  min-width:90%;
   position:relative;
   display:inline-block;
   border: 1px solid #dcdcdc;
   -webkit-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
   -moz-box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
   box-shadow: 7px 7px 23px 0px rgba(102,102,102,0.52);
+  vertical-align: top;
 }
 
 .ps-title {
   font-family: "Helvetica";
   background-color:#33393d;
-  font-size:30px !important;
+  font-size:20px !important;
   width:100%;
   //padding:0 270px;
   margin: 0 auto;
@@ -99,17 +97,47 @@
 }
 
 .ps-explanation{
-  padding:10px;
-  padding-left:20px;
-  border-bottom:1px solid #b3b3b3;
-
-  
+  padding:10px 10px 10px 20px;
+  display:inline-block;
+  width:100%
 }
 
-.ps-list-element{
-  width:50%;
-  border-bottom:1px solid #b3b3b3;
-  margin-top:10px;
+.expand{
+  font-size:20px;
+  display:inline-block;
+  text-align:center;
+  float:right;
+}
+
+.ps-problems-list{
+  text-align:center;
+  padding-top:10px;
+  padding-bottom:10px;
+  border-top:1px solid #b3b3b3;
+}
+
+
+
+#col-1, #col-2, #col-3{
+  display:inline-block;
+  width:33%;
+  height:100%;
   margin:0 auto;
-  color:red;
+  vertical-align:top;
+}
+
+#problemset-header{
+  width:80%;
+  margin:auto;
+  padding-top:30px;
+  border-bottom:1px solid #b3b3b3;
+}
+
+#view-problemset-title{
+  font-size:60px;
+  text-align:center;
+}
+
+#problemset-description{
+  font-face:"helvetica-neue light";
 }

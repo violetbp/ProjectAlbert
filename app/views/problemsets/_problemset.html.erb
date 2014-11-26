@@ -1,0 +1,15 @@
+
+  <span class="ps-info">
+  <div class="ps-title">
+    <%= link_to problemset.title[0..25] << if problemset.title.length >= 25 then "..." else '' end, problemset, class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
+  </div>
+  <div class="ps-explanation">
+    <span><%= raw problemset.explanation.gsub(/\n/, '<br>')%></span><br>
+    <span class="glyphicon glyphicon-plus expand" aria-hidden="true" onclick="$('#problemslist_<%=problemset.id%>').slideToggle();"></span>
+  </div>
+  <div class="collapse ps-problems-list" id="problemslist_<%=problemset.id%>">
+    <% problemset.problems.each do |problem| %>
+        <%= link_to problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", title: problem.explanation, rel: 'tooltip'%><br>
+    <%end%>
+  </div>
+  </span>

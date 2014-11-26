@@ -1,6 +1,10 @@
 <!--
 Show Group
 -->
+<head>
+  <% javascript_include_tag "assets/jquery-tablesorter" %>
+
+</head>
 
 <%@title = "Albert|group: #{@group.title}" %>
 
@@ -22,4 +26,36 @@ Show Group
    
     <%= u.name %> with <%= u.gpoints(@group)%> points.<br>
      <% end %>
+
+      
+      
+      
+      <table id="myTable" class="tablesorter table-striped"> 
+        <thead> 
+          <tr> 
+            <th>User Name</th> 
+            <th>Problem Name</th> 
+            <th>Submission date</th> 
+            <th>Attempt</th> 
+            <th>Autograded points</th> 
+          </tr> 
+        </thead> 
+        <tbody> 
+          <% @group.users.each do |u| %>
+            <% u.jobs.each do |j|%>
+              <% if j.submitted %>
+                <tr> 
+                  <td><%= link_to 'grade', set_submitted_path(j), remote: true, id:"new-problem-button" %> | <%=u.name%></td> 
+                  <td><%=Problem.find(j.problem_id).title %></td> 
+                  <td><%=j.updated_at %></td> 
+                  <td><%=j.attempt %></td> 
+                  <td><%=j.points %></td> 
+                </tr>
+              <%end%> 
+            <%end%>
+          <%end%>
+        </tbody> 
+      </table> 
+
+    
   </body>
