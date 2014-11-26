@@ -1,11 +1,8 @@
 class JobsController < ApplicationController
-  # GET /jobs/grade/1
   before_action :set_job
 
-
+  # GET /jobs/grade/1
   def grade
-    @job = Job.find(params[:id])
-
     respond_to do |format|
       format.html
       format.js

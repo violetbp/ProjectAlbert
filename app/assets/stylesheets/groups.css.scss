@@ -6,8 +6,8 @@
   font-family: "Helvetica";
   background-color:#c7c7c7;
   font-size:30px !important;
+  padding:20px;
   width:100%;
-  
   height: 60px;
   border-bottom:1px solid #b3b3b3;
 }
@@ -23,7 +23,11 @@
 .problemsets{
   
 }
-
+.group-explanation{
+	font-size: 20px;
+	padding: 10px 20px;
+	background: #EFEFEF;
+}
 
 //list submitted problems
 

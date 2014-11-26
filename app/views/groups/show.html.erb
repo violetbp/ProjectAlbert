@@ -28,8 +28,6 @@ Show Group
      <% end %>
 
       
-      
-      
       <table id="myTable" class="tablesorter table-striped"> 
         <thead> 
           <tr> 
@@ -45,7 +43,7 @@ Show Group
             <% u.jobs.each do |j|%>
               <% if j.submitted %>
                 <tr> 
-                  <td><%= link_to 'grade', set_submitted_path(j), remote: true, id:"new-problem-button" %> | <%=u.name%></td> 
+                  <td><%= link_to 'grade', grade_path(j), remote: true, id:"new-problem-button" %> | <%=u.name%></td> 
                   <td><%=Problem.find(j.problem_id).title %></td> 
                   <td><%=j.updated_at %></td> 
                   <td><%=j.attempt %></td> 

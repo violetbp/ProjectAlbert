@@ -1,17 +1,21 @@
-<%=job.points%>
+<%=@job.points%>
 
-<pre><%=outFile = File.new(job.file_path, "r").read%></pre>
+<% if File.exists?(@job.file_path) %>
+  <pre><%=outFile = File.new(@job.file_path, "r").read%></pre>
+<% else %>
+  <pre>Output file unavalible ;(</pre>
+<% end %>
 
 
 
 
-<%= form_for(job) do |f| %>
+<%= form_for(@job) do |f| %>
   <div class="form-group new-problem-fields">
-  <% if job.errors.any? %>
+  <% if @job.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(job.errors.count, "error") %> prohibited this problem from being saved:</h2>
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this problem from being saved:</h2>
       <ul>
-      <% job.errors.full_messages.each do |message| %>
+      <% @job.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

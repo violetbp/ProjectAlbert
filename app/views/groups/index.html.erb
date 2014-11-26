@@ -7,26 +7,31 @@ Groups index
     <title></title>
   </head>
   <body>
-    <div class="name">Listing all Groups: <%= link_to 'New Group', new_group_path, remote: true, id:"new-group-button" %></div> <br>
-      <% @groups.each do |g| %>
-        <div class="title"> <%= link_to g.title, group_path(g) %><span class="edit"><%= link_to 'Edit', edit_group_path(g) %></span></div>
-           
-    <br>Users:
-    <% g.users.each do |u| %><br>
-             <%=u.name%><%if admin? %><h7><%= link_to '  Edit', edit_user_path(u) %></h7><%end%>
-          <% end %><br><br>
-    Problemsets:<br>
-          <% g.problemsets.each do |p| %>
-              <%=p.title%><%if admin? %><h7><%= link_to '  Edit', edit_problem_path(p) %></h7><%end%>
-          <% end %><br><br>
+
+    <div class="name">Listing all Groups: </div> <br><br><br>
+    <% @groups.each do |g| %>
+    <div class="problem-base" style="min-height:300px;">
+      <div class="title"> <%= link_to g.title, group_path(g) %>
+        <span class="edit"><%= link_to 'Edit', edit_group_path(g) %></span>
+      </div>
+      <div class="group-explanation">About: <%=g.explanation%></div>
+      <div class="exInOut"> 
+         <span class=" exIn"> <h4>Users:</h4>
+            <% g.users.each do |u| %>
+              <%= link_to u.name, user_path(u)%>
+              <%if admin? %><%= link_to '  Edit', edit_user_path(u) %><%end%><br>
+            <% end %>
+         </span>
+         <span class="exOut"><h4>Problemsets:</h4>
+            <% g.problemsets.each do |p| %>
+              <%= link_to p.title, problemset_path(p)%>
+              <%if admin? %><%= link_to '  Edit', edit_problemset_path(p) %><%end%><br>
+            <% end %><br>
+        </span>
+      </div>
+
       <% end %>
-    <br><br>
-<script>
-  var firepadDiv = document.getElementById('firepad');
-var firepadRef = new Firebase('<firebase url...>');
-var codeMirror = CodeMirror(firepadDiv, { lineWrapping: true });
-var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
-    { richTextShortcuts: true, richTextToolbar: true });
-    </script>
+      <br><br>
+    </div>
   </body>
 </html>

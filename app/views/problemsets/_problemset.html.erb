@@ -1,5 +1,5 @@
 
-  <span class="ps-info">
+<span class="ps-info">
   <div class="ps-title">
     <%= link_to problemset.title[0..25] << if problemset.title.length >= 25 then "..." else '' end, problemset, class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
   </div>
@@ -12,4 +12,4 @@
         <%= link_to problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", title: problem.explanation, rel: 'tooltip'%><br>
     <%end%>
   </div>
-  </span>
+</span>

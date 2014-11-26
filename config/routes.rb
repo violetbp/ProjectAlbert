@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   resources :users
   resources :groups
   resources :jobs
-  
-  get '/jobs/set_submitted/:id', to: 'jobs#set_submitted', as: 'set_submitted' #CHANGE THIS NEXT 
-  get '/jobs/set_not_submitted/:id', to: 'jobs#set_not_submitted', as: 'set_not_submitted'#fahislkf;sajdf;lkjsadk;lfjask;ldfj;lksajfk;lajds;lkfasjdlfajsdflkdsj;
+
+  get '/jobs/grade/:id', to: 'jobs#grade', as: 'grade' 
+  get '/jobs/set_submitted/:id', to: 'jobs#set_submitted', as: 'set_submitted' 
+  get '/jobs/set_not_submitted/:id', to: 'jobs#set_not_submitted', as: 'set_not_submitted'
 
   get '/patients/:id', to: 'patients#show', as: 'patient'
 
