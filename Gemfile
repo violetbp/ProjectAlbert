@@ -47,3 +47,5 @@ gem 'jquery-turbolinks'
 gem 'jquery-tablesorter'
 
 gem 'sitemap_generator'
+
+gem "jquery-fileupload-rails"

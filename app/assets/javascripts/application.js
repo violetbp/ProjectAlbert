@@ -20,6 +20,7 @@
 //= require jquery-tablesorter
 //= require jquery-ui
 //= require alerts
+//= require jquery-fileupload/basic
 //
 //require turbolinks
 

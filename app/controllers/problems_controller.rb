@@ -11,17 +11,15 @@ class ProblemsController < ApplicationController
       current_user.update(points: 0)
       current_user.save
     end
-    @shPath = File.join("public", "data", "gradingtesting")
-    @shPath = File.join("public", "data", "gradingtesting")
-    @username = current_user.name.tr(' ','_') #without spaces so the sh will run
 
-    save(params[:script], params[:problem_id], @username)
+
+    save(params[:script], params[:problem_id])
     #will the next line work? from list of problems get the one pertaining to this specific problem
     @job = self.create_job(params[:problem_id], params[:script].original_filename)
   
     #runs file, puts output in res somehow
-    puts "bash scripts/albert.sh #{@job.file_path} grades/#{params[:problem_id]}"
-    res = IO.popen("bash scripts/albert.sh #{@job.file_path} grades/#{params[:problem_id]}")
+    puts "\n----------------------\nRAN:\nbash scripts/userSubmit.sh #{current_user.id} #{params[:problem_id]} #{@job.id} java #{params[:script].original_filename}\n-------\n"
+    res = IO.popen("bash scripts/userSubmit.sh #{current_user.id} #{params[:problem_id]} #{@job.id} java #{params[:script].original_filename}")# bash userSubmit userID problemID submissionID language sourceFile1 sourceFile2...
     @resultarr = res.readlines
     @result = @resultarr.to_s
 
@@ -57,7 +55,10 @@ class ProblemsController < ApplicationController
 
 
   def get_workspace_for_problem(problem_id)
-    File.join("public", "data", current_user.name.tr(" ", "_"), problem_id) 
+    File.join("scripts", "Users", current_user.id.to_s, problem_id.to_s, "#{Job.last.id.to_i+1}") #use job id
+  end
+
+def get_langague(filename)
   end
 
   def create_job(problem_id, file_in)
@@ -67,21 +68,13 @@ class ProblemsController < ApplicationController
     job
   end
 
-  def save(script, problem_id, name)
-    directory = get_workspace_for_problem(problem_id)
-    FileUtils::mkdir_p directory
-    # create the file path
-    path = File.join(directory, script.original_filename)
-    # write the file
-    File.open(path, "wb") { |f| f.write(script.read) }
+  #save submitted program to correct place
+  def save(prog, problem_id)
+    FileUtils::mkdir_p get_workspace_for_problem(problem_id) # make the directory
+    path = File.join(get_workspace_for_problem(problem_id), prog.original_filename) # create the file path
+    File.open(path, "wb") { |f| f.write(prog.read) }         # write the file
   end
 
-
-
-
-  def _form 
-    #do i need this
-  end
 
 
   # GET /problems
