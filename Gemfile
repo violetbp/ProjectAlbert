@@ -48,4 +48,4 @@ gem 'jquery-tablesorter'
 
 gem 'sitemap_generator'
 
-gem "jquery-fileupload-rails"
+#gem "jquery-fileupload-rails"
