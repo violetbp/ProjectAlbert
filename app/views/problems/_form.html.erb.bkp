@@ -1,0 +1,91 @@
+
+
+<%= form_for(@problem) do |f| %>
+  <div class="form-group new-problem-fields">
+  <% if @problem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
+      <ul>
+        <% @problem.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :explanation %><br>
+    <%= f.text_area :explanation, class:"form-control" %>
+  </div>
+  <div class="field inlineblock">
+    <%= f.label :"Example Input" %><br>
+    <%= f.text_area :exIn, class:"form-control" %>
+  </div>
+  <div class="field inlineblock">
+    <%= f.label :"Example Output" %><br>
+    <%= f.text_area :exOut, class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :"Maximum Points" %><br>
+    <%= f.number_field :points, class:"form-control"%>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "Submit", class:"btn btn-default"%>
+  </div>
+<% end %>
+        
+<%if @inarr %>
+  <%= form_tag url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, :method => 'get' do %>
+    <%= label_tag(:input, "Input") %>
+    <div style="display:inline-block;">
+      <%c=1%>
+      <% @inarr.each do |inp| %>
+        <% inFile = File.new(inp, "r") %>
+        <% if inFile %>
+          <% content = inFile.read %>
+          <%= text_field_tag :"in#{c}", content%> <br>
+          <%c=c.to_i+1%>
+        <% else %>
+          <% puts "Unable to open file!" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= label_tag(:output, "output") %>
+    <div style="display:inline-block;">
+      <%c=1%>
+      <% @outarr.each do |out| %>
+        <% outFile = File.new(out, "r") %>
+        <% if outFile %>
+          <% content = outFile.read %>
+          <%= text_field_tag :"out#{c}", content%> <br>
+          <%c=c.to_i+1%>
+        <% else %>
+          <% puts "Unable to open file!" %>
+        <% end %>
+      <% end %>
+    </div> 
+  </div>
+  <%= hidden_field_tag(:idnum, @problem.id) %>
+
+  <%= file_field_tag 'script', style:"float:left;display:inline-block;" %>
+  <%= submit_tag "Generate data from script", :action => 'update_test_data', :class => 'btn btn-default', :style => 'display:inline-block;', :controller => 'problems'%>
+
+
+  <div class="actions">
+    <!--%= link_to button_tag( "add data", :class => 'btn btn-default add-data'), :action => 'makedir', :controller => 'problems'%-->
+
+    <%= submit_tag "Refresh Data", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
+    <%= submit_tag "Add Data", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
+  </div>
+
+  <% end %>
+
+<% end %>
+<!--%= submit_tag "add data", :action => 'makedir', :class => 'btn btn-default add-data', :controller => 'problems'%-->
