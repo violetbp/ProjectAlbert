@@ -3,10 +3,8 @@
 #bash userSubmit.sh userID problemID submissionID language sourceFile1 sourceFile2...
 
 #
-
-cd scripts
  
-set -x
+#set -x
 
 result="resault.dat"
 runtimeErr="runtime.err"
@@ -96,6 +94,7 @@ done
 
 
 #TODO make compileing safe
+#TODO make System.exit(0) must always exit zero
 
 if [ $lang == "java" ] ; then
 
