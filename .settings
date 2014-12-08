@@ -1,6 +1,7 @@
 [editor]
 ; enter your editor preferences here...
 tab_size = 2
+theme = eclipse
 [view-javascript-code]
 ; enter your view-javascript-code preferences here...
 

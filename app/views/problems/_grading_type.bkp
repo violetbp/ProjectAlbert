@@ -1,0 +1,145 @@
+<!--
+Grading partial
+-->
+
+<script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+</script>
+
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-static" class="tab-jq btn">Static</a></li>
+    <li><a href="#tabs-interA" class="tab-jq btn">Interactive A</a></li>
+    <li><a href="#tabs-interB" class="tab-jq btn">Interactive B</a></li>
+    <li><a href="#tabs-sinter" class="tab-jq btn">SemiInteractive</a></li>
+  </ul>
+<!-- TABS -->
+  <div id="tabs-static"><!-- STATIC SECTION -->
+     <h4>static grading</h4>
+        <%if @inarr %>
+          <%= form_tag( url_for(:controller => 'problems', :action => 'update_test_data'), :remote => true, multipart: true) do %>
+            <%= label_tag(:input, "Input") %>
+            <div style="display:inline-block;">
+              <%c=1%>
+              <% @inarr.each do |inp| %>
+                <% inFile = File.new(inp, "r") %>
+                <% if inFile %>
+                  <% content = inFile.read %>
+                  <%= text_field_tag :"in#{c}", content%> <br>
+                  <%c=c.to_i+1%>
+                <% else %>
+                  <% puts "Unable to open file!" %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <%= label_tag(:output, "output") %>
+            <div style="display:inline-block;">
+              <%c=1%>
+              <% @outarr.each do |out| %>
+                <% outFile = File.new(out, "r") %>
+                <% if outFile %>
+                  <% content = outFile.read %>
+                  <%= text_field_tag :"out#{c}", content%> <br>
+                  <% c=c.to_i+1%>
+                <% else %>
+                  <% puts "Unable to open file!" %>
+                <% end %>
+              <% end %>
+            </div> 
+          
+            <%= hidden_field_tag(:idnum, @problem.id) %>
+
+            <div class="actions">
+              <!--%= link_to button_tag( "add data", :class => 'btn btn-default add-data'), :action => 'makedir', :controller => 'problems'%-->
+
+              <%= submit_tag "Refresh Data", :class => 'btn btn-default', onclick: "$('#tabs').html('Submitting...');"%>
+              <%= submit_tag "Add Data", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
+            </div>
+
+         <% end %>
+
+      <% end %>
+   </div>
+  <div id="tabs-interA"><!--   interactiveA SECTION   -->
+    <h4>Full interactive grading</h4>
+    ie number guessing(low high)<br>
+    SUBMIT ONE FILE<br>
+    choose what to run first?
+    <%= form_tag(url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, remote: true) do %>
+      <%= file_field_tag 'script', style:"float:left" %>
+      <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default submit", onclick: "$('#tabs-interA').html('Updating...');" %>
+    <% end %>
+    
+  </div>
+  <div id="tabs-interB"><!--  IntereractiveB SECTION -->
+    <h4>Single instance intereactive grading</h4>
+    ie add two numbers from 1-100, we generate the number and compaire students output to that<br>ie arabic numerals to roman<br>
+    <%= form_tag(url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, remote: true) do %>
+      <%= file_field_tag 'script', style:"float:left" %>
+      <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default submit", onclick: "$('#tabs-interB').html('Updating...');" %>
+    
+    <%= select("data_creation_type", "type",%w[Integers Strings Double_Integers], { :include_blank => true }) %>
+    <div id="test">
+      blbalabladsfajskdl;fjskdfl;akjds;lfjldskfj;aslkdfsjl;fksjda;lkdsfj;lasdkfj;ldsakfj;alkdsfja
+    </div>
+      <!--%= select("person", "role_id", User.all.collect {|r| [ r.name, r.id ] }, { :include_blank => true }) %-->
+    <% end %>
+    
+    
+  </div>
+  <div id="tabs-sinter"><!-- semi Interactive SECTION -->
+    <h4>semiinteractive grading!</h4>
+    you pick data to submit, students output is compaired against your program's output<br>
+    
+    <%if @inarr %>
+          <%= form_tag url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, :method => 'get' do %>
+            <%= label_tag(:input, "Input") %>
+            <div style="display:inline-block;">
+              <%c=1%>
+              <% @inarr.each do |inp| %>
+                <% inFile = File.new(inp, "r") %>
+                <% if inFile %>
+                  <% content = inFile.read %>
+                  <%= text_field_tag :"in#{c}", content%> <br>
+                  <% c=c.to_i+1%>
+                <% else %>
+                  <% puts "Unable to open file!" %>
+                <% end %>
+              <% end %>
+            </div>
+          
+          <%= hidden_field_tag(:idnum, @problem.id) %>
+
+          <%= file_field_tag 'script', style:"float:left;display:inline-block;" %>
+          <%= submit_tag "Generate data from script", :action => 'update_test_data', :class => 'btn btn-default', :style => 'display:inline-block;', :controller => 'problems'%>
+
+
+          <div class="actions">
+            <%= submit_tag "Submit Test Data", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
+            <%= submit_tag "Add Test Case ", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
+          </div>
+
+       <% end %>
+
+      <% end %>
+  </div>
+
+</div>
+
+
+<script>
+
+$( "select" )
+  .change(function () {
+    var str = "";
+    $( "select option:selected" ).each(function() {
+      str += $( this ).text() + " ";
+    });
+    $( "#test" ).text( str );
+  })
+  .change();
+</script>

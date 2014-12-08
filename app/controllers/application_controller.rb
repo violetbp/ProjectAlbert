@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base  
+class ApplicationController < ActionController::Base
   before_action :set_problemsets
   before_action :set_users
   
@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   
   include UsersHelper
-  helper_method :current_user
+  helper_method :current_user, :populate
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
   end
@@ -21,6 +21,36 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def populate(prob)
+    numfiles = 3
+    puts "making and populting directory  scripts/Problems/#{prob}"
+    FileUtils::mkdir_p "scripts/Problems/#{prob}"
+    for num in 1..numfiles
+      inFile = File.new("scripts/Problems/#{prob}/#{num}.in", "w")
+      puts "scripts/Problems/#{prob}/#{num}.in"
+      outFile = File.new("scripts/Problems/#{prob}/#{num}.out", "w")
+      inFile.close
+      outFile.close
+    end
+    gradefile = File.new("scripts/Problems/#{prob}/graderData.conf", "w")
+    gradefile.close
+    File.open("scripts/Problems/#{prob}/graderData.conf", 'w') do |file|
+      file.write("autograde=static\n")
+      
+      file.write("inputs=( ")
+      for num in 1..numfiles
+        file.write("'#{num}' ")
+      end
+      file.write(")\n")
+      
+      file.write("declare -A outputs\n")
+      for num in 1..numfiles
+        file.write("outputs['#{num}']='#{num}'\n")
+      end
+      
+    end
+  end
+  ###############PROTECTED
   helper_method :admin?  
   protected
   def admin?
@@ -36,7 +66,6 @@ class ApplicationController < ActionController::Base
   
   #not finished
   helper_method :authorize?  
-  protected
   def authorized?
     current_user && (current_user == params[:id] || current_user.is_admin)
   end    
@@ -50,6 +79,8 @@ class ApplicationController < ActionController::Base
   end
   #end not finished
 
+  
+  
   
   private 
   def set_problemsets

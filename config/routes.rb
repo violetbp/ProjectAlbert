@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   
   #for upload file
   match "/upload/.format", to: "problems#upload", via: "post"
-  match "/update_test_data/.format", to: "problems#update_test_data", via: "get"
+  match "/update_test_data/(.format)", to: "problems#update_test_data", via: "post"
   match "/makedir/.format", to: "problems#makedir", via: "get"
 
   get 'auth/:provider/callback', to: 'sessions#create'

@@ -28,6 +28,8 @@ add user edit button
 users controler line 19: @best = Array.new(Problem.last.id) does not accoutnt for lack of problems
 modal edit problemset
 tootip is not useing jquery
+leave jobs show
+dont allow people not in problemset to access it
 
 
 things we REALLY dont have to do at all because its cool but not needed at all unlike the suff that makes it work and will get uni to submit more programs

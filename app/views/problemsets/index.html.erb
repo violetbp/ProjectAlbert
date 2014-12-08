@@ -3,7 +3,6 @@
   seems functionally complete
 -->
   <%if @problemsets%>
-  asdf
     <div id="ps-list">
       <span id="col-1">
         <% array = (0..(@problemsets.count-1)/3.to_i).to_a.map{|x| x * 3}.select{|x| x <= @problemsets.count-1}%>
@@ -26,10 +25,8 @@
         <br>
         <% end %>
       </span>
-
     </div>
   <%else%>
-fdsa
   <!--User has no problemsets-->
   <h1>You have not been added to any problem sets<%unless current_user%> and are not logged in<%end%></h1>
     <h3>

@@ -25,8 +25,8 @@ In Teachers Box:
   Users
     User 1
       Problem 1
-        Submission 1 (By Time)
-          Result
+        Submission 1 (By Time)(acctually by job.id)
+          Result (in database acctually)
           Source Code
           Runtime Error (if neccasary)
           Compile Error (if neccasary)

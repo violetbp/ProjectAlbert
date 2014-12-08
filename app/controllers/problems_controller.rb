@@ -1,4 +1,4 @@
-class ProblemsController < ApplicationController 
+class ProblemsController < GradingController 
   #makes var @problem at bottom for those pages
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
   #auth for admins
@@ -58,7 +58,9 @@ class ProblemsController < ApplicationController
     File.join("scripts", "Users", current_user.id.to_s, problem_id.to_s, "#{Job.last.id.to_i+1}") #use job id
   end
 
-def get_langague(filename)
+  def get_langague(filename)
+    puts "\n\n\n\n"
+    puts filename.to_s.split(".").last
   end
 
   def create_job(problem_id, file_in)
@@ -103,6 +105,17 @@ def get_langague(filename)
 
   # GET /problems/1/edit
   def edit
+    data = Array.new
+    path = File.join("scripts", "Problems", @problem.id.to_s, "graderData.conf")
+    f = File.open(path, "r")
+    f.each_line do |line|
+      puts line
+      data << line
+    end
+    f.close
+    puts data
+    
+    
     get_input_output_names(params[:id])
   end
 
@@ -129,32 +142,39 @@ def get_langague(filename)
   # POST /problems.json
   def create
     @problem = Problem.new(problem_params)
-    FileUtils::mkdir_p "grades/#{@problem.id}"
-    populate(@problem.id)
+    #FileUtils::mkdir_p "grades/#{@problem.id}"
+ 
+   # puts "grades/#{Problem.last.id.to_s}\n\n"
+
     respond_to do |format|
-    if @problem.save
-      format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
-      format.json { render :show, status: :created, location: @problem }
-    else
-      format.html { render :new }
-      format.json { render json: @problem.errors, status: :unprocessable_entity }
+      if @problem.save
+        populate(@problem.id.to_s)
+        format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
+        format.json { render :show, status: :created, location: @problem }
+      else
+        format.html { render :new }
+        format.json { render json: @problem.errors, status: :unprocessable_entity }
+      end
     end
-  end
   end
 
-def populate(prob)
-    puts "making and populting directory  grades/#{prob}"
-    for folder in 1..3
-      FileUtils::mkdir_p "grades/#{prob}/#{folder}"
-      inFile = File.new("grades/#{prob}/#{folder}/in", "w") 
-      outFile = File.new("grades/#{prob}/#{folder}/out", "w") 
-      inFile.close
-      outFile.close
-    end
-  end
+
 
   def update_test_data
     @folderId = params[:idnum]
+    
+    puts case params[:type]
+    when "static"
+      static(params)
+      redirect_to edit_problem_path(@folderId) and return
+    when "interA"
+
+    when "interB"
+      
+    when "sinter"
+      
+    else
+    end
     @numTests= (Dir.glob("grades/#{@folderId}/*").select {|f| File.directory? f}).count.to_i
     if params[:commit] == "Add Data"
       puts "making directory  grades/#{@folderId}/#{@numTests +1}"
@@ -197,7 +217,10 @@ def populate(prob)
       inFile.close
       outFile.close
     end
-
+    
+    respond_to do |format|
+      format.js
+    end
     redirect_to edit_problem_path(@folderId)
   end
 

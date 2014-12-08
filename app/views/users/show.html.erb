@@ -57,8 +57,11 @@ outFile = File.new(out, "r")
                     <%= submit_tag "Submit", :action => 'set_submitted', :class => 'btn btn-default', :controller => 'jobs'%>
                   <%end%>
                 </p>
+                <%if File.exists?(h[:job].file_path)%>
                   <pre><%=outFile = File.new(h[:job].file_path, "r").read%></pre>
-
+                <%else%>
+                  <span style="background:#e0e0e0">File not found ☹☹☹☹☹☹☹☹</span>
+                <%end%>
               </div>
             <%end%>
             <%end%>

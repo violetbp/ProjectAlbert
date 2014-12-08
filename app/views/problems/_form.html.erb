@@ -3,25 +3,23 @@
 
 <%= form_for(@problem) do |f| %>
   <div class="form-group new-problem-fields">
-  <% if @problem.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
-      <ul>
-        <% @problem.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
+    <% if @problem.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
+        <ul>
+          <% @problem.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title, class:"form-control" %>
   </div>
-  <div class="field">
+  <div class="field" >
     <%= f.label :explanation %><br>
-    <%= f.text_area :explanation, class:"form-control" %>
+    <%= f.text_area :explanation, class:"form-control", style:"height:200px;" %>
   </div>
   <div class="field inlineblock">
     <%= f.label :"Example Input" %><br>
@@ -31,7 +29,7 @@
     <%= f.label :"Example Output" %><br>
     <%= f.text_area :exOut, class:"form-control" %>
   </div>
-  <div class="field">
+  <div class="field inlineblock">
     <%= f.label :"Maximum Points" %><br>
     <%= f.number_field :points, class:"form-control"%>
   </div>
@@ -41,90 +39,8 @@
   </div>
 <% end %>
   
-<!--%= submit_tag "add data", :action => 'makedir', :class => 'btn btn-default add-data', :controller => 'problems'%-->
-
-
-<script>
-  $(function() {
-    $( "#tabs" ).tabs();
-  });
-</script>
-
-
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-static" class="btn btn-default">Static</a></li>
-    <li><a href="#tabs-interA" class="btn btn-default">Interactive A</a></li>
-    <li><a href="#tabs-interB" class="btn btn-default">Interactive B</a></li>
-    <li><a href="#tabs-sinter" class="btn btn-default">SemiInteractive</a></li>
-  </ul>
-<!-- TABS -->
-  <div id="tabs-static"><!-- STATIC SECTION -->
-     <h4>static grading</h4>
-        <%if @inarr %>
-          <%= form_tag url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, :method => 'get' do %>
-            <%= label_tag(:input, "Input") %>
-            <div style="display:inline-block;">
-              <%c=1%>
-              <% @inarr.each do |inp| %>
-                <% inFile = File.new(inp, "r") %>
-                <% if inFile %>
-                  <% content = inFile.read %>
-                  <%= text_field_tag :"in#{c}", content%> <br>
-                  <%c=c.to_i+1%>
-                <% else %>
-                  <% puts "Unable to open file!" %>
-                <% end %>
-              <% end %>
-            </div>
-
-            <%= label_tag(:output, "output") %>
-            <div style="display:inline-block;">
-              <%c=1%>
-              <% @outarr.each do |out| %>
-                <% outFile = File.new(out, "r") %>
-                <% if outFile %>
-                  <% content = outFile.read %>
-                  <%= text_field_tag :"out#{c}", content%> <br>
-                  <%c=c.to_i+1%>
-                <% else %>
-                  <% puts "Unable to open file!" %>
-                <% end %>
-              <% end %>
-            </div> 
-          </div>
-          <%= hidden_field_tag(:idnum, @problem.id) %>
-
-          <%= file_field_tag 'script', style:"float:left;display:inline-block;" %>
-          <%= submit_tag "Generate data from script", :action => 'update_test_data', :class => 'btn btn-default', :style => 'display:inline-block;', :controller => 'problems'%>
-
-
-          <div class="actions">
-            <!--%= link_to button_tag( "add data", :class => 'btn btn-default add-data'), :action => 'makedir', :controller => 'problems'%-->
-
-            <%= submit_tag "Refresh Data", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
-            <%= submit_tag "Add Data", :action => 'update_test_data', :class => 'btn btn-default', :controller => 'problems'%>
-          </div>
-
-       <% end %>
-
-      <% end %>
-   </div>
-  <div id="tabs-interA"><!--   interactiveA SECTION   -->
-    <h4>interactive type a grading</h4>
-    ie number guessing(low high)
-    
+ <div id="grading-type-div"> 
+  <%= render 'grading_type' %>
   </div>
-  <div id="tabs-interB"><!--  IntereractiveB SECTION -->
-    <h4>intereactive type b grading</h4>
-    ie add two numbers from 1-100, we generate the number and compaire students output to that<br>ie arabic numerals to roman
-    
-  </div>
-  <div id="tabs-sinter"><!-- semi Interactive SECTION -->
-    <h4>semiinteractive grading!</h4>
-    you pick data to submit, students output is compaired against your program's output
-
-  </div>
-
 </div>
 <!--%= submit_tag "add data", :action => 'makedir', :class => 'btn btn-default add-data', :controller => 'problems'%-->
