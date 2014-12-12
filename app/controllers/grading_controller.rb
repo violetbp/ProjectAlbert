@@ -1,10 +1,25 @@
 class GradingController < ApplicationController
     
   def static(params)
-    puts params[:in1]
+    
   end
   
+  def interA
+    
+  end
+
+  def interB
+    
+  end
+
+  def sinter
+    
+  end
+########
   def load_data(id)
     
   end
+  
+  private
+  
 end

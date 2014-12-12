@@ -25,13 +25,9 @@ class ProblemsController < GradingController
 
     @job.points = 0
 
-
     if @result[0..8].include?("Correct")
-      #current_user.points += Problem.find(params[:problem_id]).points
       @job.points = Problem.find(params[:problem_id]).points
     end
-    #@jobthing = Job.where("user_id = #{current_user.id}")
-
 
     @job.previous_output = @result
     @job.attempt = ((Job.where("user_id = #{current_user.id} AND problem_id = #{params[:problem_id]}").count.to_i)||1)
@@ -105,36 +101,24 @@ class ProblemsController < GradingController
 
   # GET /problems/1/edit
   def edit
-    data = Array.new
-    path = File.join("scripts", "Problems", @problem.id.to_s, "graderData.conf")
-    f = File.open(path, "r")
-    f.each_line do |line|
-      puts line
-      data << line
-    end
-    f.close
-    puts data
-    
-    
     get_input_output_names(params[:id])
   end
 
   def get_input_output_names(idArg)
     @nameOfFolder = idArg
-    @numTests= (Dir.glob("grades/#{@nameOfFolder}/*").select {|f| File.directory? f}).count.to_i
-    puts "#{@numTests} tests taken from folder id #{@nameOfFolder}"
-    puts Dir.glob("grades/#{@nameOfFolder}/*").select {|f| File.directory? f}
-    @inarr = Array.new(@numTests)
-    @outarr = Array.new(@numTests)
-    for folder in 1..@numTests 
-      
-      if !(File::directory?( "grades/#{@nameOfFolder}/#{folder}" ))
-        break #probably should just skip if avery does sh
-      end
-      @inarr[folder-1] = "grades/#{@nameOfFolder}/#{folder}/in"
-      @outarr[folder-1] = "grades/#{@nameOfFolder}/#{folder}/out"
+    puts "tests taken from folder id #{idArg}"
 
+    @inarr = Array.new
+    @outarr = Array.new
+    
+    Dir.glob("scripts/Problems/#{idArg}/*.in" ).each do |f|
+      @inarr << f
     end
+   
+    Dir.glob("scripts/Problems/#{idArg}/*.out").each do |f|
+      @outarr << f
+    end
+    @config = File.new("scripts/Problems/#{idArg}/tests.conf", "r").read
   end
 
 
@@ -168,12 +152,13 @@ class ProblemsController < GradingController
       static(params)
       redirect_to edit_problem_path(@folderId) and return
     when "interA"
-
+      interA(params)
     when "interB"
-      
+      interB(params)
     when "sinter"
-      
+      sinter(params)
     else
+      puts "somethings wrong"
     end
     @numTests= (Dir.glob("grades/#{@folderId}/*").select {|f| File.directory? f}).count.to_i
     if params[:commit] == "Add Data"
@@ -254,6 +239,8 @@ class ProblemsController < GradingController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def problem_params
-    params.require(:problem).permit(:title, :explanation, :exIn, :exOut, :points)
+    if admin?#no matter how hard you try you can't change a problem :P
+      params.require(:problem).permit(:title, :explanation, :exIn, :exOut, :points, :grading_type, :active_probs, :extra_probs)
+    end
   end
 end

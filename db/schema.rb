@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122195353) do
+ActiveRecord::Schema.define(version: 20141212212110) do
 
   create_table "groups", force: true do |t|
     t.string   "title"
@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 20141122195353) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "points"
+    t.string   "active_probs", default: ""
+    t.string   "extra_probs",  default: ""
+    t.string   "grading_type", default: ""
   end
 
   create_table "problems_problemsets", id: false, force: true do |t|

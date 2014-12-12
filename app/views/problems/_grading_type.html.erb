@@ -9,7 +9,8 @@ Grading partial
       <%= radio_button_tag(:type, "static")%>
       <%= label_tag(:type_static, "Static") %>
       <%= radio_button_tag(:type, "interA") %>
-      <%= label_tag(:type_interA, "OnteractiveA") %><!--changeing any of this entails changing in problems controller too-->
+      <%= label_tag(:type_interA, "OnteractiveA") %><!-- MOVE TO THE PREVIOUS FORM!!!!!!!!!!!
+changeing any of this entails changing in problems controller too-->
       <%= radio_button_tag(:type, "interB") %>
       <%= label_tag(:type_interB, "InteractiveB") %>
       <%= radio_button_tag(:type, "sinter") %>
@@ -20,14 +21,17 @@ Grading partial
     <div id="tabs-static" class="problem-base" style="padding-left:20px;"><!-- STATIC SECTION -->
        <h4>static grading</h4>
           <%if @inarr %>
-            <%= label_tag(:input, "Input") %>
+            <%= label_tag(:input, "Input") %><br>
             <div style="display:inline-block;">
               <%c=1%>
               <% @inarr.each do |inp| %>
                 <% inFile = File.new(inp, "r") %>
                 <% if inFile %>
                   <% content = inFile.read %>
-                  <%= text_field_tag :"in#{c}", content%> <br>
+                  <% if !@config.include?(c.to_s)%>
+                    <%color = "background: #ff6085" %>
+                  <% end %>
+                  <%= text_field_tag :"in#{c}", content, style: color %><br>
                   <%c=c.to_i+1%>
                 <% else %>
                   <% puts "Unable to open file!" %>
@@ -35,14 +39,14 @@ Grading partial
               <% end %>
             </div>
 
-            <%= label_tag(:output, "output") %>
+            <%= label_tag(:output, "output") %><br>
             <div style="display:inline-block;">
               <%c=1%>
               <% @outarr.each do |out| %>
                 <% outFile = File.new(out, "r") %>
                 <% if outFile %>
                   <% content = outFile.read %>
-                  <%= text_field_tag :"out#{c}", content%> <br>
+                  <%= text_field_tag :"out#{c}", content%> [enable/disable][bonus]<br>
                   <% c=c.to_i+1%>
                 <% else %>
                   <% puts "Unable to open file!" %>
