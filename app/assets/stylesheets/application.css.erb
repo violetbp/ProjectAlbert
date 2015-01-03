@@ -10,8 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require_tree .
  */
 html{
 
@@ -60,13 +60,14 @@ a, a:hover{
 #modal{
   display:none;
   position:fixed;
+  padding: 10px 10px 10px 10px;
   top:50%;
   left:50%;
-  width:600px;
-  height:500px;
+  min-width:600px;
+  min-height:500px;
   opacity:1.0 !important;
-  margin-left:-300px;
-  margin-top:-250px;
+ // margin-left:-300px;
+  //margin-top:-250px;
   z-index:100000000000000000000000000000000;
   background-color:white;
 }

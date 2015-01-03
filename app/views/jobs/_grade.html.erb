@@ -3,7 +3,9 @@
 <% if File.exists?(@job.file_path) %>
   <pre><%=outFile = File.new(@job.file_path, "r").read%></pre>
 <% else %>
-  <pre>Output file unavalible ;(</pre>
+  <pre>Output file unavalible ;(
+  <%=@job.file_path%>
+  </pre>
 <% end %>
 
 

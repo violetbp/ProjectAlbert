@@ -8,15 +8,17 @@
 /.bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
+# acctually dont /db/*.sqlite3
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log
+/log/*
 
-/tmp
+/tmp/*
 
-# ignore all test database
+# Ignore the submited files (but not problems)
+/scripts/Users
+
+# these are unused now
 /grades
-# ignore all submitted problems
 /public/data

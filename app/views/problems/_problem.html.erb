@@ -51,8 +51,8 @@
         <%else%>
           There are no problems submitted to the teacher yet, cliking on one will submit it.<br>
           <% current_user.jobs.where("problem_id = #{problem.id}").sort_by{|j| j.points}.each do |j| %>
-            <%name = "Trial #{j.attempt} with #{j.points} points, submitted on #{j.created_at}." %>
-            <%= link_to name, set_submitted_path, :id => j.id%><br>
+            <%name = "Trial #{j.attempt} with #{j.points} points, submitted on #{j.created_at} with id #{j.id}." %>
+            <%= link_to name, set_submitted_path(j)%><br>
              <% #File.new(j.file_path, "r").read%>
           <%end%>
         <%end%>

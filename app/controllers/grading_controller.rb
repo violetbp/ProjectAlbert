@@ -3,23 +3,19 @@ class GradingController < ApplicationController
   def static(params)
     
   end
-  
-  def interA
+#
+  def inter
     
   end
-
-  def interB
+#
+  def genstat
     
   end
-
+#
   def sinter
     
   end
 ########
-  def load_data(id)
-    
-  end
-  
-  private
+
   
 end

@@ -13,34 +13,50 @@
         </ul>
       </div>
     <% end %>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, class:"form-control" %>
-  </div>
-  <div class="field" >
-    <%= f.label :explanation %><br>
-    <%= f.text_area :explanation, class:"form-control", style:"height:200px;" %>
-  </div>
-  <div class="field inlineblock">
-    <%= f.label :"Example Input" %><br>
-    <%= f.text_area :exIn, class:"form-control" %>
-  </div>
-  <div class="field inlineblock">
-    <%= f.label :"Example Output" %><br>
-    <%= f.text_area :exOut, class:"form-control" %>
-  </div>
-  <div class="field inlineblock">
-    <%= f.label :"Maximum Points" %><br>
-    <%= f.number_field :points, class:"form-control"%>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit "Submit", class:"btn btn-default"%>
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class:"form-control" %>
+    </div>
+    <div class="field" >
+      <%= f.label :explanation %><br>
+      <%= f.text_area :explanation, class:"form-control", style:"height:200px;" %>
+    </div>
+    <div class="field inlineblock">
+      <%= f.label :"Example Input" %><br>
+      <%= f.text_area :exIn, class:"form-control" %>
+    </div>
+    <div class="field inlineblock">
+      <%= f.label :"Example Output" %><br>
+      <%= f.text_area :exOut, class:"form-control" %>
+    </div>
+    <div class="field inlineblock">
+      <%= f.label :"Maximum Points" %><br>
+      <%= f.number_field :points, class:"form-control"%>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Submit", class:"btn btn-default"%>
+    </div>
+    <% if @problem.id %> 
+    <div>
+      
+      <%= f.radio_button :grading_type, "static", checked: @problem.type?('static'), class: 'multiple_classes' %> 
+          <%= f.label :grading_type_static, "Static" %>
+      <%= f.radio_button :grading_type, "inter", checked: @problem.type?('inter'), class: 'multiple_classes' %> 
+          <%= f.label :grading_type_inter, "Interactive" %>
+      <%= f.radio_button :grading_type, "genstat", checked: @problem.type?('genstat'), class: 'multiple_classes' %> 
+          <%= f.label :grading_type_genstat, "GeneratedStatic" %>
+      <%= f.radio_button :grading_type, "sinter", checked: @problem.type?('sinter'), class: 'multiple_classes' %> 
+          <%= f.label :grading_type_sinter, "Semiinteractive" %>
+      <% for i in 1..@outarr.count %>
+          <%= f.check_box(:active_probs,{:multiple => true, class: '' }, i, " " )%>
+      <% end %>
+      <div id="grading-type-div"> 
+        <%= render 'grading_type' %>
+      </div>
+      
+    </div>
+    <%end%>
   </div>
 <% end %>
-  
- <div id="grading-type-div"> 
-  <%= render 'grading_type' %>
-  </div>
-</div>
 <!--%= submit_tag "add data", :action => 'makedir', :class => 'btn btn-default add-data', :controller => 'problems'%-->

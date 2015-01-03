@@ -3,8 +3,8 @@
 #bash userSubmit.sh userID problemID submissionID language sourceFile1 sourceFile2...
 
 #
- 
-#set -x
+ cd scripts
+set -x
 
 result="resault.dat"
 runtimeErr="runtime.err"
@@ -44,10 +44,10 @@ if [ $lang != "java" ] && [ $lang != "cpp" ] && [ $lang != "c" ] && [ $lang != "
 	exit 1
 fi
 
-if [ ! -f "Problems/${problemID}/${graderData}" ]; then
-	printf "SERVER ERROR - GraderData does not exist\n"
-	exit 1
-fi
+#if [ ! -f "Problems/${problemID}/${graderData}" ]; then
+#	printf "SERVER ERROR - GraderData does not exist\n"
+	#exit 1
+#fi
 
 # check if the file contains something we don't want
 #if egrep -q -v '^#|^[^ ]*=[^;]*' "Problems/${problemID}/$graderData"; then
@@ -64,15 +64,40 @@ fi
 # 	 graderData="$graderData_secured"
 #fi
 
-source "Problems/${problemID}/$graderData"
+#source "Problems/${problemID}/$graderData"
+
+autograde=$(sqlite3 ../db/development.sqlite3 "select grading_type from problems where id=${problemID}")
+
+if [ $autograde = "inter" ]; then
+autograde="interactive"
+fi
+
 #config should include
 #autograde=interactive
 #autograde=static
 #autograde=off
 
 if [ $autograde != "interactive" ] && [ $autograde != "static" ] && [ $autograde != "off" ]; then
-	printf "SERVER ERROR - config file failed\n"
+  printf "SERVER ERROR - Grading type not supported\n"
 	exit 1
+fi
+
+if [ $autograde == "interactive" ]; then
+  inputLang=java
+  inputFile=$(sqlite3 ../db/development.sqlite3 "select active_probs from problems where id=${problemID}")
+  inputNum=2
+  #do 2 tests, change eventually
+fi
+
+if [ $autograde == "static" ]; then
+  declare -A outputs
+  temp=($(sqlite3 ../db/development.sqlite3 "select active_probs from problems where id=${problemID}"))
+  for i in "${temp[@]}"
+  do
+    inputs[${#inputs[@]}] = ${i}.in
+    outputs[${i}.in] = ${i}.out
+   # do whatever on $i
+  done
 fi
 
 if [ "$#" -eq 0 ]; then

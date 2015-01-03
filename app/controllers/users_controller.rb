@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   #before_filter :authorize, :except => [:index, :show ] authenticates differently
   
   #dont think new should exist
-  #def new end
+  #def new  end
 
   def index
     @users = User.all
