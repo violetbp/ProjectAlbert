@@ -1,7 +1,9 @@
-
+<!-- 
+Problemset BOX thing for problemsets/index
+-->
 <span class="ps-info">
   <div class="ps-title">
-    <%= link_to problemset.title[0..25] << if problemset.title.length >= 25 then "..." else '' end, problemset, class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
+    <%= link_to problemset.title[0..25] << if problemset.title.length >= 25 then "..." else '' end, problemset, title: problemset.title ,class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
   </div>
   <div class="ps-explanation">
     <span><%= raw problemset.explanation.gsub(/\n/, '<br>')%></span><br>

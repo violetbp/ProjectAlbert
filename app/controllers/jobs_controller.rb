@@ -24,15 +24,23 @@ class JobsController < ApplicationController
   end
   
   def set_submitted
-    @job.submitted = true
-    @job.save
-    puts "\n-------------\nset #{@job.id}as submitted for problem #{@job.problem_id}\n-------------\n"
+    if current_user.jobs.where({ id: "#{@job.id.to_i}", submitted: "true" })
+      @job.submitted = true
+      @job.save
+      puts "\n-------------\nset #{@job.id}as submitted for problem #{@job.problem_id}\n-------------\n"
+    else
+      puts  "\n-------------\n#{@job.id} was not set as submitted for problem #{@job.problem_id}\nsince a submitted problem was dectected\n-------------\n"
+    end
     redirect_to(:back)
   end
+  
   def set_not_submitted
+    unless @job.graded
     @job.submitted = false
     @job.save
     puts "\n-------------\nset #{@job.id}as NOT submitted for problem #{@job.problem_id}\n-------------\n"
+    else
+    end
     redirect_to(:back)
   end
   

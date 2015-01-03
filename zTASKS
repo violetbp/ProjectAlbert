@@ -1,22 +1,22 @@
 MANUAL GRADING!!!!!!!!!!!!
 
+issues to fix now
+delete test data
+back buttons need to go back not go to problems
+
 
 
 CRITICAL ISSUES:
 when create problem but dont finish creating it breaks- done?
-back buttons need to go back not go to problems
 rename file after run it
 edit problemsets in admin menu needs to work
-delete test data
 implement due date
 isadmin not viewable to users editing profile
-input/output needs newline
-
 
 NOT CRITICAL ISSUES:
-newline on output
+newline on output -done?
 teams
-id instead of name for user - folder creation
+id instead of name for user - folder creation -DONE
 auto capitalize stuff - DONE
 pushing esc exits new problem?
 text doesent disapear when scroll over the navbar - DONE

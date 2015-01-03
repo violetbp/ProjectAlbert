@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212212110) do
+ActiveRecord::Schema.define(version: 20150103160252) do
 
   create_table "groups", force: true do |t|
     t.string   "title"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20141212212110) do
     t.integer  "function",        default: 0
     t.integer  "solution",        default: 0
     t.boolean  "submitted",       default: false
+    t.boolean  "graded",          default: false
   end
 
   create_table "problems", force: true do |t|

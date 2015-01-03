@@ -89,6 +89,7 @@ class ProblemsController < GradingController
     @users = User.order("points desc").limit(12).all
     @problemsets = Problemset.all
 
+
   end
 
   # GET /problems/1
