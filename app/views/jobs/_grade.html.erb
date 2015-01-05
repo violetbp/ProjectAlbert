@@ -1,4 +1,5 @@
-<%=@job.points%>
+<h1 id="new-problem-header">Grade Job:</h1>
+
 
 <% if File.exists?(@job.file_path) %>
   <pre><%=outFile = File.new(@job.file_path, "r").read%></pre>
@@ -30,7 +31,7 @@
     <%= f.number_field :style, class:"form-control" %>
   </div>
   <div class="field">
-    <%= f.label :function %><br>
+    <%= f.label :function %> <%=@job.autopoints%> / <br>
     <%= f.number_field :function, class:"form-control" %>
   </div>
   <div class="field">
