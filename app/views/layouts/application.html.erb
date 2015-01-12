@@ -21,9 +21,9 @@
 
   <%= render partial: "layouts/header" %>
   
-  <div style="margin-top:0px;"></div>
+  <div style="margin-top:50px;"></div>
   <% flash.each do |type, message| %>
-    <div class="alert <%= bootstrap_class_for(type) %> fade in aontop alert-success">
+    <div class="alert <%= bootstrap_class_for(type) %> fade in aontop">
       <%= message %>
       <button class="close" data-dismiss="alert">×</button>
     </div>

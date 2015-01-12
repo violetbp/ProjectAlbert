@@ -27,7 +27,7 @@
               <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
               <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
             
-              <li><% link_to "View(and edit) all submissions not i", '#' %></li>
+              <li><% link_to "Grade submissions", 'grade_jobs_path' %></li>
               <li><% link_to "Edit Problemsets", '#' %></li>
             <li class="divider"></li>
             <% end %>
@@ -36,7 +36,7 @@
         </span>
 
         <% else %>
-          <span>Click the gear -> <%= link_to image_tag("gear.png", :class => "gearimage"), "/auth/google_oauth2", id: "sign_in"%></span>
+          <span><%= link_to image_tag("login.png", :class => "loginimage"), "/auth/google_oauth2", id: "sign_in"%></span>
         <% end %>
         </span>
 

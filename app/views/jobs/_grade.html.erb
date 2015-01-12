@@ -1,4 +1,4 @@
-<h1 id="new-problem-header">Grade Job:</h1>
+<h1 class="name">Grade Job:</h1><br>
 
 
 <% if File.exists?(@job.file_path) %>
@@ -16,7 +16,7 @@
   <div class="form-group new-problem-fields">
   <% if @job.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this problem from being saved:</h2>
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
       <ul>
       <% @job.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -31,7 +31,7 @@
     <%= f.number_field :style, class:"form-control" %>
   </div>
   <div class="field">
-    <%= f.label :function %> <%=@job.autopoints%> / <br>
+    <%= f.label :function %> <%=@job.autopoints%> / <%=Problem.find(@job.problem_id).points %> was autograded<br>
     <%= f.number_field :function, class:"form-control" %>
   </div>
   <div class="field">
@@ -39,8 +39,11 @@
     <%= f.number_field :solution, class:"form-control" %>
   </div>
       
+ <%= f.hidden_field :graded, :value => true %>
+
+    
   <div class="actions">
-    <%= f.submit "Submit", class:"btn btn-default"%>
+    <%= f.submit "Submit Graded Submission", class:"btn btn-default"%>
   </div>
     
 <% end %>

@@ -3,12 +3,16 @@ MANUAL GRADING!!!!!!!!!!!!
 issues to fix now
 delete test data
 back buttons need to go back not go to problems
-
-
+main grading page
+no problem submission when get points
+take out gradeing submission on user page
+users cant look at other users
+users edit name feild
+clean up submissions list and have it display 
+Users list goes out of box in group index
 
 CRITICAL ISSUES:
 when create problem but dont finish creating it breaks- done?
-rename file after run it
 edit problemsets in admin menu needs to work
 implement due date
 isadmin not viewable to users editing profile
@@ -30,6 +34,9 @@ modal edit problemset
 tootip is not useing jquery
 leave jobs show
 dont allow people not in problemset to access it
+problem title change color depending on how done problem is
+chance 
+
 
 
 things we REALLY dont have to do at all because its cool but not needed at all unlike the suff that makes it work and will get uni to submit more programs

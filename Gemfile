@@ -48,4 +48,7 @@ gem 'jquery-tablesorter'
 
 gem 'sitemap_generator'
 
+gem 'rest-client'
+gem 'firebase'
+
 #gem "jquery-fileupload-rails"

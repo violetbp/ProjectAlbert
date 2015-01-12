@@ -1,0 +1,40 @@
+<!--
+Jobs#Show
+-->
+
+<h2>Submission info</h2>
+Problem: <%=Problem.find(@job.problem_id).title%><br>
+<% if admin? %> user id<%=@job.user_id%><br> <%end%>
+Submitted for autograding at <%=@job.created_at%><br>
+Updated at (graded or submitted to teacher) <%=@job.updated_at%><br>
+Output: <%=@job.previous_output%><br>
+Attempt number <%=@job.attempt%><br>
+Autograded points <%=@job.autopoints%><br>
+Submitted: <%=@job.submitted %><br>
+Graded: <%=@job.graded %><br>
+<br>
+Points breakdown:<br>
+Style: <%=@job.style%><br>
+Function: <%=@job.function%><br>
+Solution: <%=@job.solution%><br>
+
+<% if File.exists?(@job.file_path) %>
+  <pre><%=outFile = File.new(@job.file_path, "r").read%></pre>
+<% else %>
+  <pre>Output file unavalible ;(
+  <%=@job.file_path%></pre>
+<% end %>
+
+<%@submittedjob = current_user.jobs.where({ problem_id: @job.problem_id, submitted: true}).first %>
+<%@gradedjob = current_user.jobs.where({ problem_id: @job.problem_id, graded: true}).first %>
+
+<% if !@submittedjob && !@gradedjob %>
+  <%= link_to "submit", set_submitted_path(@job) %>
+<% end %>
+
+
+<!--
+json format:
+< %= @job.to_json()%>
+time <%=@job.time%><br>
+-->

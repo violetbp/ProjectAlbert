@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   end  
   def authorize
     unless admin?
-      flash[:error] = "Unauthorized access";
+      #flash[:error] = "Unauthorized access";
       render_401
       false
     end
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   helper_method :is_user_authorized?
   def is_user_authorized
     unless authorized?
-      flash[:error] = "Unauthorized access";
+      #flash[:error] = "Unauthorized access";
       render_401
       false
     end

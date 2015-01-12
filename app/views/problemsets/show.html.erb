@@ -4,8 +4,10 @@
 -->
 <div id="problemset-header">
 
-  <strong id="view-problemset-title"><%=@problemset.title%>:</strong> 
-     <%= link_to 'Edit', edit_problemset_path(@problemset) %> | <%= link_to 'Back to Problemsets', problemsets_path %>
+  <strong id="view-problemset-title"><%=@problemset.title%></strong> 
+  <% if admin? %>
+     <%= link_to 'Edit', edit_problemset_path(@problemset) %>
+  <%end%>
   <h4><%=raw @problemset.explanation.gsub(/\n/, '<br>')%></h4>
 </div>
 

@@ -1,28 +1,52 @@
+<%@gradedjob = current_user.jobs.where({ problem_id: problem.id, graded: true}).first %>
+<%@submittedjob = current_user.jobs.where({ problem_id: problem.id, submitted: true}).first %>
+<%@attemptedjob = current_user.jobs.where({ problem_id: problem.id}).order("autopoints").last %>
 
+
+<%if @gradedjob %>
+  <%color = "#20a000"%>
+<%elsif @submittedjob  %>
+  <%color = "#d17900"%>
+<%elsif @attemptedjob && @attemptedjob.points >0 %>
+  <%color = "#00c9c9"%>
+<%elsif @attemptedjob && !(@attemptedjob.points >0) %>
+  <%color = "#932020"%>
+<%else%>
+  <%color = "#939393"%>
+<%end%>
 
 <div id="p<%= problem.id %>" class="offset"></div>
 <div  class="problem-base">
-  <span  class="name"><span class="problem-title"><%= problem.title.titlecase() %></span>
+  <span  class="name" style="background-color: <%=color%> !important;"><span class="problem-title"><%= problem.title.titlecase() %></span>
     <span class="posted-info">
-      <%if current_user.jobs.where("problem_id = #{problem.id}").first %>
-      <div class="points">You have gotten <%=pluralize(current_user.jobs.where("problem_id = #{problem.id}").order("points").last.points, "point") %> out of 
-        <%=pluralize(Problem.find(problem.id).points, "point") %>.</div><br>
-        <div class="time">Submitted on <%= current_user.jobs.where("problem_id = #{problem.id}").order("points").last.created_at.in_time_zone("Eastern Time (US & Canada)")%></div>                   
-      <%else%>
+      <%if current_user.jobs.where({ problem_id: problem.id}).first %><!-- if submissions -->
+        
+          <%if @gradedjob %><div class="points">        <!-- submissions graded -->
+            You have gotten <%=pluralize(@gradedjob.points, "point") %> out of 
+            <%=pluralize(Problem.find(problem.id).points, "point") %>.</div><br>
+            <div class="time">Graded on <%= @gradedjob.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B #{@gradedjob.updated_at.day.ordinalize}, at %I:%M %p")%></div>
+          <%elsif @submittedjob %><div class="points">  <!-- if submissions but not graded -->
+            You have submitted with <%=pluralize(@submittedjob.points, "point") %> out of 
+            <%=pluralize(Problem.find(problem.id).points, "point") %>.</div><br>
+            <div class="time">Submitted on <%= @submittedjob.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B #{@submittedjob.updated_at.day.ordinalize}, at %I:%M %p")%></div>
+          <%elsif @attemptedjob%><div class="points">   <!-- no submissions but attempted -->
+            You have completed the problem with <%=pluralize(@attemptedjob.points, "point") %> out of 
+            <%=pluralize(Problem.find(problem.id).points, "point") %>.</div><br>
+            <div class="time">Completed on <%= @attemptedjob.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B #{@attemptedjob.created_at.day.ordinalize}, at %I:%M %p")%></div>
+          <%end%>
+      <%else%>    <!-- if not attempted -->
         <div class="points">You have not attempted this problem.</div><br>
         <div class="time">No submission time.</div>
-
       <%end%>
     </span>
     <div id="problem-editing">
-      <% if current_user && current_user.is_admin %>
-        <br>
-         Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%><br>        
+      <% if current_user && current_user.is_admin %>        <br>
+         Created on <%= problem.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%><br>        
         <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
         <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %-->
-      <% end %>
       <%= link_to 'Back', problems_path %>
-    </div>
+      <% end %>
+    </div> 
   </span>
   <div class="instructions"> 
     <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
@@ -49,10 +73,10 @@
           You have submitted a problem for grading!<br>
           <%= link_to "Click here to reverse this action", :action => 'set_not_submitted', :controller => 'jobs', :id => @submitted.id%><br>
         <%else%>
-          There are no problems submitted to the teacher yet, cliking on one will submit it.<br>
+          There are no problems submitted to the teacher yet, click to view and submit it.<br>
           <% current_user.jobs.where("problem_id = #{problem.id}").sort_by{|j| j.points}.each do |j| %>
             <%name = "Trial #{j.attempt} with #{j.points} points, submitted on #{j.created_at} with id #{j.id}." %>
-            <%= link_to name, set_submitted_path(j)%><br>
+            <%= link_to name, job_path(j), remote: true  %><br>
              <% #File.new(j.file_path, "r").read%>
           <%end%>
         <%end%>

@@ -9,14 +9,17 @@ outFile = File.new(out, "r")
 
   <body>
     <p>
-      <span class="name"><%= @user.name %>'s Profile <%if @user.image%>
+      <span class="name"><%= @user.name %>                  <%if @user.image%>
       <%= image_tag  @user.image,  class: "profile-pic"%><% end %>
       </span><br>
-      Grade: <%= @user.grade %><br>
-      Information:<br>
-      <%if @user.about%>
-        <%= @user.about %>
-      <% end %>
+    <br>
+      <div style="background: #dcdcdc">
+        Grade: <%= @user.grade %><br>
+        Information:<br>
+        <%if @user.about%>
+          <%= @user.about %>
+        <% end %>
+       </div>
     </p>
 
 
@@ -25,7 +28,7 @@ outFile = File.new(out, "r")
         <% @user.best.each do |h|%>         <!-- % @best.each do |b|%-->
           <%if h%>
             <%unless h[:job]%>
-              <h3><%=h[:problem].title%> has not been completed and is worth <%=h[:problem].points%></h3>
+              <h3><%=h[:problem].title%> has not been completed and is worth <span style="color: #00ffff"><%=h[:problem].points%></span></h3>
               <div><%if h[:problem].problemsets.first%>
                       It's part of set <%=h[:problem].problemsets.first.title%>
                    <%else%>
@@ -37,12 +40,12 @@ outFile = File.new(out, "r")
               <%job =  h[:job]%>
               <% if job.points != 0%>
                 <%if job.points >= problem.points%>
-                  <%color = "green"%>
+                  <%color = "#32ff00"%>
                 <%else%>
-                  <%color = "orange"%>
+                  <%color = "#ffa928"%>
                 <%end%>
               <%else%>
-                <%color = "red"%>
+                <%color = "#f91d1d"%>
               <%end%>
               <h3><%=problem.title%> points: 
                 <span style="color: <%=color%>;"> <%= job.points%>/<%=problem.points%></span></h3>
@@ -68,15 +71,22 @@ outFile = File.new(out, "r")
           <%end%>
       </div>
       <br>
+
+
+      <div style="background: #dcdcdc">
       You have <%= @user.points %> points in total.
+  </div>
 
 <br><br>
+      <div style="background: #dcdcdc">
     <% @user.groups.each do |g| %>
     <%= g.title %> | <%= @user.gpoints(g) %><br>
     <%end%>
-
+  </div>
+<!--
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <h1>EVERYTHING BELOW HERE WILL BE REMOVED</h1>
-    <!-- I want it to be better owen -->
+    <!-- I want it to be better owen - ->
 
     <h1>Problem data:</h1><br>
     <div id="accordion-collapse">
@@ -90,7 +100,7 @@ outFile = File.new(out, "r")
       <%end%>
     </div>
 
-    <!-- Old way -->
+    <!-- Old way - ->
 
     <p>
       <h1>Problem data:</h1><br>
@@ -111,7 +121,7 @@ outFile = File.new(out, "r")
               <div>              
               <% num = j.problem_id %>
             <%end%>
-            <!--begin listing problems-->
+            <!--begin listing problems- ->
             Attempt number: <%= j.attempt%><br>
             <div class="data">
               Submitted: <%= j.created_at.strftime("%B #{j.created_at.day.ordinalize}, at %I:%M %p") %><br>
@@ -122,5 +132,5 @@ outFile = File.new(out, "r")
               </div> 
       </div>
     <% end %> 
-    </p>
+    </p> -->
   </body>

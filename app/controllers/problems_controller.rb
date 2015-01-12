@@ -154,7 +154,7 @@ class ProblemsController < GradingController
 
   def update_test_data
     @folderId = params[:idnum]
-    
+
     puts case params[:type]
     when "static"
       static(params)

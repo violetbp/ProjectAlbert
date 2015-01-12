@@ -133,7 +133,7 @@ $( document ).ready(function() {
     $( "#content-container" ).children().each(function() {
       $( this ).hide("slow");
     }); 
-  $("#tabs-<%='static'%>").show("slow");
+  $("#tabs-<%=@problem.grading_type%>").show("slow");
   //open right one?
 });
  

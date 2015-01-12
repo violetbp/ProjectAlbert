@@ -16,12 +16,12 @@ Groups index
       </div>
       <div class="group-explanation">About: <%=g.explanation%></div>
       <div class="exInOut"> 
-         <span class=" exIn"> <h4>Users:</h4>
+         <div class=" exIn"> <h4>Users:</h4>
             <% g.users.each do |u| %>
               <%= link_to u.name, user_path(u)%>
               <%if admin? %><%= link_to '  Edit', edit_user_path(u) %><%end%><br>
             <% end %>
-         </span>
+         </div>
          <span class="exOut"><h4>Problemsets:</h4>
             <% g.problemsets.each do |p| %>
               <%= link_to p.title, problemset_path(p)%>
@@ -30,7 +30,7 @@ Groups index
         </span>
       </div>
       <br><br>
-    </div>
+    </div><br><br>
    <% end %>
   </body>
 </html>

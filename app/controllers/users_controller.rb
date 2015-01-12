@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user,  only: [:show, :edit, :update, :destroy]
-  
-  #before_filter :authorize, :except => [:index, :show ] authenticates differently
+  before_filter :authorizeuser, :only => [:show ]
+  before_filter :authorize, :only => [:index] #authenticates differently
   
   #dont think new should exist
   #def new  end
@@ -11,19 +11,16 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
+    unless admin? || (current_user.id == params[:id])
+      render_401
+    end
     @jobs = @user.jobs.order("problem_id")
     
-    @best = @user.best
-    
-   
+    @best = @user.best   
   end
   
   def edit
-    @user = User.find(params[:id])
-
-    authorize(@user)
-     
+    authorizeuser(@user)
   end
   
   def update
@@ -57,12 +54,12 @@ class UsersController < ApplicationController
       end
     end
 
-    def authorize(user)
-      unless admin? || current_user.id == user.id #ADMINS CAN EDIT USERS
-        puts "PREVENTED USER FROM EDITING PROFILE "
-        puts "current user id: #{current_user.id}"
-        puts "attempted access to user id user id: #{user.id}"
-        flash[:error] = "Unauthorized access";
+    def authorizeuser
+      unless admin? || current_user.id == @user.id #ADMINS CAN EDIT USERS
+        puts "PREVENTED USER FROM EDITING OR VIEWING PROFILE "
+        puts "current user: #{current_user.name}"
+        puts "attempted access to user id user: #{@user.name}"
+        #flash[:error] = "Unauthorized access";
         render_401
         true
       end

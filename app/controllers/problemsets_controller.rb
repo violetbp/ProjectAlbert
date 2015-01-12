@@ -1,8 +1,9 @@
 class ProblemsetsController < ApplicationController
 
   before_action :set_problemset, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize, :except => [:index, :show ]
-
+  before_action :authorizeprobset, :only => [:show ]
+  before_action :authorize, :except => [:index, :show ]
+  
   def new
     @problemset =  Problemset.new
     respond_to do |format|
@@ -76,4 +77,17 @@ class ProblemsetsController < ApplicationController
     params.require(:problemset).permit(:title, :explanation)
   end
   
+  def authorizeprobset
+    unless admin? || current_user.problemsets.exists?(@problemset) #admins can view everything
+        puts "prevented #{current_user.name} from accessing problemset"
+        #flash[:error] = "Unauthorized access";
+        render_401
+        
+      end
+  end
+  
 end
+
+
+
+

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users
   resources :groups
   resources :jobs
+  resources :sessions, only: [:create, :destroy]
 
   get '/jobs/grade/:id', to: 'jobs#grade', as: 'grade' 
   get '/jobs/set_submitted/:id', to: 'jobs#set_submitted', as: 'set_submitted' 
@@ -29,7 +30,6 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  resources :sessions, only: [:create, :destroy]
 
   root 'problemsets#index'
   # The priority is based upon order of creation: first created -> highest priority.
