@@ -12,9 +12,13 @@ take that output and put as input to user
 in other put user program
 output goes to teacher program as input
 if user program has no runtime errors, teacher program  ??????????????????????
-d
+
 --Static Autograder--
 Current system, premapped input to output, given input, program must produce output
+
+--dual? Autograder
+teacher program instanciates student program (fraction class)
+
 
 Note: Everything by ID
 IDs MUST BE UNIQUE

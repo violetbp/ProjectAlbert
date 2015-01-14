@@ -1,0 +1,12 @@
+attempt | problem name | user name<br>
+<%if admin? %>
+  <%Job.all.each do |j|%>
+    <%= link_to "#{j.attempt} #{Problem.find(j.problem_id).title} #{User.find(j.user_id).name} ", job_path(j)%><br>
+  <%end%>
+<%else%>
+  <%Job.all.each do |j|%>
+    <%if j.user_id == current_user.id %>
+      <%= link_to "#{j.attempt} #{Problem.find(j.problem_id).title} #{User.find(j.user_id).name} ", job_path(j)%><br>
+    <%end%>
+  <%end%>
+<%end%>

@@ -1,1 +1,1 @@
-avery fuing deleted everything damit
+avery deleted everything dont trust him with bash

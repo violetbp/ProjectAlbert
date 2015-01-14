@@ -10,8 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require_tree .
  */
 html{
 
@@ -19,6 +19,15 @@ html{
 body {
   background-color: #FFF;
 
+}
+
+pre {//pre tag stuff
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    overflow-x:hidden;
 }
 
 a, a:hover{
@@ -60,13 +69,16 @@ a, a:hover{
 #modal{
   display:none;
   position:fixed;
+  padding: 10px 10px 10px 10px;
   top:50%;
   left:50%;
-  width:600px;
-  height:500px;
+  overflow-y:auto;
+  min-width:600px;
+  min-height:500px;
+  max-height:90%;
   opacity:1.0 !important;
-  margin-left:-300px;
-  margin-top:-250px;
+ // margin-left:-300px;
+  //margin-top:-250px;
   z-index:100000000000000000000000000000000;
   background-color:white;
 }
@@ -167,6 +179,11 @@ a.navbar-button:hover, a.navbar-button:active{
   width: 40px;
   height: 40px;
 }
+.loginimage{
+  margin-top:-10px;
+  width: 100px;
+  height: 50px;
+}
 
 #container{
  padding-top:50px;
@@ -194,4 +211,54 @@ a.navbar-button:hover, a.navbar-button:active{
   color:#;
   font-size:12px;
 }
+
+.aontop{
+  padding:5px 5px 5px 5px;
+  z-index:1000000000000000000000000000000000000000 !important;
+  width:340px;
+  min-height:50px;
+  background-color:#b49ace;
+}
+
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(/assets/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(assets/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(assets/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+//end tables
+
 

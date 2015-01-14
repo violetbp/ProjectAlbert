@@ -3,19 +3,7 @@ Grading partial
 -->
 
 
-<%= form_tag( url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, name: 'testdataform') do %>
-  <div id="tabs">
-    <div id="menuforform">
-      <%= radio_button_tag(:type, "static")%>
-      <%= label_tag(:type_static, "Static") %>
-      <%= radio_button_tag(:type, "interA") %>
-      <%= label_tag(:type_interA, "OnteractiveA") %><!-- MOVE TO THE PREVIOUS FORM!!!!!!!!!!!
-changeing any of this entails changing in problems controller too-->
-      <%= radio_button_tag(:type, "interB") %>
-      <%= label_tag(:type_interB, "InteractiveB") %>
-      <%= radio_button_tag(:type, "sinter") %>
-      <%= label_tag(:type_sinter, "Semiinteractive") %>
-    </div>
+<!--%= form_tag( url_for(:controller => 'problems', :action => 'update_test_data'), multipart: true, name: 'testdataform') do %-->
     <!-- TABS -->
   <div id="content-container">
     <div id="tabs-static" class="problem-base" style="padding-left:20px;"><!-- STATIC SECTION -->
@@ -28,7 +16,7 @@ changeing any of this entails changing in problems controller too-->
                 <% inFile = File.new(inp, "r") %>
                 <% if inFile %>
                   <% content = inFile.read %>
-                  <% if !@config.include?(c.to_s)%>
+                  <% if @problem.active_probs.include?(c.to_s)%>
                     <%color = "background: #ff6085" %>
                   <% end %>
                   <%= text_field_tag :"in#{c}", content, style: color %><br>
@@ -46,7 +34,9 @@ changeing any of this entails changing in problems controller too-->
                 <% outFile = File.new(out, "r") %>
                 <% if outFile %>
                   <% content = outFile.read %>
-                  <%= text_field_tag :"out#{c}", content%> [enable/disable][bonus]<br>
+                  <%= text_field_tag :"out#{c}", content%> 
+
+              [enable/disable][bonus]<br>
                   <% c=c.to_i+1%>
                 <% else %>
                   <% puts "Unable to open file!" %>
@@ -67,23 +57,25 @@ changeing any of this entails changing in problems controller too-->
 
      </div>
 
-    <div id="tabs-interA" class="problem-base" style="padding-left:20px;"><!--   interactiveA SECTION   -->
+    <div id="tabs-inter" class="problem-base" style="padding-left:20px;"><!--   interactiveA SECTION   -->
       <h4>Full interactive grading</h4>
       ie number guessing(low high)<br>
-      SUBMIT ONE FILE<br>
-      choose what to run first?<br>
+      SUBMIT ONE JAVA CLASS FILE<br>
+      <!--choose what to run first?<br-->
       <%= file_field_tag 'script', style:"float:left" %>
       <div class="actions">
         <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default submit"%>
       </div><br><br><br>
     </div>
 
-    <div id="tabs-interB" class="problem-base" style="padding-left:20px;"><!--  IntereractiveB SECTION -->
+    <div id="tabs-genstat" class="problem-base" style="padding-left:20px;"><!--  IntereractiveB SECTION -->
       <h4>Single instance intereactive grading</h4>
       ie add two numbers from 1-100, we generate the number and compaire students output to that<br>ie arabic numerals to roman<br>
       
         <%= file_field_tag 'script', style:"float:left" %>
-        <%= select("data_creation_type", "type",%w[Integers Strings Double_Integers], { :include_blank => true }) %>
+      
+        <%= select("data_creation_type", "type",%w[Integers Strings Double_Integers], { :include_blank => true }, class: 'SlectBox') %>
+       
       <!--%= select("person", "role_id", User.all.collect {|r| [ r.name, r.id ] }, { :include_blank => true }) %-->
       <br>
       <div class="actions">
@@ -123,11 +115,7 @@ changeing any of this entails changing in problems controller too-->
       <% end %>
     </div>
   </div>
- </div>
-<% end %>
-
-<div id="test"> testdiv </div>
-
+<!--% end %-->
 <script>
 
   $( "input:radio" )
@@ -145,8 +133,14 @@ $( document ).ready(function() {
     $( "#content-container" ).children().each(function() {
       $( this ).hide("slow");
     }); 
-  $("#tabs-<%='static'%>").show("slow");
+  $("#tabs-<%=@problem.grading_type%>").show("slow");
   //open right one?
 });
  
+  $(document).ready(function () {
+            $('.SlectBox').SumoSelect({
+			
+			csvDispCount: 3 
+			});
+        });
 </script>

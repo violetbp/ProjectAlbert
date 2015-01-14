@@ -1,29 +1,34 @@
 class UsersController < ApplicationController
   before_action :set_user,  only: [:show, :edit, :update, :destroy]
+  before_filter :authorizeuser, :only => [:show ]
+  before_filter :authorize, :only => [:index] #authenticates differently
   
-  #before_filter :authorize, :except => [:index, :show ] authenticates differently
-  
-  #dont think new should exist
-  #def new end
+  #dont think new should exist, purge later
+  def new
+    render_401
+  end
 
+  #dont really know where to put this
+  def help
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    #render "application/_help.html.erb" 
+  end
+  
   def index
     @users = User.all
   end
   
   def show
-    @user = User.find(params[:id])
     @jobs = @user.jobs.order("problem_id")
     
-    @best = @user.best
-    
-   
+    @best = @user.best   
   end
   
   def edit
-    @user = User.find(params[:id])
-
-    authorize(@user)
-     
+    authorizeuser
   end
   
   def update
@@ -57,12 +62,12 @@ class UsersController < ApplicationController
       end
     end
 
-    def authorize(user)
-      unless admin? || current_user.id == user.id #ADMINS CAN EDIT USERS
-        puts "PREVENTED USER FROM EDITING PROFILE "
-        puts "current user id: #{current_user.id}"
-        puts "attempted access to user id user id: #{user.id}"
-        flash[:error] = "Unauthorized access";
+    def authorizeuser
+      unless admin? || current_user.id == @user.id #ADMINS CAN EDIT USERS
+        puts "PREVENTED USER FROM EDITING OR VIEWING PROFILE "
+        puts "current user: #{current_user.name}"
+        puts "attempted access to user id user: #{@user.name}"
+        #flash[:error] = "Unauthorized access";
         render_401
         true
       end

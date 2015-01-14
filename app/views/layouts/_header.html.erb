@@ -19,15 +19,17 @@
             <li><%= link_to "Profile", user_path(current_user) %></li>
             <li><%= link_to "Settings", edit_user_path(current_user) %></li>
             <li class="divider"></li>
-            <li><%= link_to "Users", users_path %></li>
+            <li><%= link_to "Help", help_path, remote: true %></li>
             <li class="divider"></li>
             <% if current_user && current_user.is_admin %>
             <li>Admin Tools</li>
               <!-- If ADMIN ACCESS -->
               <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
               <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
+              <li class="divider"></li>
+              <li><%= link_to "Users", users_path %></li>
             
-              <li><% link_to "View(and edit) all submissions not i", '#' %></li>
+              <li><% link_to "Grade submissions", 'grade_jobs_path' %></li>
               <li><% link_to "Edit Problemsets", '#' %></li>
             <li class="divider"></li>
             <% end %>
@@ -36,7 +38,7 @@
         </span>
 
         <% else %>
-          <span>Click the gear -> <%= link_to image_tag("gear.png", :class => "gearimage"), "/auth/google_oauth2", id: "sign_in"%></span>
+          <span><%= link_to image_tag("login.png", :class => "loginimage"), "/auth/google_oauth2", id: "sign_in"%></span>
         <% end %>
         </span>
 

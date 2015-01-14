@@ -3,15 +3,14 @@ Show Group
 -->
 <head>
   <% javascript_include_tag "assets/jquery-tablesorter" %>
-
 </head>
 
 <%@title = "Albert|group: #{@group.title}" %>
 
-
   <body>
     <span class="name"><%= @group.title %> (tis a group!)</span>
-    <%= link_to 'Edit', edit_group_path(@group) %>
+    <%if admin?%><%= link_to 'Edit', edit_group_path(@group) %> | <%end%><%= link_to 'Back to Groups', groups_path %>
+
     <div>Users: <br>
       <% @group.users.each do |u| %>
         <%=u.name%>,
@@ -27,7 +26,7 @@ Show Group
     <%= u.name %> with <%= u.gpoints(@group)%> points.<br>
      <% end %>
 
-      
+      <h3>Ungraded</h3>
       <table id="myTable" class="tablesorter table-striped"> 
         <thead> 
           <tr> 
@@ -36,18 +35,58 @@ Show Group
             <th>Submission date</th> 
             <th>Attempt</th> 
             <th>Autograded points</th> 
+            <th>Style</th>
+            <th>Function</th>
+            <th>Solution</th>
           </tr> 
         </thead> 
         <tbody> 
           <% @group.users.each do |u| %>
             <% u.jobs.each do |j|%>
-              <% if j.submitted %>
+              <% if j.submitted && !j.graded%>
                 <tr> 
-                  <td><%= link_to 'grade', grade_path(j), remote: true, id:"new-problem-button" %> | <%=u.name%></td> 
+                  <td><% if admin? %><%= link_to 'grade', grade_path(j), remote: true, id:"new-problem-button" %> | <%end%><%=u.name%></td> 
                   <td><%=Problem.find(j.problem_id).title %></td> 
                   <td><%=j.updated_at %></td> 
                   <td><%=j.attempt %></td> 
-                  <td><%=j.points %></td> 
+                  <td><%=j.autopoints %></td> 
+                  <td><%=j.style %></td>
+                  <td><%=j.function %></td>
+                  <td><%=j.solution %></td>
+                </tr>
+              <%end%> 
+            <%end%>
+          <%end%>
+        </tbody> 
+      </table> 
+    
+    <h3>Graded</h3>
+    <table id="myTable" class="tablesorter table-striped"> 
+        <thead> 
+          <tr> 
+            <th>User Name</th> 
+            <th>Problem Name</th> 
+            <th>Submission date</th> 
+            <th>Attempt</th> 
+            <th>Autograded points</th> 
+            <th>Style</th>
+            <th>Function</th>
+            <th>Solution</th>
+          </tr> 
+        </thead> 
+        <tbody> 
+          <% @group.users.each do |u| %>
+            <% u.jobs.each do |j|%>
+              <% if j.submitted && j.graded%>
+                <tr> 
+                  <td><% if admin? %><%= link_to 'change grade', grade_path(j), remote: true, id:"new-problem-button" %> | <%end%><%=u.name%></td> 
+                  <td><%=Problem.find(j.problem_id).title %></td> 
+                  <td><%=j.updated_at %></td> 
+                  <td><%=j.attempt %></td> 
+                  <td><%=j.autopoints %></td> 
+                  <td><%=j.style %></td>
+                  <td><%=j.function %></td>
+                  <td><%=j.solution %></td>
                 </tr>
               <%end%> 
             <%end%>

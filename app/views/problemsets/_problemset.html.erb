@@ -1,15 +1,18 @@
-
+<!-- 
+Problemset BOX thing for problemsets/index
+-->
 <span class="ps-info">
   <div class="ps-title">
-    <%= link_to problemset.title[0..25] << if problemset.title.length >= 25 then "..." else '' end, problemset, class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
+    <%= link_to problemset.title[0..25] << if problemset.title.length >= 25 then "..." else '' end, problemset, title: problemset.title ,class:"ps-title-text"%><%if admin? %><%= link_to 'Edit', edit_problemset_path(problemset), class:"ps-title-edit" %><%end%>
   </div>
-  <div class="ps-explanation">
+  <div class="ps-explanation" style="overflow:auto;">
     <span><%= raw problemset.explanation.gsub(/\n/, '<br>')%></span><br>
-    <span class="glyphicon glyphicon-plus expand" aria-hidden="true" onclick="$('#problemslist_<%=problemset.id%>').slideToggle();"></span>
-  </div>
+    <!--span class="glyphicon glyphicon-plus expand" aria-hidden="true" onclick="$('#problemslist_<%=problemset.id%>').slideToggle();"></span-->
+  </div>    <span class="glyphicon glyphicon-plus expand" aria-hidden="true" onclick="$('#problemslist_<%=problemset.id%>').slideToggle();"></span>
+
   <div class="collapse ps-problems-list" id="problemslist_<%=problemset.id%>">
     <% problemset.problems.each do |problem| %>
         <%= link_to problem.title, "#{problemset_path(problemset)}/#p#{problem.id}", title: problem.explanation, rel: 'tooltip'%><br>
-    <%end%>
+    <% end %>
   </div>
 </span>

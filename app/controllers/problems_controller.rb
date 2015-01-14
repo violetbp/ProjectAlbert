@@ -7,43 +7,45 @@ class ProblemsController < GradingController
   require 'fileutils'
 
   def upload
-    if !(current_user.points)
-      current_user.update(points: 0)
+    @prob_id = params[:problem_id]
+    @filename = params[:script].original_filename
+    if(legal_language?(@filename))  
+      get_language(@filename)
+      puts @lang
+      save(params[:script], @prob_id)
+      #will the next line work? from list of problems get the one pertaining to this specific problem
+      @job = self.create_job(@prob_id, @filename)
+
+      #runs file, puts output in res somehow
+      puts "\n----------------------\nRAN:\nbash scripts/userSubmit.sh #{current_user.id} #{@prob_id} #{@job.id} @lang #{@filename}\n-------\n"
+      res = IO.popen("bash scripts/userSubmit.sh #{current_user.id} #{@prob_id} #{@job.id} #{@lang} #{@filename}")# bash userSubmit userID problemID submissionID language sourceFile1 sourceFile2...
+      @resultarr = res.readlines
+      @result = @resultarr.to_s
+
+      @job.points = 0
+
+      if @result[0..8].include?("Correct")
+        @job.points = Problem.find(@prob_id).points
+      end
+
+      @job.previous_output = @result
+      @job.attempt = ((Job.where("user_id = #{current_user.id} AND problem_id = #{@prob_id}").count.to_i)||1)
+      @job.previous_output = @result
+      @job.save
       current_user.save
+
+      #puts "OUTPUT:"
+      @outp = Array.new
+      @resultarr.each do |t|
+        #puts t
+        @outp << t
+        @outp << "<br>"
+      end
+      @result = @outp.to_s
+      puts @result
+    else
+      @result = "\"Did you know that #{get_language(@filename)} is not a legal language for this webapp?\""
     end
-
-
-    save(params[:script], params[:problem_id])
-    #will the next line work? from list of problems get the one pertaining to this specific problem
-    @job = self.create_job(params[:problem_id], params[:script].original_filename)
-  
-    #runs file, puts output in res somehow
-    puts "\n----------------------\nRAN:\nbash scripts/userSubmit.sh #{current_user.id} #{params[:problem_id]} #{@job.id} java #{params[:script].original_filename}\n-------\n"
-    res = IO.popen("bash scripts/userSubmit.sh #{current_user.id} #{params[:problem_id]} #{@job.id} java #{params[:script].original_filename}")# bash userSubmit userID problemID submissionID language sourceFile1 sourceFile2...
-    @resultarr = res.readlines
-    @result = @resultarr.to_s
-
-    @job.points = 0
-
-    if @result[0..8].include?("Correct")
-      @job.points = Problem.find(params[:problem_id]).points
-    end
-
-    @job.previous_output = @result
-    @job.attempt = ((Job.where("user_id = #{current_user.id} AND problem_id = #{params[:problem_id]}").count.to_i)||1)
-    @job.previous_output = @result
-    @job.save
-    current_user.save
-    
-    #puts "OUTPUT:"
-    @outp = Array.new
-    @resultarr.each do |t|
-      #puts t
-      @outp << t
-      @outp << "<br>"
-    end
-    @result = @outp.to_s
-    #puts @result
     respond_to do |format|
       format.js
     end
@@ -54,9 +56,14 @@ class ProblemsController < GradingController
     File.join("scripts", "Users", current_user.id.to_s, problem_id.to_s, "#{Job.last.id.to_i+1}") #use job id
   end
 
-  def get_langague(filename)
-    puts "\n\n\n\n"
-    puts filename.to_s.split(".").last
+  def get_language(filename)
+    @lang = filename.to_s.split(".").last
+    @lang
+  end
+
+  def legal_language?(filename)
+    varr = ["py","c","java"].include? filename.to_s.split(".").last
+    varr
   end
 
   def create_job(problem_id, file_in)
@@ -82,6 +89,7 @@ class ProblemsController < GradingController
     @users = User.order("points desc").limit(12).all
     @problemsets = Problemset.all
 
+
   end
 
   # GET /problems/1
@@ -91,6 +99,7 @@ class ProblemsController < GradingController
 
   # GET /problems/new
   def new
+
     @problem = Problem.new
     
     respond_to do |format|
@@ -118,7 +127,6 @@ class ProblemsController < GradingController
     Dir.glob("scripts/Problems/#{idArg}/*.out").each do |f|
       @outarr << f
     end
-    @config = File.new("scripts/Problems/#{idArg}/tests.conf", "r").read
   end
 
 
@@ -146,14 +154,14 @@ class ProblemsController < GradingController
 
   def update_test_data
     @folderId = params[:idnum]
-    
+
     puts case params[:type]
     when "static"
       static(params)
       redirect_to edit_problem_path(@folderId) and return
-    when "interA"
+    when "inter"
       interA(params)
-    when "interB"
+    when "genstat"
       interB(params)
     when "sinter"
       sinter(params)
@@ -214,8 +222,17 @@ class ProblemsController < GradingController
   # PATCH/PUT /problems/1
   # PATCH/PUT /problems/1.json
   def update
+   # puts params.require(:problem)[:active_probs].join('')
+
     respond_to do |format|
       if @problem.update(problem_params)
+        if(params.require(:problem)[:active_probs])
+          @problem.active_probs = params.require(:problem)[:active_probs].join('')
+          @problem.save
+          puts "\n\n"
+          puts @problem.active_probs
+          #s
+        end
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }
       else
@@ -240,7 +257,7 @@ class ProblemsController < GradingController
   # Never trust parameters from the scary internet, only allow the white list through.
   def problem_params
     if admin?#no matter how hard you try you can't change a problem :P
-      params.require(:problem).permit(:title, :explanation, :exIn, :exOut, :points, :grading_type, :active_probs, :extra_probs)
+      params.require(:problem).permit(:title, :explanation, :exIn, :exOut, :points, :grading_type, :extra_probs)
     end
   end
 end

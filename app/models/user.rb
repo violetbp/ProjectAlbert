@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     if Problem.last
       @best = Array.new #max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
       Problem.all.each do |p|
-          @best << {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("points").last}
+        @best << {problem: p, job: self.jobs.where("problem_id = #{p.id}").order("autopoints").last}
       end 
     else
       @best = Array.new(0)
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
     @points = 0
     self.best.each do |p|
       if p && p[:job]
-        @points += p[:job].points
+        @points += p[:job].autopoints
       end
     end
     @points
@@ -53,9 +53,9 @@ class User < ActiveRecord::Base
       if p && p[:job]
         group.problemsets.each do |problemset|#problemSETS for group
           if problemset.problems.exists?(p[:problem])
-            @points += p[:job].points
+            @points += p[:job].autopoints
             #puts "from user.rb: "
-            #puts p[:job].points
+            #puts p[:job].autopoints
           end
         end
       end
