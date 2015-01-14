@@ -100,7 +100,8 @@
 .ps-explanation{
   padding:10px 10px 10px 20px;
   display:inline-block;
-  width:100%
+  width:100%;
+  min-height:91px;
 }
 
 .expand{
@@ -108,6 +109,8 @@
   display:inline-block;
   text-align:center;
   float:right;
+  //bottom: 0px;
+  //top:auto !important;
 }
 
 .ps-problems-list{
