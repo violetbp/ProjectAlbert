@@ -21,16 +21,17 @@
       <%= f.label :explanation %><br>
       <%= f.text_area :explanation, class:"form-control", style:"height:200px;" %>
     </div>
-    <div class="field inlineblock">
+    <div class="field inlineblock" style="width:49.5%;">
       <%= f.label :"Example Input" %><br>
       <%= f.text_area :exIn, class:"form-control" %>
     </div>
-    <div class="field inlineblock">
+    <div class="field inlineblock" style="width:50%;">
       <%= f.label :"Example Output" %><br>
       <%= f.text_area :exOut, class:"form-control" %>
     </div>
+    <br>
     <div class="field inlineblock">
-      <%= f.label :"Maximum Points" %><br>
+      <%= f.label :"Maximum Points" %> 
       <%= f.number_field :points, class:"form-control"%>
     </div>
 
@@ -49,7 +50,7 @@
       <%= f.radio_button :grading_type, "sinter", checked: @problem.type?('sinter'), class: 'multiple_classes' %> 
           <%= f.label :grading_type_sinter, "Semiinteractive" %>
       <% for i in 1..@outarr.count %>
-          <%= f.check_box(:active_probs,{:multiple => true, class: '' }, i, " " )%>
+          <% f.check_box(:active_probs,{:multiple => true, class: '' }, i, " " )%><!--taken out for production-->
       <% end %>
       <div id="grading-type-div"> 
         <%= render 'grading_type' %>

@@ -10,7 +10,7 @@ Groups index
 
     <div class="name">Listing all Groups: </div> <br><br><br>
     <% @groups.each do |g| %>
-    <div class="problem-base" style="min-height:300px;">
+    <div class="group-base" style="min-height:300px;">
       <div class="title"> <%= link_to g.title, group_path(g) %>
         <span class="edit"><%= link_to 'Edit', edit_group_path(g) %></span>
       </div>

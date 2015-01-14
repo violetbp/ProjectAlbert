@@ -29,7 +29,7 @@ Solution: <%=@job.solution%><br>
 <%@gradedjob = current_user.jobs.where({ problem_id: @job.problem_id, graded: true}).first %>
 
 <% if !@submittedjob && !@gradedjob %>
-  <%= link_to "submit", set_submitted_path(@job) %>
+  <%= button_to "Turn in", set_submitted_path(@job), :method => "get", :class => "btn btn-lg btn-success"%>
 <% end %>
 
 

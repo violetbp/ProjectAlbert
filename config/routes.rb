@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/jobs/set_submitted/:id', to: 'jobs#set_submitted', as: 'set_submitted' 
   get '/jobs/set_not_submitted/:id', to: 'jobs#set_not_submitted', as: 'set_not_submitted'
 
-  get '/patients/:id', to: 'patients#show', as: 'patient'
+  get '/help', to: 'users#help', as: 'help'
 
   resources :process_file
   

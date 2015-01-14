@@ -11,11 +11,16 @@ users edit name feild
 clean up submissions list and have it display 
 Users list goes out of box in group index
 
+
+wordwrap for firefox pre tags
+
+
 CRITICAL ISSUES:
 when create problem but dont finish creating it breaks- done?
 edit problemsets in admin menu needs to work
 implement due date
 isadmin not viewable to users editing profile
+http://stackoverflow.com/questions/8137280/how-can-i-upload-multiple-files-at-a-single-browse-using-jquery-or-javascript/20628748#20628748
 
 NOT CRITICAL ISSUES:
 newline on output -done?

@@ -4,15 +4,15 @@
 
 
 <%if @gradedjob %>
-  <%color = "#20a000"%>
+  <%color = "#177500"%>
 <%elsif @submittedjob  %>
-  <%color = "#d17900"%>
+  <%color = "#8c5100"%>
 <%elsif @attemptedjob && @attemptedjob.points >0 %>
-  <%color = "#00c9c9"%>
+  <%color = "#007777"%>
 <%elsif @attemptedjob && !(@attemptedjob.points >0) %>
-  <%color = "#932020"%>
+  <%color = "#5e1313"%>
 <%else%>
-  <%color = "#939393"%>
+  <%color = "#494949"%>
 <%end%>
 
 <div id="p<%= problem.id %>" class="offset"></div>
@@ -35,12 +35,12 @@
             <div class="time">Completed on <%= @attemptedjob.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B #{@attemptedjob.created_at.day.ordinalize}, at %I:%M %p")%></div>
           <%end%>
       <%else%>    <!-- if not attempted -->
-        <div class="points">You have not attempted this problem.</div><br>
-        <div class="time">No submission time.</div>
+        <div class="points">You have not attempted</div><br>
+        <div class="time">this problem.</div>
       <%end%>
     </span>
     <div id="problem-editing">
-      <% if current_user && current_user.is_admin %>        <br>
+      <% if current_user && current_user.is_admin %><br>
          Created on <%= problem.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%><br>        
         <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %> | 
         <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %-->
@@ -57,11 +57,13 @@
     </div>
 
   </div>
+  <% unless @gradedjob %>
   <div class="separator"></div>
-  <div class="status"> Status: 
-    <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
-    <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
-  </div>
+    <div class="status">
+      <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
+      <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
+    </div>
+  <%end%>
   <span class="glyphicon glyphicon-plus expand" aria-hidden="true" onclick="$('#problemslist_<%=problem.id%>').slideToggle();"></span>
   <div class="collapse ps-problems-list" id="problemslist_<%=problem.id%>">
     <% unless current_user.jobs.where("problem_id= #{problem.id}").count.to_i <= 0 %>
@@ -69,24 +71,49 @@
         current_user.jobs.where({problem_id: problem.id}).
       <%else%>
         <% @submitted = current_user.jobs.where("problem_id= #{problem.id}").sort_by{|j| j.submitted.to_s}.last %>
-        <%if @submitted.submitted %>
+        <%if @submitted.graded %>      <!--Graded-->
+          Your problem has been graded, heres the code:<br>
+          <% if File.exists?(@submitted.file_path) %><pre style="align:left;"><%=outFile = File.new(@submitted.file_path, "r").read%></pre>
+          <% else %><pre style="align:left;">Output file unavalible ;(</pre><% end %>
+        <%elsif @submitted.submitted %><!--Submitted-->
           You have submitted a problem for grading!<br>
           <%= link_to "Click here to reverse this action", :action => 'set_not_submitted', :controller => 'jobs', :id => @submitted.id%><br>
-        <%else%>
+        <%else%>                       <!--Not Submitted-->
           There are no problems submitted to the teacher yet, click to view and submit it.<br>
-          <% current_user.jobs.where("problem_id = #{problem.id}").sort_by{|j| j.points}.each do |j| %>
-            <%name = "Trial #{j.attempt} with #{j.points} points, submitted on #{j.created_at} with id #{j.id}." %>
-            <%= link_to name, job_path(j), remote: true  %><br>
-             <% #File.new(j.file_path, "r").read%>
-          <%end%>
+          <table id="table<%=problem.id%>" class="tablesorter table-striped"> 
+            <thead> 
+              <tr>
+                <th>File Name</th>
+                <th>Submission date</th> 
+                <th>Autograded points</th> 
+              </tr> 
+            </thead> 
+            <tbody> 
+              <% current_user.jobs.where("problem_id = #{problem.id}").sort_by{|j| j.points}.each do |j| %>
+                <tr>     
+                  <td><%= link_to "submit", job_path(j), remote: true  %> - <%= "#{j.file_path.split('/')} with id #{j.id}" %></td>
+                  <td><%=j.created_at %></td> 
+                  <td><%=j.autopoints %></td> 
+                </tr>
+              <%end%>
+            </tbody> 
+          </table> 
+          
         <%end%>
       <%end%>
     <%else%>
       You have not submitted any problems for autograding.
     <%end%>
   </div>
-  
-  
-
-
+ 
 </div>
+
+<script>
+$(document).ready(function() { 
+    // call the tablesorter plugin 
+    $("#table<%=problem.id%>").tablesorter({ 
+        // sort on the first column and third column, order asc 
+        sortList: [[2,1]]
+    }); 
+});
+</script>

@@ -3,24 +3,32 @@ class UsersController < ApplicationController
   before_filter :authorizeuser, :only => [:show ]
   before_filter :authorize, :only => [:index] #authenticates differently
   
-  #dont think new should exist
-  #def new  end
+  #dont think new should exist, purge later
+  def new
+    render_401
+  end
 
+  #dont really know where to put this
+  def help
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    #render "application/_help.html.erb" 
+  end
+  
   def index
     @users = User.all
   end
   
   def show
-    unless admin? || (current_user.id == params[:id])
-      render_401
-    end
     @jobs = @user.jobs.order("problem_id")
     
     @best = @user.best   
   end
   
   def edit
-    authorizeuser(@user)
+    authorizeuser
   end
   
   def update
