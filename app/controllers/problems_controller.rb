@@ -22,10 +22,10 @@ class ProblemsController < GradingController
       @resultarr = res.readlines
       @result = @resultarr.to_s
 
-      @job.points = 0
+      @job.autopoints = 0
 
       if @result[0..8].include?("Correct")
-        @job.points = Problem.find(@prob_id).points
+        @job.autopoints = Problem.find(@prob_id).points
       end
 
       @job.previous_output = @result
@@ -153,55 +153,44 @@ class ProblemsController < GradingController
 
 
   def update_test_data
-    @folderId = params[:idnum]
 
-    puts case params[:type]
-    when "static"
-      static(params)
-      redirect_to edit_problem_path(@folderId) and return
-    when "inter"
-      interA(params)
-    when "genstat"
-      interB(params)
-    when "sinter"
-      sinter(params)
-    else
-      puts "somethings wrong"
-    end
-    @numTests= (Dir.glob("grades/#{@folderId}/*").select {|f| File.directory? f}).count.to_i
+    @folderId = params[:idnum]
+    
+    puts params[:commit]
+    lastTest= (Dir.glob("scripts/Problems/#{@folderId}/*.in").last.split('/').last.split('.').first.to_i)
+    @numTests = lastTest
     if params[:commit] == "Add Data"
-      puts "making directory  grades/#{@folderId}/#{@numTests +1}"
-      puts params[:idnum]
-      FileUtils::mkdir_p "grades/#{@folderId}/#{@numTests +1}"
-      inFile = File.new("grades/#{@folderId}/#{@numTests +1}/in", "w") 
-      outFile = File.new("grades/#{@folderId}/#{@numTests +1}/out", "w") 
+      nextfolder = (Dir.glob("scripts/Problems/#{@folderId}/*.in").last.split('/').last.split('.').first.to_i + 1)
+      puts "making scripts/Problems/#{@folderId}/#{nextfolder}.in and .out"
+      inFile = File.new("scripts/Problems/#{@folderId}/#{nextfolder}.in", "w") 
+      outFile = File.new("scripts/Problems/#{@folderId}/#{nextfolder}.out", "w") 
       inFile.close
       outFile.close
     end
-    if params[:commit] == "Generate data from script"
+    if params[:commit] == ""
       
     end
     #####################################################################################
+    puts "\nStarting to update test data"
+    puts @numTests
     for folder in 1..@numTests 
-
-      if !(File::directory?( "grades/#{@folderId}/#{folder}" ))
-        break #probably should just skip if avery does sh
-      end
-      ins = "grades/#{@folderId}/#{folder}/in"
-      outs = "grades/#{@folderId}/#{folder}/out"
+      puts folder
+      
+      ins = "scripts/Problems/#{@folderId}/#{folder}.in"
+      outs = "scripts/Problems/#{@folderId}/#{folder}.out"
 
       inFile = File.new(ins, "w") 
       outFile = File.new(outs, "w") 
       if inFile
         inFile.syswrite(params[:"in#{folder.to_i}"])
-        puts "in#{folder}"
+        print "in#{folder}:  "
         puts params[:"in#{folder.to_i}"]
       else 
         puts "Unable to write to file!" 
       end 
       if outFile
         outFile.syswrite(params[:"out#{folder.to_i}"])
-        puts "out#{folder}"
+        print "out#{folder}:  "
         puts params[:"out#{folder.to_i}"]
 
       else 
@@ -211,10 +200,11 @@ class ProblemsController < GradingController
       outFile.close
     end
     
-    respond_to do |format|
-      format.js
-    end
-    redirect_to edit_problem_path(@folderId)
+    #respond_to do |format|
+    # #format.json
+    #end
+   # redirect_to edit_problem_path(@folderId) and return
+   # redirect_to edit_problem_path(@folderId)
   end
 
 
@@ -223,15 +213,29 @@ class ProblemsController < GradingController
   # PATCH/PUT /problems/1.json
   def update
    # puts params.require(:problem)[:active_probs].join('')
-
+    
     respond_to do |format|
       if @problem.update(problem_params)
-        if(params.require(:problem)[:active_probs])
+        update_test_data
+        if(params.require(:problem)[:grading_type] == "static" && params.require(:problem)[:active_probs] && false)
           @problem.active_probs = params.require(:problem)[:active_probs].join('')
           @problem.save
           puts "\n\n"
           puts @problem.active_probs
-          #s
+        end
+        
+        if(params[:problem][:script])#params.require(:problem)[:grading_type] == "inter")
+          @problem.active_probs = params[:problem][:script].original_filename.split('.').first
+          @problem.save
+          uploaded_io = params[:problem][:script]
+          File.open(Rails.root.join('scripts', 'Problems', params[:id], uploaded_io.original_filename), 'wb') do |file|
+            file.write(uploaded_io.read)
+          end
+          puts "\n\nThe location of the script is"
+          puts @problem.active_probs
+        end
+        if params[:commit] == "Add Data"
+          format.html { redirect_to :back, notice: 'Problem updated and data area added.' }
         end
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem }

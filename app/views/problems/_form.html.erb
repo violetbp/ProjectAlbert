@@ -40,24 +40,181 @@
     </div>
     <% if @problem.id %> 
     <div>
-      
-      <%= f.radio_button :grading_type, "static", checked: @problem.type?('static'), class: 'multiple_classes' %> 
-          <%= f.label :grading_type_static, "Static" %>
-      <%= f.radio_button :grading_type, "inter", checked: @problem.type?('inter'), class: 'multiple_classes' %> 
-          <%= f.label :grading_type_inter, "Interactive" %>
-      <%= f.radio_button :grading_type, "genstat", checked: @problem.type?('genstat'), class: 'multiple_classes' %> 
-          <%= f.label :grading_type_genstat, "GeneratedStatic" %>
-      <%= f.radio_button :grading_type, "sinter", checked: @problem.type?('sinter'), class: 'multiple_classes' %> 
-          <%= f.label :grading_type_sinter, "Semiinteractive" %>
+      <div id="donate">
+        <label class="blue"  id="static"><%= f.radio_button :grading_type, "static", checked: @problem.type?('static'), class: "btn" %>Static</label>
+        <label class="green" id="inter"> <%= f.radio_button :grading_type, "inter", checked: @problem.type?('inter'), class: "btn"  %>Interactive</label>
+        <!-- %= f.radio_button :grading_type, "genstat", checked: @problem.type?('genstat'), class: 'multiple_classes' %> 
+            < %= f.label :grading_type_genstat, "GeneratedStatic" %>
+        < %= f.radio_button :grading_type, "sinter", checked: @problem.type?('sinter'), class: 'multiple_classes' %> 
+            < %= f.label :grading_type_sinter, "Semiinteractive" %-->
+      </div><br><br>
       <% for i in 1..@outarr.count %>
           <% f.check_box(:active_probs,{:multiple => true, class: '' }, i, " " )%><!--taken out for production-->
       <% end %>
+      <!------------------------------------------------>
       <div id="grading-type-div"> 
-        <%= render 'grading_type' %>
+        <div id="content-container">
+    <div id="tabs-static" class="problem-base" style="padding-left:20px;"><!-- STATIC SECTION -->
+       <h4>Simple Grading</h4>
+          <%if @inarr %>
+      
+            <span style="display:inline-block;">
+              <%= label_tag(:input, "Input") %><br>
+              <%c=1%>
+              <% @inarr.each do |inp| %>
+                <% inFile = File.new(inp, "r") %>
+                <% if inFile %>
+                  <% content = inFile.read %>
+                  <% if @problem.active_probs.include?(c.to_s)%>
+                    <%color = "background: #ff6085" %>
+                  <% end %>
+                  <%= text_field_tag :"in#{c}", content, style: color %><br>
+                  <%c=c.to_i+1%>
+                <% else %>
+                  <% puts "Unable to open file!" %>
+                <% end %>
+              <% end %>
+            </span>
+
+            <span style="display:inline-block;">
+              <%= label_tag(:output, "output") %><br>
+              <%c=1%>
+              <% @outarr.each do |out| %>
+                <% outFile = File.new(out, "r") %>
+                <% if outFile %>
+                  <% content = outFile.read %>
+                  <%= text_field_tag :"out#{c}", content%>[enable/disable][bonus]<br>
+                  <% c=c.to_i+1%>
+                <% else %>
+                  <% puts "Unable to open file!" %>
+                <% end %>
+              <% end %>
+            </span> 
+          
+            <%= hidden_field_tag(:idnum, @problem.id) %>
+
+            <div class="actions">
+              <%= submit_tag "Submit", :class => 'btn btn-default', onclick: "$('#tabs').html('Submitting...');"%>
+              <%= submit_tag "Add Data", :remote => true, :class => 'btn btn-default'%>
+            </div>
+         <% end %>
+     </div>
+
+    <div id="tabs-inter" class="problem-base" style="padding-left:20px;"><!--   interactiveA SECTION   -->
+      <h4>Interactive grading</h4>
+      Runs your code alongside student code, and routes students standerd output into your input, and your standerd output into their input<br>
+      If the teachers program returns 0, the program is assumbed correct.<br>
+      The teacehrs program is run multiple times, with  the first argument as run number.<br>
+      For example a number guessing program(low high)<br>
+      Submit one java class file.(compiled)<br>
+      Current script: <%=@problem%>
+      <br>
+      <%= f.file_field :script, style:"float:left" %>
+      <div class="actions">
+        <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default submit"%>
+      </div><br><br><br>
+    </div>
+
+    
+  </div>
       </div>
       
     </div>
     <%end%>
   </div>
 <% end %>
-<!--%= submit_tag "add data", :action => 'makedir', :class => 'btn btn-default add-data', :controller => 'problems'%-->
+<script>
+  $( "input:radio" ).click(function () {
+    var str = $(this).val();
+    $( "#donate" ).children().each(function() {
+      $( this ).removeClass("checked");
+    });
+    $("#"+str).addClass("checked");
+    //alert(str);
+    $( "#content-container" ).children().each(function() {
+      $( this ).hide("slow");
+    }); 
+    
+    $("#tabs-"+$( this ).val()).show("slow");
+  });
+
+  
+  $( document ).ready(function() {
+    $( "#content-container" ).children().each(function() {
+      $( this ).hide("slow");
+    }); 
+    $("#tabs-<%=@problem.grading_type%>").show("slow");
+    $("#<%=@problem.grading_type%>").addClass("checked");
+    
+    //open right one?
+
+    //select box, not used right now
+    $('.SlectBox').SumoSelect({			
+      csvDispCount: 3 
+    });
+  });
+</script>
+<style>
+  body {
+    font-family:sans-serif;
+}
+
+#donate {
+    margin:4px;
+   
+    float:left;
+}
+
+#donate label {
+    float:left;
+    width:170px;
+    margin:4px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+       
+}
+
+#donate label span {
+    text-align:center;
+    font-size: 32px;
+    padding:13px 0px;
+    display:block;
+}
+
+#donate label input {
+    position:absolute;
+    top:-20px;
+}
+
+.checked{
+    background-color:#B399FF !important;
+    color:#33 !important;
+}
+
+#donate .yellow {
+    background-color:#FFCC00;
+    color:#333;
+}
+
+#donate .blue {
+    background-color:#00BFFF;
+    color:#333;
+}
+
+#donate .pink {
+    background-color:#FF99FF;
+    color:#333;
+}
+
+#donate .green {
+    background-color:#A3D900;
+    color:#333;
+}
+
+</style>
+
+
+
+

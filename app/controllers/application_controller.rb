@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
   
   def populate(prob)
-    numfiles = 3
+    numfiles = 2
     puts "making and populting directory  scripts/Problems/#{prob}"
     FileUtils::mkdir_p "scripts/Problems/#{prob}"
     for num in 1..numfiles
