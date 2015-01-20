@@ -52,3 +52,7 @@ gem 'rest-client'
 gem 'firebase'
 
 #gem "jquery-fileupload-rails"
+
+group :production do
+  gem 'pg'
+end
