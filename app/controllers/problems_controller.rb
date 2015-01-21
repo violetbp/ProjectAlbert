@@ -268,7 +268,7 @@ class ProblemsController < GradingController
   end
   def authorizeprob
     unless admin?
-      for current_user.problemsets.each do |set| 
+      current_user.problemsets.each do |set| 
         if set.problems.exists?(@problem) #admins can view everything
           return true
         end

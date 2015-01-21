@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       user.save
     end
     
-    unless user.groups.exists?(Group.find(1))
+    unless !Group.find(1) && user.groups.exists?(Group.find(1))
       user.groups << Group.find(1)# ADD ALL USERS THAT LOG IN TO THIS GROUP
     end
     

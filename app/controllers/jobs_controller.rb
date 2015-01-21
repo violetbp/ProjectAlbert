@@ -10,11 +10,9 @@ class JobsController < ApplicationController
   end
   
   def show
-    
-    unless current_user.jobs.exists?(@job)
-      redirect_to :back
-      flash[:notice] = 'Insufficent Permsission'
-      #render_401
+    unless admin? || current_user.jobs.exists?(@job)
+      #flash[:notice] = 'Insufficent Permsission'
+      render_401
     end
   end
   
