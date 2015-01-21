@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     render_401
   end
 
-  #dont really know where to put this
+  #dont really know where to put this return true
   def help
     respond_to do |format|
       format.html

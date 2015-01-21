@@ -1,19 +1,14 @@
 Input file is in active_probs
 
-
 CRITICAL ISSUES:
 when create problem but dont finish creating it breaks- done?
 back buttons need to go back not go to problems
 edit problemsets in admin menu needs to work
 delete test data
 implement due date
-isadmin not viewable to users editing profile
-input/output needs newline
-
+group codes for adding students
 
 NOT CRITICAL ISSUES:
-newline on output
-teams
 id instead of name for user - folder creation
 auto capitalize stuff - DONE
 pushing esc exits new problem?
@@ -22,9 +17,7 @@ change created time to submitted - DONE
 currently clicking on albert stops the smooth scrolling, I dont know what to do, it links to root_path btw
 completion amount
 edit models
-add user edit button
-users controler line 19: @best = Array.new(Problem.last.id) does not accoutnt for lack of problems
-modal edit problemset
+users controler line 19: @best = Array.new(Problem.last.id) does not account for lack of problems
 tootip is not useing jquery
 leave jobs show
 dont allow people not in problemset to access it

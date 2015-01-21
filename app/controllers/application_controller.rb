@@ -1,18 +1,18 @@
 class ApplicationController < ActionController::Base
   before_action :set_problemsets
   before_action :set_users
-  
-  
+
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-  
+
   include UsersHelper
   helper_method :current_user, :populate
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
   end
-  
+
   def render_401
     respond_to do |format|
       format.html { render :file => "#{Rails.root}/public/401", :layout => false, :status => :not_found }
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
       format.any  { head :not_found }
     end
   end
-  
+
   def populate(prob)
     numfiles = 2
     puts "making and populting directory  scripts/Problems/#{prob}"
@@ -36,18 +36,18 @@ class ApplicationController < ActionController::Base
     gradefile.close
     File.open("scripts/Problems/#{prob}/graderData.conf", 'w') do |file|
       file.write("autograde=static\n")
-      
+
       file.write("inputs=( ")
       for num in 1..numfiles
         file.write("'#{num}' ")
       end
       file.write(")\n")
-      
+
       file.write("declare -A outputs\n")
       for num in 1..numfiles
         file.write("outputs['#{num}']='#{num}'\n")
       end
-      
+
     end
   end
   ###############PROTECTED
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   protected
   def admin?
     current_user && current_user.is_admin
-  end  
+  end
   def authorize
     unless admin?
       #flash[:error] = "Unauthorized access";
@@ -63,11 +63,11 @@ class ApplicationController < ActionController::Base
       false
     end
   end
-  
+
   #not finished
   helper_method :authorize?  
   def authorized?
-    current_user && (current_user == params[:id] || current_user.is_admin)
+    current_user && (current_user.id == params[:id] || current_user.is_admin)
   end    
   helper_method :is_user_authorized?
   def is_user_authorized
@@ -79,24 +79,24 @@ class ApplicationController < ActionController::Base
   end
   #end not finished
 
-  
-  
-  
+
+
+
   private 
   def set_problemsets
     if current_user
       if admin?
         @problemsets = Problemset.all
       else
-       @problemsets = current_user.problemsets
+        @problemsets = current_user.problemsets
       end 
     else
       @problemsets = nil
     end  
   end
-  
+
   def set_users
     @users = User.all
   end
-  
+
 end

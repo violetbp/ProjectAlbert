@@ -1,26 +1,8 @@
 
 
-<div id="admin-only"></div><!--runs coffeescript command-->
-
 <!-- pretend there is stuff here thats like importaint and such-->
 <body>
-   <!-- % SideBar % --
-  <div class="topbar" id="topbar" >
-    <% @problemsets.each do |problemset| %>
-    <span class="dropdown">
-      <a href="#" class="dropdown-toggle topbar-element" data-toggle="dropdown"> <%= problemset.title %></a>
-        <ul class="dropdown-menu pull-left">
-          <% problemset.problems.each do |problem| %>
-          <li><%= link_to(problem.title, "#p#{problem.id}", class:"topbar-text")%></li>
-          <%end%>
-        </ul>
-      </span>
-    <%end%>
-  </div>
-  <div id="content"-->
-
-  
- 
+   
       <% @problems.each do |problem| %>
         <% if problem.id.to_i %>
           
@@ -61,48 +43,5 @@
    
   </div>
     
-    <!--Listing problemsets --
-  <div style="padding-top:10px;"> 
-    <% @problemsets.each do |problemset| %>
-      <div style="background:#CDD4EB;padding:100 100 100 100;">
-        <h1><%=problemset.title%></h1>
-           <h3><%=problemset.explanation%></h3>
-        
-           <% problemset.problems.each do |problem| %>
-        
-            <div id="p<%= problem.id %>" class="offset"></div>
-        <div  class="problem-base" >
-          <span  class="name"><span class="title"><%= problem.title %></span>
-          <span class="posted-info">
-            <div class="points">You have gotten <%current_user%> points</div><br>
-            <div class="time">Created on <%= problem.created_at.strftime("%B #{problem.created_at.day.ordinalize}, at %I:%M %p")%> </div>                   
-          </span>
-       <% if current_user && current_user.is_admin %>
-          <div id="problem-editing">
-            <br>
-            <%= link_to 'Show', problem %> | <%= link_to 'Edit', edit_problem_path(problem) %>
-            <!--%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %--
-          </div>
-        <% end %>
-          </span>
-        <div class="instructions" > 
-          <div class="explanation"> <h3>Explanation:</h3> <pre><%= problem.explanation %></pre></div>
-              <div class="separator"></div>
-                <div class="exInOut"> 
-                  <span class=" exIn"> <h4>Example Input:</h4> <pre><%= problem.exIn %></pre> </span>
-                  <span class=" exOut"><h4>Example output:</h4><pre><%= problem.exOut %></pre></span>
-                </div>
-          
-        </div>
-          <div class="separator"></div>
-          <div class="status"> Status: 
-            <%= render partial: "question_list.html.erb", locals:{problem: problem}%>
-            <div id="result_<%= problem.id %>" class="submission"> No submission.</div>
-          </div>
-
-        </div>
-        <%end%>
-      </div>
-    <%end%>
-  </div-->
+    
   </body>

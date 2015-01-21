@@ -8,7 +8,7 @@ Show Group
 <%@title = "Albert|group: #{@group.title}" %>
 
   <body>
-    <span class="name"><%= @group.title %> (tis a group!)</span>
+    <span class="name"><%= @group.title %></span>
     <%if admin?%><%= link_to 'Edit', edit_group_path(@group) %> | <%end%><%= link_to 'Back to Groups', groups_path %>
 
     <div>Users: <br>

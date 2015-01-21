@@ -5,26 +5,44 @@ uses user controller
 <style>
   .colorbox{height:50px; width:300px; color:#ffffff;padding: 9px 10px ;
     margin-left: 30px;}
+  .picture {width:900px;}
 </style>
+
+<% if admin? %>
+  <div>
+    <h1>Admin Help</h1>
+      Creation of problemsets, problems, and groups can be accessed throught the gear menu.<br>
+    <h4>Problems</h4>
+      After creating a problem, you have to click the edit button in the corner to make submission type and add test data<br>
+      <%= image_tag("help/problembaredit.png", :class => "picture")%>
+    <h4>Problemsets</h4>
+      When you edit problemsets, you can change the name, a short decription, and what problems are included in it.
+    <h4>Groups</h4>
+      When you edit groups, you can change the title, a short decription, and what USERS and PROBLEMSETS are included in it.<br>
+      This is analogous to a class in school. 
+  </div>
+<%end%>
+
 
 <h1>Help</h1>
 <div>
-<br>All problems are first submitted to the server, where they will be checked for correctness by the autograder.
-<br> initially your problems will appear as
-<div class="colorbox" style="background-color:#494949";>Problem has not been attempted.</div>
-<br>  
-<br>Upload your source code, you can submit any of the following files:  .java, .cpp, .c, .h, .cpp, .py
-<br>[Picture]
-<br>After you submit, your code will be autograded
-<br>  
-<div class="colorbox" style="background-color:#007777";>If it is correct it will appear as this color.</div>
-<div class="colorbox" style="background-color:#5e1313";>Incorrect will appear as this color.</div>
-<br>
-<br>Once your code has been uploaded you can turn it in to your teacher. Code deemed incorrect by the autograder may still be submitted, ultimately your grade is up to the teacher.
-<br>[Picture]
-<br>
-<div class="colorbox" style="background-color:#8c5100";>You have submitted your code to your teacher for grading.</div>
+  <br>All problems are first submitted to the server, where they will be checked for correctness by the autograder.
+  <br> initially your problems will appear as
+  <div class="colorbox" style="background-color:#494949";>Problem has not been attempted.</div>
+  <br>  
+  <br>Upload your source code, you can submit any of the following files:  .java, .cpp, .c, .h, .cpp, .py
+  <br>[Picture]
+  <br>After you submit, your code will be autograded
+  <br>  
+  <div class="colorbox" style="background-color:#007777";>If it is correct it will appear as this color.</div>
+  <div class="colorbox" style="background-color:#5e1313";>Incorrect will appear as this color.</div>
+  <br>
+  <br>Once your code has been uploaded you can turn it in to your teacher. Code deemed incorrect by the autograder may still be submitted, ultimately your grade is up to the teacher.
+  <br>[Picture]
+  <br>
+  <div class="colorbox" style="background-color:#8c5100";>You have submitted your code to your teacher for grading.</div>
   <br> <br>
-<br>Once your teacher grades it, it you will receive your final grade
-<div class="colorbox" style="background-color:#177500";>Your code has been graded, you're all done.</div><br>
+  <br>Once your teacher grades it, it you will receive your final grade
+  <div class="colorbox" style="background-color:#177500";>Your code has been graded, you're all done.</div><br>
 </div>
+

@@ -1,0 +1,14 @@
+$("#modal").html("<%=escape_javascript(render :partial => 'groups/form', :locals => {group: @group})%>");
+$("#modal").css({
+    'margin-top': function () { //vertical centering
+        return -($(this).height() /2);
+    },
+    'margin-left': function () { //Horizontal centering
+        return -($(this).width() /2);
+    },
+    'margin-right': function () { //Horizontal centering
+        return -($(this).width() /2);
+    }
+});
+
+$(".modals").fadeTo(200, 1.0);

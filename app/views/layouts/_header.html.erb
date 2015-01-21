@@ -26,7 +26,9 @@
               <!-- If ADMIN ACCESS -->
               <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
               <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
-              <li class="divider"></li>
+              <li><%= link_to 'New group', new_group_path, remote: true, id:"new-problemset-button" %> </li>
+
+            <li class="divider"></li>
               <li><%= link_to "Users", users_path %></li>
             
               <li><% link_to "Grade submissions", 'grade_jobs_path' %></li>

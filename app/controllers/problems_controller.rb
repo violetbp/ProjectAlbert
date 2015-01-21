@@ -2,7 +2,9 @@ class ProblemsController < GradingController
   #makes var @problem at bottom for those pages
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
   #auth for admins
-  before_filter :authorize, :except => [:index, :show, :upload ]
+  before_filter :authorize, :except => [:show, :upload ] #can only access show and upload
+  before_filter :authorizeprob, :only => [:show ] #cant access if not added
+
   #import
   require 'fileutils'
 
@@ -53,7 +55,7 @@ class ProblemsController < GradingController
 
 
   def get_workspace_for_problem(problem_id)
-    File.join("scripts", "Users", current_user.id.to_s, problem_id.to_s, "#{Job.last.id.to_i+1}") #use job id
+    File.join("scripts", "Users", current_user.id.to_s, problem_id.to_s, "#{Job.count.to_i+1 || 1}") #use job id
   end
 
   def get_language(filename)
@@ -264,4 +266,20 @@ class ProblemsController < GradingController
       params.require(:problem).permit(:title, :explanation, :exIn, :exOut, :points, :grading_type, :extra_probs)
     end
   end
+  def authorizeprob
+    unless admin?
+      for current_user.problemsets.each do |set| 
+        if set.problems.exists?(@problem) #admins can view everything
+          return true
+        end
+      end
+      puts "prevented #{current_user.name} from accessing problem"
+      render_401
+    end
+  end
 end
+
+
+
+
+
