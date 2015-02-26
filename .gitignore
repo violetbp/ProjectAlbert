@@ -12,13 +12,16 @@
 db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-log/*
+log/**
 
-tmp/*
+tmp/**
 
 # Ignore the submited files (but not problems)
 scripts/Users
 
 # these are unused now
-grades
-public/data
+grades/**
+public/data/**
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

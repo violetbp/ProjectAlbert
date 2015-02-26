@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/jobs/set_not_submitted/:id', to: 'jobs#set_not_submitted', as: 'set_not_submitted'
 
   get '/help', to: 'users#help', as: 'help'
+  get '/join', to: 'users#join', as: 'join'
+  post '/joinclass', to: 'users#joinclass', as: 'joinclass'
 
   resources :process_file
   

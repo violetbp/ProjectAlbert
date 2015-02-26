@@ -40,19 +40,18 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
 gem "omniauth-google-oauth2", "~> 0.2.1"
 
 gem 'jquery-turbolinks'
 
 gem 'jquery-tablesorter'
 
-gem 'sitemap_generator'
+#gem 'sitemap_generator'
+#gem 'firebase'
 
 gem 'rest-client'
-gem 'firebase'
 
-#gem "jquery-fileupload-rails"
+#settings!
+gem "rails_config"
 
-group :production do
-  gem 'pg'
-end

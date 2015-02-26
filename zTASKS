@@ -1,6 +1,17 @@
 Input file is in active_probs
 
+
+define group join code
+
+
+
+
+
+
+
+
 CRITICAL ISSUES:
+Static grading is broken
 when create problem but dont finish creating it breaks- done?
 back buttons need to go back not go to problems
 edit problemsets in admin menu needs to work

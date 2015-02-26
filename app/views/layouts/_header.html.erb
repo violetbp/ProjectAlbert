@@ -1,7 +1,7 @@
     <nav class="nav navbar-nav main">
       <!-- Links container -->
       <span class="links" role="navigation" style="z-index:90">
-        <%= link_to "Albert ",     root_path(anchor: "page-top"), class:"navbar-button navbar-main scrolll" %>
+        <%= link_to "#{Settings.title} ", root_path(anchor: "page-top"), class:"navbar-button navbar-main scrolll" %>
         <% if current_user and current_user.is_admin %>
         <%= link_to "Problems",   problems_path, class:"navbar-button navbar-minor" %>        
         <%= link_to "Problemsets", problemsets_path, class:"navbar-button navbar-minor" %>   
@@ -16,10 +16,12 @@
           <a href="#" class="dropdown-toggle " data-toggle="dropdown"> <%= image_tag("gear.png", :class => "dropdown-toggle gearimage")%></a>
           <ul class="dropdown-menu pull-right">
             <li><strong><%= current_user.name %></strong></li>
-            <li><%= link_to "Profile", user_path(current_user) %></li>
-            <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+            <!--<li><%= link_to "Profile", user_path(current_user) %></li>-->
+            <!--<li><%= link_to "Settings", edit_user_path(current_user) %></li>-->
             <li class="divider"></li>
             <li><%= link_to "Help", help_path, remote: true %></li>
+            <li><%= link_to "Join Class", join_path, remote: true %></li>
+
             <li class="divider"></li>
             <% if current_user && current_user.is_admin %>
             <li>Admin Tools</li>

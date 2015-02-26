@@ -3,7 +3,7 @@
 
 // Run button configuration
   "commands": {
-        "Node version": "node --version"
+        "Snawe": ""
   },
 
 // Preview button configuration

@@ -94,8 +94,8 @@ if [ $autograde == "static" ]; then
   temp=($(sqlite3 ../db/development.sqlite3 "select active_probs from problems where id=${problemID}"))
   for i in "${temp[@]}"
   do
-    inputs[${#inputs[@]}] = ${i}.in
-    outputs[${i}.in] = ${i}.out
+    inputs[${#inputs[@]}]=${i}.in
+    outputs[${i}.in]=${i}.out
    # do whatever on $i
   done
 fi

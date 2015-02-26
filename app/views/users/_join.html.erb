@@ -1,0 +1,10 @@
+<!--
+User#Join partial
+-->
+<div>
+  <%= form_tag( url_for(:controller => 'users', :action => 'joinclass')) do %>
+    <%= label_tag(:input, "Whats your code?") %><br>
+    <%= text_field_tag :code %><br><br>
+    <%= submit_tag 'Submit', style:"float:left;", class:"btn btn-default submit"%>
+  <% end %>
+</div>
