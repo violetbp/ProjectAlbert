@@ -15,3 +15,14 @@ $(".modals").show();
 $(".modals").fadeTo(200, 1.0);
 
 
+$("#modal").css({
+    'max-width': function () { //Horizontal centering
+        return "75%";
+    },
+    'margin-top': function () { //vertical centering
+        return -($(this).height() /2);
+    },
+    'margin-left': function () { //Horizontal centering
+        return -($(this).width() /2);
+    }
+});

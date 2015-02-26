@@ -12,13 +12,15 @@
   </head>
 
   <body>
-    <div id="modal-container" class="modals" onclick="$('.modals').animate({opacity:'0'}, 200); $('.modals').hide();">
+    <div id="modal-container" class="popups modals dialogues" onclick="$('.popups').animate({opacity:'0'}, 200); $('.popups').hide();">
       <div id="background">
       </div>
     </div>
-    <div id="modal" class="modals">  
+    <div id="modal" class="popups modals">  
+    </div> 
+    <div id="dialogue" class="popups dialogues">  
     </div>
-
+    
   <%= render partial: "layouts/header" %>
   
   <div style="margin-top:50px;"></div>
@@ -33,22 +35,11 @@
 	<%= yield %>
 </div><br>
 
-<div id="footer">
+<div id="footer" >
   <div id="footer-contents">
      Copyright &#169; 2015 AlbertLabs. All Rights Reserved.
   </div>
 </div>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-58170547-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 
 </body>
   

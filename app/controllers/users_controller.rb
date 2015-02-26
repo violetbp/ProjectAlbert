@@ -16,6 +16,37 @@ class UsersController < ApplicationController
     end
     #render "application/_help.html.erb" 
   end
+
+  def join
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
+  def joinclass
+    if params[:code] == Settings.adminpass
+      current_user.is_admin = true;
+      current_user.save
+      flash[:success] = "Set as admin"
+      redirect_to root_path and return
+    else
+      Group.all.each do |g|
+        if params[:code] == g.joincode
+          unless g.users.exists?(current_user)#user not in group
+            g.users << current_user
+            g.save
+            flash[:success] = "Code accepted"
+          else                    #user in group
+            flash[:success] = "You are already in that group"
+            redirect_to root_path and return
+          end
+        end
+      end
+      flash[:error] = "Nope!"
+      redirect_to root_path
+    end
+  end
   
   def index
     @users = User.all

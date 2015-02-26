@@ -65,7 +65,7 @@
             <% inFile = File.new(inp, "r") %>
             <% if inFile %>
             <% content = inFile.read %>
-            <% if @problem.active_probs.include?(c.to_s)%>
+            <% unless @problem.active_probs.include?(c.to_s) || false%>
             <%color = "background: #ff6085" %>
             <% end %>
             <%= text_field_tag :"in#{c}", content, style: color %><br>

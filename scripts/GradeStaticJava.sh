@@ -98,7 +98,7 @@ fi
 for input in ${inputs[@]}
 do
 	temp=${outputs[$input]}
-	run "Problems/${problemID}/${input}.in" "Problems/${problemID}/${temp}.out"
+	run "Problems/${problemID}/${input}" "Problems/${problemID}/${temp}"
 	if [ $? == 1 ] ; then
 		exit 1
 	fi

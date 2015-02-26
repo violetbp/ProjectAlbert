@@ -132,17 +132,19 @@
 }
 
 #problemset-header{
-  width:80%;
-  color:#dcdcdc;
+  width:70%;
+  color:#ffffff;
   font-family: Arial, Helvetica, sans-serif;
-  margin:auto;
+  margin-left:auto;
+  margin-right:auto;
+  
   padding-left:25px;
-  padding-top:25px;
-  padding-bottom:2px;
+  padding-right:25px;
+  padding-top:50px;
+  padding-bottom:25px;
 
-  #border-bottom:1px solid #b3b3b3;
-  box-shadow: 6px 6px 9px #8c8c8c;
-  background-color: #33393d;
+  box-shadow: 6px 6px 9px #1b213d;
+  background-color: rgb(23, 82, 122);
 }
 
 #view-problemset-title{

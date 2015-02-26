@@ -46,7 +46,7 @@ class ProblemsController < GradingController
       @result = @outp.to_s
       puts @result
     else
-      @result = "\"Did you know that #{get_language(@filename)} is not a legal language for this webapp?\""
+      @result = "\"File type #{get_language(@filename)} is not accepted. Must be java source code in .java file.\""
     end
     respond_to do |format|
       format.js
@@ -64,7 +64,7 @@ class ProblemsController < GradingController
   end
 
   def legal_language?(filename)
-    varr = ["py","c","java"].include? filename.to_s.split(".").last
+    varr = ["java"].include? filename.to_s.split(".").last
     varr
   end
 
@@ -101,7 +101,6 @@ class ProblemsController < GradingController
 
   # GET /problems/new
   def new
-
     @problem = Problem.new
     
     respond_to do |format|
@@ -175,9 +174,10 @@ class ProblemsController < GradingController
     #####################################################################################
     puts "\nStarting to update test data"
     puts @numTests
+    activeprobs = ""
     for folder in 1..@numTests 
       puts folder
-      
+      activeprobs << "#{folder} "
       ins = "scripts/Problems/#{@folderId}/#{folder}.in"
       outs = "scripts/Problems/#{@folderId}/#{folder}.out"
 
@@ -201,7 +201,14 @@ class ProblemsController < GradingController
       inFile.close
       outFile.close
     end
-    
+    if params[:problem][:grading_type] == "static" #&& params[:problem][:active_probs] && false)
+
+      @problem.active_probs = activeprobs
+      @problem.save
+      puts "\n\n"
+      puts @problem.active_probs
+    end
+
     #respond_to do |format|
     # #format.json
     #end
@@ -219,14 +226,8 @@ class ProblemsController < GradingController
     respond_to do |format|
       if @problem.update(problem_params)
         update_test_data
-        if(params.require(:problem)[:grading_type] == "static" && params.require(:problem)[:active_probs] && false)
-          @problem.active_probs = params.require(:problem)[:active_probs].join('')
-          @problem.save
-          puts "\n\n"
-          puts @problem.active_probs
-        end
         
-        if(params[:problem][:script])#params.require(:problem)[:grading_type] == "inter")
+        if params[:problem][:script] #params[:problem][:grading_type] == "inter"
           @problem.active_probs = params[:problem][:script].original_filename.split('.').first
           @problem.save
           uploaded_io = params[:problem][:script]

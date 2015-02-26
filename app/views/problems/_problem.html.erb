@@ -1,6 +1,7 @@
-<%@gradedjob = current_user.jobs.where({ problem_id: problem.id, graded: true}).first %>
-<%@submittedjob = current_user.jobs.where({ problem_id: problem.id, submitted: true}).first %>
+<%@gradedjob = current_user.jobs.where({ problem_id: problem.id, graded: true}).last %>
+<%@submittedjob = current_user.jobs.where({ problem_id: problem.id, submitted: true}).last %>
 <%@attemptedjob = current_user.jobs.where({ problem_id: problem.id}).order("autopoints").last %>
+
 
 
 <%if @gradedjob %>
@@ -91,7 +92,7 @@
             <tbody> 
               <% current_user.jobs.where("problem_id = #{problem.id}").sort_by{|j| j.points}.each do |j| %>
                 <tr>     
-                  <td><%= link_to "submit", job_path(j), remote: true  %> - <%= "#{j.file_path.split('/')} with id #{j.id}" %></td>
+                  <td><%= link_to "submission #{j.attempt} named #{j.file_path.split('/').last} with id #{j.id}", job_path(j), title: "submit", remote: true  %> - <%=  %></td>
                   <td><%=j.created_at %></td> 
                   <td><%=j.autopoints %></td> 
                 </tr>

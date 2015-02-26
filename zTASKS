@@ -1,6 +1,15 @@
 Input file is in active_probs
 
+
+define group join code
+imbed pictures in description somehow
+change desc to be able to use markdown or something...html at least
+
+
+
+
 CRITICAL ISSUES:
+Static grading is broken
 when create problem but dont finish creating it breaks- done?
 back buttons need to go back not go to problems
 edit problemsets in admin menu needs to work

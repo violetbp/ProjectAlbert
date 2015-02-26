@@ -56,8 +56,7 @@ a, a:hover{
   left:0;
   width:100%;
   height:100%;
-
-  z-index:100000000000000000000000;
+  z-index:100000000000000000000000;//this system is so silly
 }
 #background{
   background-color:black;
@@ -77,12 +76,29 @@ a, a:hover{
   min-height:500px;
   max-height:90%;
   opacity:1.0 !important;
- // margin-left:-300px;
+  //margin-left:-300px;
+  //margin-top:-250px;
+  z-index:10000000000000000000000000000000;
+  background-color:white;
+}
+#dialogue{
+  display:none;
+  position:fixed;
+  padding: 10px 10px 10px 10px;
+  top:50%;
+  left:50%;
+  overflow-y:auto;
+  min-width:200px;
+  min-height:100px;
+  max-height:90%;
+  max-width:90%;
+  opacity:0.9 !important;
+  //margin-left:-300px;
   //margin-top:-250px;
   z-index:100000000000000000000000000000000;
   background-color:white;
+  border:1px solid #b3b3b3;
 }
-
 nav.main{
   position:fixed;
   top:0px;
@@ -190,6 +206,7 @@ a.navbar-button:hover, a.navbar-button:active{
  width: 1200px;
  margin: 0 auto;
  margin-bottom:20px;
+ height:100vh;
 }
 
 

@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base  
+  after_create :setadmin
+  
+  has_many :jobs
+  has_and_belongs_to_many  :groups
+  has_many :problemsets, through: :groups
+  
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
@@ -9,9 +15,6 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
-  has_many :jobs
-  has_and_belongs_to_many  :groups
-  has_many :problemsets, through: :groups
 
   def best
     if Problem.last
@@ -63,14 +66,7 @@ class User < ActiveRecord::Base
     @points
   end
   
-  def jobs_problems
-    #unfishished
-    @leaderboard = self.users#.sort_by(&:gpoints).reverse
-    @data = Array.new
-    @leaderboard.each do |user|
-      @data << {prob: user.prob, job: user.jobs.where()}
-    end
-    puts "UNFINISHED DONT KNOW WHAT IT WOULD DO"
+  def setadmin
+    #self.is_admin = User.count <= 1
   end
-  
 end

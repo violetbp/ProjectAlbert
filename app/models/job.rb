@@ -3,7 +3,11 @@ class Job < ActiveRecord::Base
 
   def points
     if self
-      @p = (self.function.to_i + self.style.to_i + self.solution.to_i)
+      if self.graded
+        @p = (self.function.to_i + self.style.to_i + self.solution.to_i)
+      else
+        @p = self.autopoints
+      end
     else
       @p = 0
     end
