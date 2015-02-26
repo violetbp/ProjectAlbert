@@ -111,6 +111,9 @@ class ProblemsController < GradingController
 
   # GET /problems/1/edit
   def edit
+    unless File.directory?("scripts/Problems/#{@problem.id}")
+      populate(@problem.id.to_s)
+    end
     get_input_output_names(params[:id])
   end
 
