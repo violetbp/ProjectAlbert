@@ -64,7 +64,7 @@ class ProblemsController < GradingController
   end
 
   def legal_language?(filename)
-    varr = ["java"].include? filename.to_s.split(".").last
+    varr = ["java", "py"].include? filename.to_s.split(".").last
     varr
   end
 

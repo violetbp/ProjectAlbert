@@ -1,0 +1,39 @@
+{
+ "sections": [
+  {
+   "id": "217adaa7-88c-9b91-75ca-5d6117c259c9",
+   "title": "Example section",
+   "files": [],
+   "layout": "2-panels-tree",
+   "path": [],
+   "type": "markdown",
+   "content-file": ".guides/content/Example-section-217a.md"
+  },
+  {
+   "id": "9ca26384-42dd-351d-7958-c6181f1cdcdd",
+   "title": "Example section 2",
+   "files": [],
+   "path": [],
+   "type": "markdown",
+   "content-file": ".guides/content/Example-section-2-9ca2.md"
+  },
+  {
+   "id": "d85973dc-69c5-4f94-4c4a-4a693e149790",
+   "title": "Example section 3",
+   "files": [],
+   "layout": "",
+   "path": [],
+   "type": "markdown",
+   "content-file": ".guides/content/Example-section-3-d859.md"
+  },
+  {
+   "id": "b7fb13-6ce-1413-5c8-d213b4c0c4e0",
+   "title": "Example section 4",
+   "files": [],
+   "layout": "4-cell",
+   "path": [],
+   "type": "markdown",
+   "content-file": ".guides/content/Example-section-4-b7fb.md"
+  }
+ ]
+}

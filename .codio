@@ -3,14 +3,15 @@
 
 // Run button configuration
   "commands": {
-        "Snawe": ""
+        "Git Pull": "git pull",
+        "Git add all": "git add -A"
   },
 
 // Preview button configuration
   "preview": {
-    "Project Index (static)": "https://{{domain}}:3000/",
+    "Project Index (static)": "https://{{domain}}/",
         "Current File (static)": "https://{{domain}}/{{filepath}}",
-        "Box URL": "http://{{domain}}:3000/",
+        "Box URL": "http://{{domain}}-3000/",
         "Box URL SSL": "https://{{domain}}:9500/"
   }
 }
