@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/jobs/set_submitted/:id', to: 'jobs#set_submitted', as: 'set_submitted' 
   get '/jobs/set_not_submitted/:id', to: 'jobs#set_not_submitted', as: 'set_not_submitted'
 
+  get '/about', to: 'users#about', as: 'about'
   get '/help', to: 'users#help', as: 'help'
   get '/join', to: 'users#join', as: 'join'
   post '/joinclass', to: 'users#joinclass', as: 'joinclass'

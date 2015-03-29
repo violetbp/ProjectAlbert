@@ -158,7 +158,7 @@ class ProblemsController < GradingController
 
   def update_test_data
 
-    @folderId = params[:idnum]
+    @folderId = params[:idnum] #the proble
     
     puts params[:commit]
     lastTest= (Dir.glob("scripts/Problems/#{@folderId}/*.in").last.split('/').last.split('.').first.to_i)
@@ -185,7 +185,7 @@ class ProblemsController < GradingController
       outs = "scripts/Problems/#{@folderId}/#{folder}.out"
 
       inFile = File.new(ins, "w") 
-      outFile = File.new(outs, "w") 
+      outFile = File.new(outs, "w")
       if inFile
         inFile.syswrite(params[:"in#{folder.to_i}"])
         print "in#{folder}:  "
@@ -282,8 +282,3 @@ class ProblemsController < GradingController
     end
   end
 end
-
-
-
-
-
