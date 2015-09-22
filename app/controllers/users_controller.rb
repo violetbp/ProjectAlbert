@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     #render "application/_help.html.erb" 
   end
 
-  def abou
+  def about
     respond_to do |format|
       format.html
       format.js
