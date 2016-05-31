@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1;
+    padding: 15px 15px 0 15px;
+    background: white;
+    border-bottom: 1px solid #b3b3b3;
+}
+
+#topbar {
+    top: 50px;
+    left: 0; right: 0;
+    height: 28px;
+    text-decoration: none;
+    font-size: 10pt;
+    background-color: #33393d;
+    position: fixed;
+    display: inline-block;
+}
+
+#user-info {
+    display: inline-block; 
+    float: right;
+}
+
+.links {
+    display: inline-block;
+    padding: 0 0 25px;
+    float: left;
+}
+
+.topbar-element {
+    display: inline-block;
+    color: #dcdcdc;
+    font-family: "Helvetica-light", "Helvetica";
+    padding: 5px;
+    padding-left: 24px;
+}

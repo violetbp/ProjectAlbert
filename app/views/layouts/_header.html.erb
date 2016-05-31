@@ -1,53 +1,49 @@
-    <nav class="nav navbar-nav main">
-      <!-- Links container -->
-      <span class="links" role="navigation" style="z-index:90">
-        <%= link_to "#{Settings.title} ", root_path(anchor: "page-top"), class:"navbar-button navbar-main scrolll" %>
-        <% if current_user and current_user.is_admin %>
-        <%= link_to "Problems",   problems_path, class:"navbar-button navbar-minor" %>        
-        <%= link_to "Problemsets", problemsets_path, class:"navbar-button navbar-minor" %>   
-        <%= link_to "Groups",     groups_path, class:"navbar-button navbar-minor" %>   
-        <%= link_to "Users",      users_path, class:"navbar-button navbar-minor" %>   
-        <%end%>
-
-      </span>
-        <span id="user-info">
-        <% if current_user %>
-        <span class="dropdown">
-          <a href="#" class="dropdown-toggle " data-toggle="dropdown"> <%= image_tag("gear.png", :class => "dropdown-toggle gearimage")%></a>
-          <ul class="dropdown-menu pull-right">
-            <li><strong><%= current_user.name %></strong></li>
-            <!--<li><%= link_to "Profile", user_path(current_user) %></li>-->
-            <!--<li><%= link_to "Settings", edit_user_path(current_user) %></li>-->
-            <li class="divider"></li>
-            <li><%= link_to "Help", help_path, remote: true %></li>
-            <li><%= link_to "Join Class", join_path, remote: true %></li>
-
-            <li class="divider"></li>
-            <% if current_user && current_user.is_admin %>
-            <li>Admin Tools</li>
-              <!-- If ADMIN ACCESS -->
-              <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %> </li>
-              <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %> </li>
-              <li><%= link_to 'New group', new_group_path, remote: true, id:"new-problemset-button" %> </li>
-
-            <li class="divider"></li>
-              <li><%= link_to "Users", users_path %></li>
-            
-              <li><% link_to "Grade submissions", 'grade_jobs_path' %></li>
-              <li><% link_to "Edit Problemsets", '#' %></li>
-            <li class="divider"></li>
-            <% end %>
-            <li><%= link_to "Log out", signout_path, id: "sign_out" %></li>
-          </ul>
-        </span>
-
-        <% else %>
-          <span><%= link_to image_tag("login.png", :class => "loginimage"), "/auth/google_oauth2", id: "sign_in"%></span>
-        <% end %>
-        </span>
-
-      
-  <%= render partial: "layouts/topbar" %>
+<header>
+  <!-- Links container -->
+  <nav class="links" role="navigation">
+    <%= link_to "#{Settings.title} ", root_path(anchor: "page-top"), class:"navbar-button navbar-main scrolll" %>
+    <% if current_user and current_user.is_admin %>
+      <%= link_to "Problems",   problems_path, class:"navbar-button navbar-minor" %>
+      <%= link_to "Problemsets", problemsets_path, class:"navbar-button navbar-minor" %>
+      <%= link_to "Groups",   groups_path, class:"navbar-button navbar-minor" %>
+      <%= link_to "Users",    users_path, class:"navbar-button navbar-minor" %>
+    <%end%>
   </nav>
-<!-- <nav style="padding-top:61px;">
-</nav> -->
+  <span id="user-info">
+    <% if current_user %>
+      <span class="dropdown">
+        <a href="#" class="dropdown-toggle " data-toggle="dropdown">
+            <%= image_tag("gear.png", :class => "dropdown-toggle gearimage")%>
+        </a>
+        <ul class="dropdown-menu pull-right">
+        <li><strong><%= current_user.name %></strong></li>
+        <!--<li><%= link_to "Profile", user_path(current_user) %></li>-->
+        <!--<li><%= link_to "Settings", edit_user_path(current_user) %></li>-->
+        <li class="divider"></li>
+        <li><%= link_to "Help", help_path, remote: true %></li>
+        <li><%= link_to "Join Class", join_path, remote: true %></li>
+
+        <li class="divider"></li>
+        <% if current_user && current_user.is_admin %>
+            <!-- If ADMIN ACCESS -->
+            <li>Admin Tools</li>
+            <li><%= link_to 'New problem', new_problem_path, remote: true, id:"new-problem-button" %></li>
+            <li><%= link_to 'New problemset', new_problemset_path(:comments => "new"), remote: true, id:"new-problemset-button" %></li>
+            <li><%= link_to 'New group', new_group_path, remote: true, id:"new-problemset-button" %></li>
+
+            <li class="divider"></li>
+            <li><%= link_to "Users", users_path %></li>
+            <li><% link_to "Grade submissions", 'grade_jobs_path' %></li>
+            <li><% link_to "Edit Problemsets", '#' %></li>
+            <li class="divider"></li>
+        <% end %>
+        <li><%= link_to "Log out", signout_path, id: "sign_out" %></li>
+        </ul>
+      </span>
+    <% else %>
+      <span><%= link_to image_tag("login.png", :class => "loginimage"), "/auth/google_oauth2", id: "sign_in" %></span>
+    <% end %>
+  </span>
+
+  <%= render partial: "layouts/topbar" %>
+</header>
