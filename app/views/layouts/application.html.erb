@@ -12,6 +12,7 @@
   </head>
 
   <body>
+      <div class="wrapper">
     <div id="modal-container" class="popups modals dialogues" onclick="$('.popups').animate({opacity:'0'}, 200); $('.popups').hide();">
       <div id="background">
       </div>
@@ -35,10 +36,11 @@
 	<%= yield %>
 </main>
 
+<div class="push"></div>
+</div>
 <footer>
   Copyright &#169; 2015 <%= link_to "AlbertLabs", about_path %>. All Rights Reserved.
 </footer>
-
 </body>
   
 </html>

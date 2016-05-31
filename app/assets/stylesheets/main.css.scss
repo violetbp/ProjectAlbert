@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -39,4 +43,22 @@ header {
     font-family: "Helvetica-light", "Helvetica";
     padding: 5px;
     padding-left: 24px;
+}
+
+$footer_height: 50px;
+.wrapper {
+    min-height: 100%;
+    margin: 0 auto (-$footer_height);
+}
+
+footer, .push {
+    height: $footer_height;
+}
+
+footer {
+    padding-top: 10px;
+    text-align: center;
+    background-color: #dcdcdc;
+    color: #4a4a4a;
+    font-size: 12px;
 }
