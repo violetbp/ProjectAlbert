@@ -12,14 +12,8 @@
 db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-<<<<<<< HEAD
-log/*
-log/development.log
-=======
-log/**
->>>>>>> ab0fb2f9012e49974421dd5934279ea8135417cf
-
-tmp/**
+log/
+tmp/
 
 # Ignore the submited files (but not problems)
 scripts/Users
