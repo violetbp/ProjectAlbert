@@ -4,7 +4,6 @@ class GradingController < ApplicationController
     puts case params[:type]
     when "static"
       static(params)
-      
     when "inter"
       interA(params)
     when "genstat"

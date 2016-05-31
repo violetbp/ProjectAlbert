@@ -1,4 +1,4 @@
-#!/bin/bash
+bbbbbbbb#!/bin/bash
 
 #bash userSubmit.sh userID problemID submissionID language sourceFile1 sourceFile2...
 
@@ -12,7 +12,7 @@ compileErr="compile.err"
 exacutable="exe"
 graderData="graderData.conf"
 timeout="timeout.pl"
-
+fa
 userID=$1
 problemID=$2
 submitID=$3

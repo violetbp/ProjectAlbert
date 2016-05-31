@@ -27,18 +27,13 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     
-    
-    
     #@jobs = Job.where("user_id = #{@group.users.each.id}").order("problem_id")
     
     #@best = Array.new(Problem.last.id)#max id for problems! CHANGE TO HASHMAP LATER RATHER INNEFICIENT
     
-    
     #Problem.all.each do |p|
     #  @best[p.id] = @jobs.where("problem_id = #{p.id}").order("points").last
     #end
-    
-
   end
   
   
@@ -97,7 +92,7 @@ class GroupsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def group_params
-    params.require(:group).permit(:title, :explanation, :teacher)
+    params.require(:group).permit(:title, :explanation, :teacher, :joincode)
   end
   
 end

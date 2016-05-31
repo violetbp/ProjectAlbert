@@ -68,7 +68,7 @@
             <% unless @problem.active_probs.include?(c.to_s) || false%>
             <%color = "background: #ff6085" %>
             <% end %>
-            <%= text_field_tag :"in#{c}", content, style: color %><br>
+            <%= text_area_tag :"in#{c}", content, style: color %><br>
             <%c=c.to_i+1%>
             <% else %>
             <% puts "Unable to open file!" %>
@@ -83,7 +83,7 @@
             <% outFile = File.new(out, "r") %>
             <% if outFile %>
               <% content = outFile.read %>
-              <%= text_field_tag :"out#{c}", content%><!--[enable/disable][bonus]--><br>
+              <%= text_area_tag :"out#{c}", content%><!--[enable/disable][bonus]--><br>
               <% c=c.to_i+1%>
             <% else %>
             <% puts "Unable to open file!" %>

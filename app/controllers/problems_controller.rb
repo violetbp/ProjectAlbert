@@ -46,7 +46,7 @@ class ProblemsController < GradingController
       @result = @outp.to_s
       puts @result
     else
-      @result = "\"File type #{get_language(@filename)} is not accepted. Must be java source code in .java file.\""
+      @result = "\"File type #{get_language(@filename)} is not accepted. Must be java source code in .java file. [DN: you should probaby ignore this]\""
     end
     respond_to do |format|
       format.js
@@ -64,7 +64,7 @@ class ProblemsController < GradingController
   end
 
   def legal_language?(filename)
-    varr = ["java", "py"].include? filename.to_s.split(".").last
+    varr = ["java", "py","h","cpp"].include? filename.to_s.split(".").last
     varr
   end
 

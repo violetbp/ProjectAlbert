@@ -23,7 +23,7 @@
     
   <%= render partial: "layouts/header" %>
   
-  <div style="margin-top:50px;"></div>
+<!--   <div style="margin-top:50px;"></div> -->
   <% flash.each do |type, message| %>
     <div class="alert <%= bootstrap_class_for(type) %> fade in aontop">
       <%= message %>
@@ -31,16 +31,13 @@
     </div>
   <% end %>
   
-<div id="container">
+<main>
 	<%= yield %>
-</div><br>
+</main>
 
-
-<div id="footer" >
-  <div id="footer-contents">
-     Copyright &#169; 2015 <%= link_to "AlbertLabs", about_path %>. All Rights Reserved.
-  </div>
-</div>
+<footer>
+  Copyright &#169; 2015 <%= link_to "AlbertLabs", about_path %>. All Rights Reserved.
+</footer>
 
 </body>
   
