@@ -16,7 +16,6 @@
 //= require jquery.remotipart
 //= require jquery.iframe-transport
 //= require_tree .
-//= require bootstrap
 //= require jquery-tablesorter
 //= require jquery-ui
 //= require alerts
