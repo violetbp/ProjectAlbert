@@ -25,13 +25,14 @@ tmp/**
 scripts/Users
 
 # these are unused now
-<<<<<<< HEAD
 grades
 public/data
-=======
-grades/**
-public/data/**
->>>>>>> ab0fb2f9012e49974421dd5934279ea8135417cf
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
+
+# SECRET
+config/oauth_secrets
+
+# OS X
+.DS_Store
